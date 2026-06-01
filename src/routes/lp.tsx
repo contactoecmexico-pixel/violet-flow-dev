@@ -1,20 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/lp")({
   head: () => ({
     meta: [
-      { title: "Inicio — EcoWeb" },
-      { name: "description", content: "EcoWeb — donde el futuro se construye." },
+      { title: "Landing — EcoWeb" },
+      { name: "description", content: "Landing de ventas EcoWeb." },
     ],
   }),
-  component: Index,
+  component: Landing,
 });
 
-function Index() {
+function Landing() {
   return (
     <section className="flex min-h-[60vh] items-center justify-center px-4">
       <h1 className="font-display text-5xl font-extrabold md:text-7xl" style={{ color: "#262033" }}>
-        Inicio
+        Landing
       </h1>
     </section>
   );
