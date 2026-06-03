@@ -341,7 +341,7 @@ function HomePage() {
                   n: "1",
                   title: "Nos compartes la información de tu clínica",
                   body:
-                    "Una llamada de 30 minutos es suficiente. Servicios, precios, horarios y conversaciones comunes. Nada más.",
+                    "Servicios, precios, horarios y conversaciones comunes. ",
                 },
                 {
                   n: "2",
