@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
+import ecowebLogo from "@/assets/ecoweb-logo.png.asset.json";
 
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <span className={`font-display font-bold text-2xl lowercase tracking-tight ${className}`}>
-      <span className="text-white">eco</span>
-      <span style={{ color: "#1DB86B" }}>web</span>
-    </span>
+    <img
+      src={ecowebLogo.url}
+      alt="ecoweb"
+      className={`h-10 w-auto ${className}`}
+    />
   );
 }
 
