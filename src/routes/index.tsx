@@ -133,7 +133,7 @@ function HomePage() {
               trabajamos gratis hasta lograrlo.
             </p>
             <div className="mt-8 flex justify-center">
-              <PrimaryButton href={WA_MAIN}>
+              <PrimaryButton href={WA_MAIN} large>
                 Quiero mi asistente 24/7 →
               </PrimaryButton>
             </div>
