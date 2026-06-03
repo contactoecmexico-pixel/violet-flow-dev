@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Zap,
   ShieldCheck,
   BadgeCheck,
-  MapPin,
-  ArrowRight,
+  MessageCircle,
+  Info,
   Calendar,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
@@ -133,10 +132,10 @@ function HomePage() {
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
               <PrimaryButton href={WA_MAIN}>
-                Agenda tu demo gratuita de 15 min
+                Quiero mi asistente 24/7 →
               </PrimaryButton>
               <SecondaryButton href={WA_BOT}>
-                Mira cómo funciona en la práctica →
+                Escríbele al asistente por WhatsApp →
               </SecondaryButton>
             </div>
             <p
@@ -152,12 +151,11 @@ function HomePage() {
       {/* SECCIÓN 2 — TRUST STRIP */}
       <section style={{ backgroundColor: "#1E1730" }} className="px-6 py-8">
         <div className="mx-auto max-w-[1100px]">
-          <div className="grid grid-cols-2 gap-6 md:flex md:flex-row md:items-center md:justify-between md:gap-0">
+          <div className="grid grid-cols-1 gap-3 md:flex md:flex-row md:items-center md:justify-between md:gap-0">
             {[
-              { Icon: Zap, text: "Instalación en 48 horas" },
               { Icon: ShieldCheck, text: "Sin contrato de permanencia" },
               { Icon: BadgeCheck, text: "Garantía de resultados en 30 días" },
-              { Icon: MapPin, text: "Clínicas activas en CDMX, Guadalajara y Monterrey" },
+              { Icon: MessageCircle, text: "Funciona por WhatsApp — donde ya están tus pacientes" },
             ].map(({ Icon, text }, i, arr) => (
               <div
                 key={text}
@@ -495,14 +493,14 @@ function HomePage() {
                 className="font-display"
                 style={{ color: "#262033", fontSize: "24px", fontWeight: 700 }}
               >
-                Agenda tu llamada de 15 minutos
+                Calendario del asistente en vivo
               </h3>
               <p
                 className="font-sans"
-                style={{ color: "#555", fontSize: "15px", marginTop: "12px", fontWeight: 400 }}
+                style={{ color: "#555", fontSize: "15px", marginTop: "12px", fontWeight: 400, lineHeight: 1.7 }}
               >
-                Escoge el horario que te funcione y te mostramos cómo se vería el
-                asistente con los datos reales de tu clínica.
+                Cuando le pides una cita al asistente por WhatsApp, la agenda
+                directamente aquí. Así se ve en tiempo real.
               </p>
               <div
                 style={{
@@ -512,17 +510,17 @@ function HomePage() {
                   marginTop: "16px",
                   marginBottom: "16px",
                   display: "flex",
-                  alignItems: "center",
+                  alignItems: "flex-start",
                   gap: "10px",
                 }}
               >
-                <ArrowRight size={16} color="#1DB86B" style={{ flexShrink: 0 }} />
+                <Info size={16} color="#1DB86B" style={{ flexShrink: 0, marginTop: "2px" }} />
                 <span
                   className="font-sans"
                   style={{ color: "#555", fontSize: "13px", fontWeight: 400 }}
                 >
-                  ¿Te gustó la experiencia? Agenda una llamada y te mostramos cómo
-                  funciona con los datos de tu clínica.
+                  Escríbele al asistente y pide una cita. Regresa a esta página y
+                  verás tu cita reflejada en el calendario.
                 </span>
               </div>
               <div
@@ -562,19 +560,19 @@ function HomePage() {
               className="font-display text-[28px] md:text-[36px]"
               style={{ color: "#FFFFFF", fontWeight: 800 }}
             >
-              ¿Quieres ver cómo respondería tu asistente con los datos de tu clínica?
+              ¿Quieres un asistente que trabaje mientras tu clínica descansa?
             </h2>
             <p
               className="font-sans"
               style={{ color: "#CCCCCC", fontSize: "18px", marginTop: "16px", fontWeight: 400 }}
             >
-              En 15 minutos te mostramos cómo agenda, cómo suena y qué le diría a
-              tus pacientes.
+              Agenda una llamada de 15 minutos. Te mostramos cómo funciona con los
+              datos de tu clínica y decides.
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
-              <PrimaryButton href={WA_MAIN}>Agenda tu llamada →</PrimaryButton>
+              <PrimaryButton href={WA_MAIN}>Quiero mi asistente 24/7 →</PrimaryButton>
               <SecondaryButton href={WA_BOT}>
-                Mira cómo funciona en la práctica →
+                Escríbele al asistente por WhatsApp →
               </SecondaryButton>
             </div>
             <p
