@@ -39,17 +39,19 @@ function PrimaryButton({
   href,
   children,
   full = false,
+  large = false,
 }: {
   href: string;
   children: React.ReactNode;
   full?: boolean;
+  large?: boolean;
 }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center rounded-md px-6 py-3 font-sans font-medium text-white transition-colors ${full ? "w-full" : ""}`}
+      className={`inline-flex items-center justify-center rounded-md font-sans font-medium text-white transition-colors ${full ? "w-full" : ""} ${large ? "px-8 py-4 text-lg" : "px-6 py-3"}`}
       style={{ backgroundColor: "#1DB86B" }}
       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0F6E56")}
       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1DB86B")}
