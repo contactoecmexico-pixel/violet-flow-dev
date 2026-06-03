@@ -134,9 +134,7 @@ function HomePage() {
               <PrimaryButton href={WA_MAIN}>
                 Quiero mi asistente 24/7 →
               </PrimaryButton>
-              <SecondaryButton href={WA_BOT}>
-                Escríbele al asistente por WhatsApp →
-              </SecondaryButton>
+              <SecondaryButton href=\"\">\\n                {\\\"\\\"}\\n              </SecondaryButton>
             </div>
             <p
               className="font-sans"
