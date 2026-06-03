@@ -565,8 +565,7 @@ function HomePage() {
               className="font-sans"
               style={{ color: "#CCCCCC", fontSize: "18px", marginTop: "16px", fontWeight: 400 }}
             >
-              Agenda una llamada de 15 minutos. Te mostramos cómo funciona con los
-              datos de tu clínica y decides.
+              Agenda una llamada con nosotros y descubre como podemos ayudarte.
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
               <PrimaryButton href={WA_MAIN}>Quiero mi asistente 24/7 →</PrimaryButton>
