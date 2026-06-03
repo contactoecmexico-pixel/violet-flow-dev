@@ -570,7 +570,7 @@ function HomePage() {
             <div className="mt-8 flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
               <PrimaryButton href={WA_MAIN}>Quiero mi asistente 24/7 →</PrimaryButton>
               <SecondaryButton href={WA_BOT}>
-                Escríbele al asistente por WhatsApp →
+                Cotiza ahora
               </SecondaryButton>
             </div>
             <p
