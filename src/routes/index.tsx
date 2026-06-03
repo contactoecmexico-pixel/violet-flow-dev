@@ -130,13 +130,10 @@ function HomePage() {
               Sin contrato de permanencia. Si no recupera su costo en 30 días,
               trabajamos gratis hasta lograrlo.
             </p>
-            <div className="mt-8 flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
+            <div className="mt-8 flex justify-center">
               <PrimaryButton href={WA_MAIN}>
                 Quiero mi asistente 24/7 →
               </PrimaryButton>
-              <SecondaryButton href="">
-                {"\u200B"}
-              </SecondaryButton>
             </div>
             <p
               className="font-sans"
