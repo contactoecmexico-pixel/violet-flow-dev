@@ -134,7 +134,9 @@ function HomePage() {
               <PrimaryButton href={WA_MAIN}>
                 Quiero mi asistente 24/7 →
               </PrimaryButton>
-              <SecondaryButton href=\"\">\\n                {\\\"\\\"}\\n              </SecondaryButton>
+              <SecondaryButton href="">
+                {"\u200B"}
+              </SecondaryButton>
             </div>
             <p
               className="font-sans"
