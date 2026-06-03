@@ -141,7 +141,7 @@ function HomePage() {
               className="font-sans"
               style={{ color: "#777", marginTop: "12px", fontSize: "13px", fontWeight: 400 }}
             >
-              Sin compromiso. Ves cómo funciona con los datos de tu propia clínica.
+              {"\u200B"}
             </p>
           </Reveal>
         </div>
