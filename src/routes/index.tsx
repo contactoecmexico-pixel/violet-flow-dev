@@ -39,17 +39,19 @@ function PrimaryButton({
   href,
   children,
   full = false,
+  large = false,
 }: {
   href: string;
   children: React.ReactNode;
   full?: boolean;
+  large?: boolean;
 }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center rounded-md px-6 py-3 font-sans font-medium text-white transition-colors ${full ? "w-full" : ""}`}
+      className={`inline-flex items-center justify-center rounded-md font-sans font-medium text-white transition-colors ${full ? "w-full" : ""} ${large ? "px-8 py-4 text-lg" : "px-6 py-3"}`}
       style={{ backgroundColor: "#1DB86B" }}
       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0F6E56")}
       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1DB86B")}
@@ -130,13 +132,10 @@ function HomePage() {
               Sin contrato de permanencia. Si no recupera su costo en 30 días,
               trabajamos gratis hasta lograrlo.
             </p>
-            <div className="mt-8 flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
-              <PrimaryButton href={WA_MAIN}>
+            <div className="mt-8 flex justify-center">
+              <PrimaryButton href={WA_MAIN} large>
                 Quiero mi asistente 24/7 →
               </PrimaryButton>
-              <SecondaryButton href="">
-                {"\u200B"}
-              </SecondaryButton>
             </div>
             <p
               className="font-sans"
