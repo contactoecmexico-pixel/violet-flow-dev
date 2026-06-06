@@ -847,18 +847,16 @@ function LP() {
             >
               <p>No una llamada de ventas. No un PDF con características.</p>
               <p>
-                Una demo real: te mostramos cómo respondería tu asistente con los servicios
-                y precios de tu clínica. Ves la conversación. Ves cómo agenda. Ves cómo
-                suena.
+                Agenda una llamada de 15 minutos y te mostramos cómo funciona el asistente
+                . Ves cómo responde, cómo agenda, cómo suena. Y decides.
               </p>
-              <p>Y decides.</p>
               <p>
                 Si te convence, te digo exactamente cuándo podemos instalarlo. Si no, no
-                pierdes nada — y al menos ya sabes qué es lo que te estás perdiendo.
+                pierdes nada.
               </p>
             </div>
             <div className="mt-8">
-              <PrimaryCTA big>Agenda tu demo gratuita de 15 min →</PrimaryCTA>
+              <PrimaryCTA big>Quiero mi asistente 24/7 →</PrimaryCTA>
             </div>
             <p className="mt-4 font-sans text-sm" style={{ color: "#999" }}>
               Sin compromiso. Sin tarjeta de crédito. Sin presión.
