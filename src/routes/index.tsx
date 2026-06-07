@@ -96,57 +96,76 @@ function HomePage() {
         style={{ backgroundColor: "#262033" }}
         className="px-6 pb-20 pt-[60px] md:pb-[80px] md:pt-[100px]"
       >
-        <div className="mx-auto max-w-[800px] text-center">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[55%_45%] md:gap-12">
           <Reveal>
-            <p
-              className="font-sans"
-              style={{
-                color: "#1DB86B",
-                fontSize: "13px",
-                letterSpacing: "1px",
-                textTransform: "uppercase",
-                marginBottom: "16px",
-                fontWeight: 400,
-              }}
-            >
-              Para clínicas dentales de 1 a 10 sillones en México
-            </p>
-            <h1
-              className="font-display text-[32px] md:text-[52px]"
-              style={{ color: "#FFFFFF", fontWeight: 800, lineHeight: 1.15 }}
-            >
-              Pacientes que preguntan a las 11 de la noche. Citas en tu agenda el
-              lunes por la mañana.
-            </h1>
-            <p
-              className="mx-auto font-sans text-[17px] md:text-[20px]"
-              style={{ color: "#CCCCCC", marginTop: "20px", maxWidth: "680px", fontWeight: 400 }}
-            >
-              Un asistente que atiende por WhatsApp las 24 horas: agenda citas,
-              responde preguntas y confirma asistencias. Nosotros lo instalamos, lo
-              entrenamos y lo gestionamos. Tú no tocas nada.
-            </p>
-            <p
-              className="font-sans"
-              style={{ color: "#999999", marginTop: "16px", fontSize: "15px", fontWeight: 400 }}
-            >
-              Sin contrato de permanencia. Si no recupera su costo en 30 días,
-              trabajamos gratis hasta lograrlo.
-            </p>
-            <div className="mt-8 flex justify-center">
-              <PrimaryButton href={WA_MAIN} large>
-                Quiero mi asistente 24/7 →
-              </PrimaryButton>
+            <div className="text-left">
+              <p
+                className="font-sans"
+                style={{
+                  color: "#1DB86B",
+                  fontSize: "13px",
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                  marginBottom: "16px",
+                  fontWeight: 400,
+                }}
+              >
+                Para clínicas dentales de 1 a 10 sillones en México
+              </p>
+              <h1
+                className="font-display text-[32px] md:text-[52px]"
+                style={{ color: "#FFFFFF", fontWeight: 800, lineHeight: 1.15 }}
+              >
+                Pacientes que preguntan a las 11 de la noche. Citas en tu agenda el
+                lunes por la mañana.
+              </h1>
+              <p
+                className="font-sans text-[17px] md:text-[20px]"
+                style={{ color: "#CCCCCC", marginTop: "20px", fontWeight: 400 }}
+              >
+                Un asistente que atiende por WhatsApp las 24 horas: agenda citas,
+                responde preguntas y confirma asistencias. Nosotros lo instalamos, lo
+                entrenamos y lo gestionamos. Tú no tocas nada.
+              </p>
+              <p
+                className="font-sans"
+                style={{ color: "#999999", marginTop: "16px", fontSize: "15px", fontWeight: 400 }}
+              >
+                Sin contrato de permanencia. Si no recupera su costo en 30 días,
+                trabajamos gratis hasta lograrlo.
+              </p>
+              <div className="mt-8 flex">
+                <PrimaryButton href={WA_MAIN} large>
+                  Quiero mi asistente 24/7 →
+                </PrimaryButton>
+              </div>
+              <p
+                className="font-sans"
+                style={{ color: "#777", marginTop: "12px", fontSize: "13px", fontWeight: 400 }}
+              >
+                {"\u200B"}
+              </p>
             </div>
-            <p
-              className="font-sans"
-              style={{ color: "#777", marginTop: "12px", fontSize: "13px", fontWeight: 400 }}
-            >
-              {"\u200B"}
-            </p>
+          </Reveal>
+
+          <Reveal>
+            <div className="flex justify-center md:justify-end order-last md:order-none">
+              <img
+                src={whatsappMockup.url}
+                alt="Mockup de conversación de WhatsApp con el asistente"
+                className="w-full"
+                style={{
+                  maxWidth: "280px",
+                  maxHeight: "580px",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.15))",
+                }}
+              />
+            </div>
           </Reveal>
         </div>
       </section>
+
 
       {/* SECCIÓN 2 — TRUST STRIP */}
       <section style={{ backgroundColor: "#1E1730" }} className="px-6 py-8">
