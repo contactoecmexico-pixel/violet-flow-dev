@@ -176,7 +176,7 @@ function Servicios() {
               }}
             >
               Instalamos y gestionamos sistemas conversacionales con IA para clínicas
-              dentales — y desarrollamos soluciones digitales a la medida para cualquier
+              dentales y desarrollamos soluciones digitales a la medida para cualquier
               tipo de negocio.
             </p>
           </Reveal>
