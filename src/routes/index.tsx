@@ -93,10 +93,10 @@ function HomePage() {
     <>
       {/* SECCIÓN 1 — HERO */}
       <section
-        style={{ backgroundColor: "#262033" }}
-        className="px-6 pb-20 pt-[60px] md:pb-[80px] md:pt-[100px]"
+        style={{ backgroundColor: "#262033", minHeight: "680px", overflow: "visible" }}
+        className="relative px-6 pb-20 pt-[60px] md:pb-[80px] md:pt-[100px]"
       >
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[50%_50%] md:gap-12">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[55%_45%] md:gap-12">
           <Reveal>
             <div className="text-left">
               <p
@@ -148,23 +148,29 @@ function HomePage() {
             </div>
           </Reveal>
 
-          <Reveal>
-            <div className="flex justify-center md:justify-end order-last md:order-none">
-              <img
-                src={whatsappMockup.url}
-                alt="Mockup de conversación de WhatsApp con el asistente"
-                className="w-full"
-                style={{
-                  maxWidth: "280px",
-                  maxHeight: "680px",
-                  objectFit: "contain",
-                  filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.15))",
-                }}
-              />
-            </div>
-          </Reveal>
+          <div
+            className="relative order-last md:order-none flex justify-center md:block"
+            style={{ position: "relative", overflow: "visible", minHeight: "600px" }}
+          >
+            <img
+              src={whatsappMockup.url}
+              alt="Mockup de conversación de WhatsApp con el asistente"
+              className="md:absolute"
+              style={{
+                height: "100%",
+                minHeight: "600px",
+                maxHeight: "750px",
+                width: "auto",
+                objectFit: "contain",
+                bottom: 0,
+                right: 0,
+                filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.15))",
+              }}
+            />
+          </div>
         </div>
       </section>
+
 
 
       {/* SECCIÓN 2 — TRUST STRIP */}
