@@ -403,7 +403,7 @@ function Servicios() {
                 className="font-sans"
                 style={{ fontSize: "17px", color: "#CCCCCC", marginTop: "16px" }}
               >
-                Cuéntanos qué necesitas. Te decimos honestamente si podemos ayudarte — y
+                Cuéntanos qué necesitas. Te decimos honestamente si podemos ayudarte y
                 cómo.
               </p>
               <div style={{ marginTop: "32px" }}>
