@@ -7,6 +7,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import whatsappMockup from "@/assets/whatsapp-mockup.png.asset.json";
 
 const WA_MAIN = "https://wa.me/+527713429112";
 const WA_BOT =
