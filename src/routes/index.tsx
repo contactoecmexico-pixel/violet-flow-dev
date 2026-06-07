@@ -96,7 +96,7 @@ function HomePage() {
         style={{ backgroundColor: "#262033" }}
         className="px-6 pb-20 pt-[60px] md:pb-[80px] md:pt-[100px]"
       >
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[55%_45%] md:gap-12">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[50%_50%] md:gap-12">
           <Reveal>
             <div className="text-left">
               <p
@@ -156,7 +156,7 @@ function HomePage() {
                 className="w-full"
                 style={{
                   maxWidth: "280px",
-                  maxHeight: "580px",
+                  maxHeight: "680px",
                   objectFit: "contain",
                   filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.15))",
                 }}
