@@ -197,7 +197,7 @@ function HomePage() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* SECCIÓN 3 — BENEFICIOS */}
