@@ -362,20 +362,54 @@ function Servicios() {
           </Reveal>
 
           <Reveal>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <OtherCard
-                badge="Desarrollo Web"
-                title="Páginas web que convierten visitas en clientes"
-                text="Diseño responsive, SEO básico, integración de WhatsApp y formularios de contacto. Desde sitios informativos hasta e-commerce completo. Para cualquier industria."
-                priceLabel="Desde"
-                priceAmount="$3,500 MXN"
-                priceSub="pago único por proyecto"
-                cta="Ver planes y precios →"
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <WebPlanCard
+                badge="Más popular"
+                title="Página Web Profesional"
+                subtitle="Para negocios que necesitan presencia online efectiva"
+                price="$7,000"
+                priceLabel="MXN / proyecto"
+                features={[
+                  "Diseño responsive hasta 5 páginas",
+                  "Certificado SSL gratuito",
+                  "Formularios de contacto funcionales",
+                  "Integración de redes sociales y WhatsApp",
+                  "Redacción profesional de textos",
+                  "SEO estructurado",
+                  "3 revisiones de diseño completas",
+                  "Soporte técnico 60 días",
+                  "Páginas adicionales: $799 c/u",
+                ]}
+                cta="Cotizar mi página →"
               />
+              <WebPlanCard
+                badge="Tienda en línea"
+                title="E-commerce"
+                subtitle="Solución completa para vender en línea"
+                price="$15,000"
+                priceLabel="MXN / proyecto"
+                features={[
+                  "Diseño responsive páginas ilimitadas",
+                  "Tienda en línea integrada con carrito y checkout",
+                  "Carga inicial de hasta 15 productos",
+                  "Certificado SSL gratuito",
+                  "Integración de WhatsApp",
+                  "Capacitación en ventas y control del sitio",
+                  "4 revisiones de diseño completas",
+                  "Soporte técnico 90 días",
+                  "Producto extra agregado: $50 MXN",
+                ]}
+                cta="Cotizar mi tienda →"
+              />
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
               <OtherCard
                 badge="Automatización"
                 title="Automatizaciones con IA para procesos digitales"
-                text="Conectamos tus herramientas, automatizamos flujos de trabajo y eliminamos tareas repetitivas. CRM, WhatsApp, inventario, facturación — lo que necesites conectar, lo conectamos."
+                text="Conectamos tus herramientas, automatizamos flujos de trabajo y eliminamos tareas repetitivas. CRM, WhatsApp, inventario, facturación. Lo que necesites conectar, lo conectamos."
                 priceLabel="Precio"
                 priceAmount="A la medida"
                 priceSub="cotización sin costo"
@@ -392,6 +426,7 @@ function Servicios() {
               />
             </div>
           </Reveal>
+
         </div>
       </section>
 
