@@ -1053,7 +1053,7 @@ function LP() {
               Instalamos 3 clínicas por semana. Los slots casi siempre están tomados.
             </p>
             <div className="mt-8">
-              <PrimaryCTA big>Agenda tu demo de 15 minutos →</PrimaryCTA>
+              <PrimaryCTA big>Quiero mi asistente 24/7 →</PrimaryCTA>
             </div>
             <p className="mt-4 font-sans text-sm" style={{ color: GREEN }}>
               Si no recuperas tu inversión en los primeros 30 días, trabajamos gratis hasta
