@@ -98,7 +98,7 @@ function HomePage() {
       >
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[55%_45%] md:gap-12">
           <Reveal>
-            <div className="text-left">
+            <div className="text-center md:text-left">
               <p
                 className="font-sans"
                 style={{
@@ -134,8 +134,8 @@ function HomePage() {
                 Sin contrato de permanencia. Si no recupera su costo en 30 días,
                 trabajamos gratis hasta lograrlo.
               </p>
-              <div className="mt-8 flex">
-                <PrimaryButton href={WA_MAIN} large>
+              <div className="mt-8 flex w-full flex-col gap-3 md:w-auto md:flex-row">
+                <PrimaryButton href={WA_MAIN} full large>
                   Quiero mi asistente 24/7 →
                 </PrimaryButton>
               </div>
