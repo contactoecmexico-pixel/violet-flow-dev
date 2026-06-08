@@ -1,9 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Wordmark, navLinks } from "./brand";
 
-const WHATSAPP_URL = "https://wa.me/+527713429112";
-const FACEBOOK_URL = "https://www.facebook.com/share/1V1gXf2D4i/";
-const INSTAGRAM_URL = "https://www.instagram.com/ecoweb.mx/";
+const INSTAGRAM_URL = "https://www.instagram.com/san_mau.ia/";
+const TIKTOK_URL = "https://www.tiktok.com/@san_mau.ia";
 
 export function Footer() {
   return (
