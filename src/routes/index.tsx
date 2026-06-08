@@ -97,7 +97,7 @@ function HomePage() {
         className="relative px-6 pb-20 pt-[60px] md:pb-[80px] md:pt-[100px]"
       >
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[55%_45%] md:gap-12">
-          <Reveal>
+          <Reveal delay={80}>
             <div className="text-center md:text-left">
               <p
                 className="font-sans"
@@ -148,19 +148,21 @@ function HomePage() {
             </div>
           </Reveal>
 
-          <div
-            className="order-last flex justify-center md:order-none md:relative md:min-h-[640px] md:items-end"
-            style={{ overflow: "visible" }}
-          >
-            <img
-              src={whatsappMockup.url}
-              alt="Mockup de conversación de WhatsApp con el asistente"
-              className="mx-auto mt-8 block max-w-[260px] object-contain md:absolute md:bottom-[-80px] md:left-1/2 md:mt-0 md:max-w-none md:h-[115%] md:min-h-[680px] md:max-h-[900px] md:w-auto md:-translate-x-1/2"
-              style={{
-                filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.2))",
-              }}
-            />
-          </div>
+          <Reveal delay={220} className="order-last md:order-none">
+            <div
+              className="flex justify-center md:relative md:min-h-[640px] md:items-end"
+              style={{ overflow: "visible" }}
+            >
+              <img
+                src={whatsappMockup.url}
+                alt="Mockup de conversación de WhatsApp con el asistente"
+                className="mx-auto mt-8 block max-w-[260px] object-contain md:absolute md:bottom-[-80px] md:left-1/2 md:mt-0 md:max-w-none md:h-[115%] md:min-h-[680px] md:max-h-[900px] md:w-auto md:-translate-x-1/2"
+                style={{
+                  filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.2))",
+                }}
+              />
+            </div>
+          </Reveal>
 
         </div>
       </section>
@@ -169,7 +171,7 @@ function HomePage() {
 
       {/* SECCIÓN 2 — TRUST STRIP */}
       <section style={{ backgroundColor: "#1E1730" }} className="px-6 py-8">
-        <div className="mx-auto max-w-[1100px]">
+        <Reveal className="mx-auto max-w-[1100px]">
           <div className="grid grid-cols-1 gap-3 md:flex md:flex-row md:items-center md:justify-between md:gap-0">
             {[
               { Icon: ShieldCheck, text: "Sin contrato de permanencia" },
@@ -195,7 +197,7 @@ function HomePage() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* SECCIÓN 3 — BENEFICIOS */}
