@@ -1013,7 +1013,7 @@ function LP() {
           </div>
 
           <div className="mt-8">
-            <PrimaryCTA>Agenda tu demo ahora →</PrimaryCTA>
+            <PrimaryCTA>Quiero mi asistente 24/7 →</PrimaryCTA>
           </div>
         </Reveal>
       </Section>
