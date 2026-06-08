@@ -131,7 +131,89 @@ function OtherCard({
   );
 }
 
+function WebPlanCard({
+  badge,
+  title,
+  subtitle,
+  price,
+  priceLabel,
+  features,
+  cta,
+}: {
+  badge: string;
+  title: string;
+  subtitle: string;
+  price: string;
+  priceLabel: string;
+  features: string[];
+  cta: string;
+}) {
+  return (
+    <div
+      className="flex flex-col"
+      style={{
+        backgroundColor: "#2E2841",
+        borderRadius: "16px",
+        padding: "32px",
+        borderTop: "3px solid #1DB86B",
+      }}
+    >
+      <span
+        className="inline-block self-start rounded-full font-sans"
+        style={{
+          backgroundColor: "rgba(29,184,107,0.1)",
+          border: "1px solid rgba(29,184,107,0.3)",
+          padding: "4px 12px",
+          fontSize: "12px",
+          color: "#1DB86B",
+        }}
+      >
+        {badge}
+      </span>
+      <h3
+        className="font-display"
+        style={{ fontSize: "24px", color: "#ffffff", marginTop: "16px", fontWeight: 700 }}
+      >
+        {title}
+      </h3>
+      <p
+        className="font-sans"
+        style={{ fontSize: "14px", color: "#AAAAAA", marginTop: "8px", lineHeight: 1.6 }}
+      >
+        {subtitle}
+      </p>
+      <div style={{ marginTop: "20px" }}>
+        <div
+          className="font-display"
+          style={{ fontSize: "40px", color: "#ffffff", fontWeight: 800, lineHeight: 1 }}
+        >
+          {price}
+        </div>
+        <div className="font-sans" style={{ fontSize: "14px", color: "#999", marginTop: "4px" }}>
+          {priceLabel}
+        </div>
+      </div>
+      <ul style={{ marginTop: "20px" }}>
+        {features.map((f) => (
+          <li
+            key={f}
+            className="flex items-start font-sans"
+            style={{ fontSize: "14px", color: "#CCCCCC", marginBottom: "10px", gap: "10px" }}
+          >
+            <CheckCircle size={16} color="#1DB86B" className="mt-0.5 shrink-0" />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-auto pt-5">
+        <OutlineButton href={WA}>{cta}</OutlineButton>
+      </div>
+    </div>
+  );
+}
+
 function Servicios() {
+
   const features = [
     "Respuesta automática 24/7 por WhatsApp",
     "Agendamiento en tiempo real",
