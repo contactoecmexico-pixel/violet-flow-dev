@@ -7,13 +7,13 @@ const WA = "https://wa.me/+527713429112";
 export const Route = createFileRoute("/servicios")({
   head: () => ({
     meta: [
-      { title: "Servicios — ecoweb" },
+      { title: "Servicios | ecoweb" },
       {
         name: "description",
         content:
           "Sistemas conversacionales con IA para clínicas dentales y soluciones digitales a la medida para cualquier negocio.",
       },
-      { property: "og:title", content: "Servicios — ecoweb" },
+      { property: "og:title", content: "Servicios | ecoweb" },
       {
         property: "og:description",
         content:
