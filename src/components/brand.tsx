@@ -1,11 +1,22 @@
 import { Link } from "@tanstack/react-router";
-import ecowebLogo from "@/assets/ecoweb-logo.png.asset.json";
+import ecowebLogo from "@/assets/ecoweb-logo.webp.asset.json";
 
-export function Wordmark({ className = "" }: { className?: string }) {
+export function Wordmark({
+  className = "",
+  eager = false,
+}: {
+  className?: string;
+  eager?: boolean;
+}) {
   return (
     <img
       src={ecowebLogo.url}
       alt="ecoweb"
+      width={1024}
+      height={937}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      fetchPriority={eager ? "high" : "auto"}
       className={`h-12 w-auto md:h-14 ${className}`}
     />
   );
