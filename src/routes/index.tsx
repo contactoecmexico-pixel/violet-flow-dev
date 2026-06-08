@@ -98,7 +98,7 @@ function HomePage() {
       >
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[55%_45%] md:gap-12">
           <Reveal>
-            <div className="text-left">
+            <div className="text-center md:text-left">
               <p
                 className="font-sans"
                 style={{
@@ -134,8 +134,8 @@ function HomePage() {
                 Sin contrato de permanencia. Si no recupera su costo en 30 días,
                 trabajamos gratis hasta lograrlo.
               </p>
-              <div className="mt-8 flex">
-                <PrimaryButton href={WA_MAIN} large>
+              <div className="mt-8 flex w-full flex-col gap-3 md:w-auto md:flex-row">
+                <PrimaryButton href={WA_MAIN} full large>
                   Quiero mi asistente 24/7 →
                 </PrimaryButton>
               </div>
@@ -149,22 +149,14 @@ function HomePage() {
           </Reveal>
 
           <div
-            className="relative order-last md:order-none flex justify-center md:justify-center items-end"
-            style={{ position: "relative", overflow: "visible", minHeight: "640px" }}
+            className="order-last flex justify-center md:order-none md:relative md:min-h-[640px] md:items-end"
+            style={{ overflow: "visible" }}
           >
             <img
               src={whatsappMockup.url}
               alt="Mockup de conversación de WhatsApp con el asistente"
-              className="md:absolute"
+              className="mx-auto mt-8 block max-w-[260px] object-contain md:absolute md:bottom-[-80px] md:left-1/2 md:mt-0 md:max-w-none md:h-[115%] md:min-h-[680px] md:max-h-[900px] md:w-auto md:-translate-x-1/2"
               style={{
-                height: "115%",
-                minHeight: "680px",
-                maxHeight: "900px",
-                width: "auto",
-                objectFit: "contain",
-                bottom: "-80px",
-                left: "50%",
-                transform: "translateX(-50%)",
                 filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.2))",
               }}
             />
