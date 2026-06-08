@@ -7,7 +7,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
-import whatsappMockup from "@/assets/whatsapp-mockup.png.asset.json";
+import whatsappMockup from "@/assets/whatsapp-mockup.webp.asset.json";
 
 const WA_MAIN = "https://wa.me/+527713429112";
 const WA_BOT =
@@ -156,6 +156,11 @@ function HomePage() {
               <img
                 src={whatsappMockup.url}
                 alt="Mockup de conversación de WhatsApp con el asistente"
+                width={974}
+                height={1920}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="mx-auto mt-8 block max-w-[260px] object-contain md:max-w-[300px] lg:absolute lg:bottom-[-80px] lg:left-1/2 lg:mt-0 lg:max-w-none lg:h-[115%] lg:min-h-[680px] lg:max-h-[900px] lg:w-auto lg:-translate-x-1/2"
                 style={{
                   filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.2))",
