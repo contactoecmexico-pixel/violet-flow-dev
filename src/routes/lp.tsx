@@ -871,7 +871,7 @@ function LP() {
                 durar indefinidamente. Estamos en fase de crecimiento y los precios se
                 ajustan conforme crecemos.
               </p>
-              <p>Si estás considerando esto, el momento de hacer la demo es ahora.</p>
+              <p>Si estás considerando esto, el momento de agendar la llamada es ahora.</p>
             </div>
           </div>
         </Reveal>
