@@ -94,11 +94,11 @@ function HomePage() {
       {/* SECCIÓN 1 — HERO */}
       <section
         style={{ backgroundColor: "#262033", minHeight: "680px", overflow: "visible" }}
-        className="relative px-6 pb-20 pt-[60px] md:pb-[80px] md:pt-[100px]"
+        className="relative px-8 pb-20 pt-[60px] lg:pb-[80px] lg:pt-[100px]"
       >
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 md:grid-cols-[55%_45%] md:gap-12">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 lg:grid-cols-[55%_45%] lg:gap-12">
           <Reveal delay={80}>
-            <div className="text-center md:text-left">
+            <div className="text-center lg:text-left">
               <p
                 className="font-sans"
                 style={{
@@ -113,14 +113,14 @@ function HomePage() {
                 Para clínicas dentales de 1 a 10 sillones en México
               </p>
               <h1
-                className="font-display text-[32px] md:text-[52px]"
+                className="font-display text-[32px] md:text-[36px] lg:text-[52px]"
                 style={{ color: "#FFFFFF", fontWeight: 800, lineHeight: 1.15 }}
               >
                 Pacientes que preguntan a las 11 de la noche. Citas en tu agenda el
                 lunes por la mañana.
               </h1>
               <p
-                className="font-sans text-[17px] md:text-[20px]"
+                className="font-sans text-[17px] lg:text-[20px]"
                 style={{ color: "#CCCCCC", marginTop: "20px", fontWeight: 400 }}
               >
                 Un asistente que atiende por WhatsApp las 24 horas: agenda citas,
@@ -134,7 +134,7 @@ function HomePage() {
                 Sin contrato de permanencia. Si no recupera su costo en 30 días,
                 trabajamos gratis hasta lograrlo.
               </p>
-              <div className="mt-8 flex w-full flex-col gap-3 md:w-auto md:flex-row">
+              <div className="mt-8 flex w-full flex-col gap-3 lg:w-auto lg:flex-row">
                 <PrimaryButton href={WA_MAIN} full large>
                   Quiero mi asistente 24/7 →
                 </PrimaryButton>
@@ -148,15 +148,15 @@ function HomePage() {
             </div>
           </Reveal>
 
-          <Reveal delay={220} className="order-last md:order-none">
+          <Reveal delay={220} className="order-last lg:order-none">
             <div
-              className="flex justify-center md:relative md:min-h-[640px] md:items-end"
+              className="flex justify-center lg:relative lg:min-h-[640px] lg:items-end"
               style={{ overflow: "visible" }}
             >
               <img
                 src={whatsappMockup.url}
                 alt="Mockup de conversación de WhatsApp con el asistente"
-                className="mx-auto mt-8 block max-w-[260px] object-contain md:absolute md:bottom-[-80px] md:left-1/2 md:mt-0 md:max-w-none md:h-[115%] md:min-h-[680px] md:max-h-[900px] md:w-auto md:-translate-x-1/2"
+                className="mx-auto mt-8 block max-w-[260px] object-contain md:max-w-[300px] lg:absolute lg:bottom-[-80px] lg:left-1/2 lg:mt-0 lg:max-w-none lg:h-[115%] lg:min-h-[680px] lg:max-h-[900px] lg:w-auto lg:-translate-x-1/2"
                 style={{
                   filter: "drop-shadow(0 20px 60px rgba(29,184,107,0.2))",
                 }}
