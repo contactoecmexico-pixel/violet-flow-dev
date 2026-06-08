@@ -134,6 +134,8 @@ function LP() {
   // Calc 2 input
   const [plan, setPlan] = useState(7000);
 
+  const SETUP = 19999;
+
   const calc = useMemo(() => {
     const lostPatientsMonth = Math.round(msgsWeek * (convPct / 100) * 4);
     const lostMoneyMonth = lostPatientsMonth * ticket;
@@ -147,6 +149,14 @@ function LP() {
         ? ((lostMoneyMonth * 12 - plan * 12) / (plan * 12)) * 100
         : 0;
 
+    // Year-1 economics including one-time setup
+    const totalYear1 = plan * 12 + SETUP;
+    const recoveredYear = lostMoneyMonth * 12;
+    const netYear1 = recoveredYear - totalYear1;
+    const roiYear1 = totalYear1 > 0 ? (netYear1 / totalYear1) * 100 : 0;
+    const breakEvenMonths =
+      lostMoneyMonth > 0 ? Math.ceil(totalYear1 / lostMoneyMonth) : 0;
+
     return {
       lostPatientsMonth,
       lostMoneyMonth,
@@ -155,16 +165,22 @@ function LP() {
       extraMonth,
       extraYear,
       roiPct,
+      totalYear1,
+      recoveredYear,
+      netYear1,
+      roiYear1,
+      breakEvenMonths,
     };
   }, [ticket, msgsWeek, convPct, closedDays, plan]);
 
   // chairs: 10 total. lost count = round(convPct/10)
   const lostChairs = Math.min(10, Math.max(0, Math.round(convPct / 10)));
 
-  // break-even bar
-  const barTotal = Math.max(calc.lostMoneyMonth, plan);
-  const planPct = barTotal > 0 ? (plan / barTotal) * 100 : 100;
-  const negative = calc.extraMonth < 0;
+  // year-1 break-even bar (total bar = recovered year revenue)
+  const barBase = Math.max(calc.recoveredYear, calc.totalYear1);
+  const costPct = barBase > 0 ? (calc.totalYear1 / barBase) * 100 : 100;
+  const negative = calc.netYear1 < 0;
+
 
   return (
     <div>
@@ -539,34 +555,62 @@ function LP() {
               </SliderRow>
             </div>
 
+            {/* Setup fijo informativo */}
+            <div
+              className="mt-5 max-w-md"
+              style={{
+                backgroundColor: "#F5F7F5",
+                borderRadius: 8,
+                padding: 12,
+              }}
+            >
+              <p
+                className="font-sans"
+                style={{ fontSize: 13, color: "#666", fontWeight: 400 }}
+              >
+                Implementación (pago único)
+              </p>
+              <p
+                className="font-display"
+                style={{
+                  fontSize: 20,
+                  color: VIOLET,
+                  fontWeight: 700,
+                  marginTop: 4,
+                }}
+              >
+                $19,999 MXN
+              </p>
+            </div>
+
             <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
               <ResultCard
-                label="Citas para cubrir el costo de EcoWeb"
-                value={`${calc.breakeven} citas/mes`}
-                color={GREEN}
-                sub={`Solo necesitas recuperar ${calc.breakeven} citas al mes para que se pague solo`}
+                label="Inversión total primer año"
+                value={fmt(calc.totalYear1)}
+                color={VIOLET}
+                sub="Implementación + 12 meses de servicio"
               />
               <ResultCard
-                label="Ingreso adicional estimado / mes"
-                value={fmt(Math.max(calc.extraMonth, 0))}
+                label="El sistema se paga en"
+                value={`${calc.breakEvenMonths} meses`}
                 color={GREEN}
+                sub="Después de eso, todo es ganancia"
               />
               <ResultCard
-                label="Ingreso adicional estimado / año"
-                value={fmt(Math.max(calc.extraYear, 0))}
+                label="Ganancia neta primer año"
+                value={fmt(Math.max(calc.netYear1, 0))}
                 color={GREEN}
                 big
               />
               <ResultCard
-                label="ROI proyectado a 12 meses"
-                value={`${Math.round(calc.roiPct)}%`}
+                label="ROI primer año"
+                value={`${Math.round(Math.max(calc.roiYear1, 0))}%`}
                 color={GREEN}
                 big
-                sub={`${fmt(Math.max(calc.extraYear, 0))} de retorno`}
               />
             </div>
 
-            {/* Break-even bar */}
+            {/* Break-even bar (year 1) */}
             <div className="mt-10">
               {negative ? (
                 <div>
@@ -582,8 +626,8 @@ function LP() {
               ) : (
                 <div>
                   <div className="mb-2 flex justify-between font-sans text-xs" style={{ color: "#555" }}>
-                    <span>Costo de EcoWeb: {fmt(plan)}</span>
-                    <span>Ganancia neta: {fmt(calc.extraMonth)}</span>
+                    <span>Inversión total ({fmt(calc.totalYear1)})</span>
+                    <span>Ganancia neta ({fmt(Math.max(calc.netYear1, 0))})</span>
                   </div>
                   <div
                     className="flex overflow-hidden rounded-lg"
@@ -591,7 +635,7 @@ function LP() {
                   >
                     <div
                       style={{
-                        width: `${planPct}%`,
+                        width: `${costPct}%`,
                         backgroundColor: RED,
                         opacity: 0.85,
                         transition: "width 0.3s",
@@ -599,14 +643,14 @@ function LP() {
                     />
                     <div
                       style={{
-                        width: `${100 - planPct}%`,
+                        width: `${100 - costPct}%`,
                         backgroundColor: GREEN,
                         transition: "width 0.3s",
                       }}
                     />
                   </div>
                   <p className="mt-2 text-center font-sans text-xs" style={{ color: "#666" }}>
-                    Break-even mensual marcado donde termina el rojo
+                    Sobre 12 meses de ingresos recuperados. El rojo es lo que cubre tu inversión total.
                   </p>
                 </div>
               )}
@@ -621,15 +665,24 @@ function LP() {
                 Tu clínica está perdiendo {fmt(calc.lostYear)} al año.
               </p>
               <p
-                className="mt-4 font-display font-extrabold"
-                style={{ color: GREEN, fontSize: 28 }}
+                className="mt-4 font-display font-extrabold text-white"
+                style={{ fontSize: 18 }}
               >
-                Con EcoWeb lo conviertes en {fmt(Math.max(calc.extraYear, 0))} de ganancia.
+                Con una inversión de {fmt(calc.totalYear1)} el primer año, lo conviertes en{" "}
+                <span style={{ color: GREEN }}>{fmt(Math.max(calc.netYear1, 0))}</span> de
+                ganancia.
+              </p>
+              <p
+                className="mt-3 font-sans"
+                style={{ color: "#CCCCCC", fontSize: 15 }}
+              >
+                Desde el año 2, sin costo de implementación, la ganancia crece.
               </p>
               <div className="mt-8">
-                <PrimaryCTA big>Quiero recuperar mi inversión →</PrimaryCTA>
+                <PrimaryCTA big>Quiero mi asistente 24/7 →</PrimaryCTA>
               </div>
             </div>
+
           </Reveal>
         </div>
       </Section>

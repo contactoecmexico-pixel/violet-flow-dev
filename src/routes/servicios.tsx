@@ -131,7 +131,89 @@ function OtherCard({
   );
 }
 
+function WebPlanCard({
+  badge,
+  title,
+  subtitle,
+  price,
+  priceLabel,
+  features,
+  cta,
+}: {
+  badge: string;
+  title: string;
+  subtitle: string;
+  price: string;
+  priceLabel: string;
+  features: string[];
+  cta: string;
+}) {
+  return (
+    <div
+      className="flex flex-col"
+      style={{
+        backgroundColor: "#2E2841",
+        borderRadius: "16px",
+        padding: "32px",
+        borderTop: "3px solid #1DB86B",
+      }}
+    >
+      <span
+        className="inline-block self-start rounded-full font-sans"
+        style={{
+          backgroundColor: "rgba(29,184,107,0.1)",
+          border: "1px solid rgba(29,184,107,0.3)",
+          padding: "4px 12px",
+          fontSize: "12px",
+          color: "#1DB86B",
+        }}
+      >
+        {badge}
+      </span>
+      <h3
+        className="font-display"
+        style={{ fontSize: "24px", color: "#ffffff", marginTop: "16px", fontWeight: 700 }}
+      >
+        {title}
+      </h3>
+      <p
+        className="font-sans"
+        style={{ fontSize: "14px", color: "#AAAAAA", marginTop: "8px", lineHeight: 1.6 }}
+      >
+        {subtitle}
+      </p>
+      <div style={{ marginTop: "20px" }}>
+        <div
+          className="font-display"
+          style={{ fontSize: "40px", color: "#ffffff", fontWeight: 800, lineHeight: 1 }}
+        >
+          {price}
+        </div>
+        <div className="font-sans" style={{ fontSize: "14px", color: "#999", marginTop: "4px" }}>
+          {priceLabel}
+        </div>
+      </div>
+      <ul style={{ marginTop: "20px" }}>
+        {features.map((f) => (
+          <li
+            key={f}
+            className="flex items-start font-sans"
+            style={{ fontSize: "14px", color: "#CCCCCC", marginBottom: "10px", gap: "10px" }}
+          >
+            <CheckCircle size={16} color="#1DB86B" className="mt-0.5 shrink-0" />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-auto pt-5">
+        <OutlineButton href={WA}>{cta}</OutlineButton>
+      </div>
+    </div>
+  );
+}
+
 function Servicios() {
+
   const features = [
     "Respuesta automática 24/7 por WhatsApp",
     "Agendamiento en tiempo real",
@@ -275,20 +357,34 @@ function Servicios() {
                 <div style={{ marginBottom: "24px" }}>
                   <div
                     className="font-sans"
-                    style={{ fontSize: "13px", color: "#999", marginBottom: "4px" }}
+                    style={{ fontSize: "12px", color: "#999", marginBottom: "4px" }}
                   >
-                    Inversión mensual
+                    Implementación
                   </div>
                   <div
                     className="font-display"
-                    style={{ fontSize: "36px", color: "#262033", fontWeight: 800 }}
+                    style={{ fontSize: "20px", color: "#262033", fontWeight: 700 }}
                   >
-                    $7,000 – $12,000
+                    $19,999 MXN · pago único
                   </div>
-                  <div className="font-sans" style={{ fontSize: "14px", color: "#999" }}>
-                    MXN / mes · según volumen de tu clínica
+
+                  <div
+                    className="font-sans"
+                    style={{ fontSize: "12px", color: "#999", marginTop: "16px", marginBottom: "4px" }}
+                  >
+                    Servicio mensual
+                  </div>
+                  <div
+                    className="font-display"
+                    style={{ fontSize: "32px", color: "#262033", fontWeight: 800 }}
+                  >
+                    $7,000 – $12,000 MXN
+                  </div>
+                  <div className="font-sans" style={{ fontSize: "13px", color: "#999", marginTop: "2px" }}>
+                    según volumen de tu clínica
                   </div>
                 </div>
+
 
                 <ul>
                   {features.map((f) => (
@@ -348,20 +444,54 @@ function Servicios() {
           </Reveal>
 
           <Reveal>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <OtherCard
-                badge="Desarrollo Web"
-                title="Páginas web que convierten visitas en clientes"
-                text="Diseño responsive, SEO básico, integración de WhatsApp y formularios de contacto. Desde sitios informativos hasta e-commerce completo. Para cualquier industria."
-                priceLabel="Desde"
-                priceAmount="$3,500 MXN"
-                priceSub="pago único por proyecto"
-                cta="Ver planes y precios →"
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <WebPlanCard
+                badge="Más popular"
+                title="Página Web Profesional"
+                subtitle="Para negocios que necesitan presencia online efectiva"
+                price="$7,000"
+                priceLabel="MXN / proyecto"
+                features={[
+                  "Diseño responsive hasta 5 páginas",
+                  "Certificado SSL gratuito",
+                  "Formularios de contacto funcionales",
+                  "Integración de redes sociales y WhatsApp",
+                  "Redacción profesional de textos",
+                  "SEO estructurado",
+                  "3 revisiones de diseño completas",
+                  "Soporte técnico 60 días",
+                  "Páginas adicionales: $799 c/u",
+                ]}
+                cta="Cotizar mi página →"
               />
+              <WebPlanCard
+                badge="Tienda en línea"
+                title="E-commerce"
+                subtitle="Solución completa para vender en línea"
+                price="$15,000"
+                priceLabel="MXN / proyecto"
+                features={[
+                  "Diseño responsive páginas ilimitadas",
+                  "Tienda en línea integrada con carrito y checkout",
+                  "Carga inicial de hasta 15 productos",
+                  "Certificado SSL gratuito",
+                  "Integración de WhatsApp",
+                  "Capacitación en ventas y control del sitio",
+                  "4 revisiones de diseño completas",
+                  "Soporte técnico 90 días",
+                  "Producto extra agregado: $50 MXN",
+                ]}
+                cta="Cotizar mi tienda →"
+              />
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
               <OtherCard
                 badge="Automatización"
                 title="Automatizaciones con IA para procesos digitales"
-                text="Conectamos tus herramientas, automatizamos flujos de trabajo y eliminamos tareas repetitivas. CRM, WhatsApp, inventario, facturación — lo que necesites conectar, lo conectamos."
+                text="Conectamos tus herramientas, automatizamos flujos de trabajo y eliminamos tareas repetitivas. CRM, WhatsApp, inventario, facturación. Lo que necesites conectar, lo conectamos."
                 priceLabel="Precio"
                 priceAmount="A la medida"
                 priceSub="cotización sin costo"
@@ -378,6 +508,7 @@ function Servicios() {
               />
             </div>
           </Reveal>
+
         </div>
       </section>
 
