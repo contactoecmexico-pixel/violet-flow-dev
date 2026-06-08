@@ -275,20 +275,34 @@ function Servicios() {
                 <div style={{ marginBottom: "24px" }}>
                   <div
                     className="font-sans"
-                    style={{ fontSize: "13px", color: "#999", marginBottom: "4px" }}
+                    style={{ fontSize: "12px", color: "#999", marginBottom: "4px" }}
                   >
-                    Inversión mensual
+                    Implementación
                   </div>
                   <div
                     className="font-display"
-                    style={{ fontSize: "36px", color: "#262033", fontWeight: 800 }}
+                    style={{ fontSize: "20px", color: "#262033", fontWeight: 700 }}
                   >
-                    $7,000 – $12,000
+                    $19,999 MXN · pago único
                   </div>
-                  <div className="font-sans" style={{ fontSize: "14px", color: "#999" }}>
-                    MXN / mes · según volumen de tu clínica
+
+                  <div
+                    className="font-sans"
+                    style={{ fontSize: "12px", color: "#999", marginTop: "16px", marginBottom: "4px" }}
+                  >
+                    Servicio mensual
+                  </div>
+                  <div
+                    className="font-display"
+                    style={{ fontSize: "32px", color: "#262033", fontWeight: 800 }}
+                  >
+                    $7,000 – $12,000 MXN
+                  </div>
+                  <div className="font-sans" style={{ fontSize: "13px", color: "#999", marginTop: "2px" }}>
+                    según volumen de tu clínica
                   </div>
                 </div>
+
 
                 <ul>
                   {features.map((f) => (
