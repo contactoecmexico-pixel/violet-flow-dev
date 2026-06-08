@@ -240,7 +240,7 @@ function HomePage() {
                 body: (
                   <>
                     El 35% de los pacientes que buscan dentista lo hacen después de
-                    las 8 PM. Tu asistente los atiende en menos de 5 segundos:
+                    las 8 PM. Tu asistente los atiende en menos de 1 minuto:
                     responde precios, da información de servicios y agenda la cita
                     antes de que alguien más lo haga.
                     <br />
@@ -279,10 +279,6 @@ function HomePage() {
                 title: "Nosotros lo gestionamos. Tú no tocas nada.",
                 body: (
                   <>
-                    No hay software que instalar. No hay cuenta que administrar. No
-                    hay curva de aprendizaje para tu equipo.
-                    <br />
-                    <br />
                     Levantamos la información de tu clínica, entrenamos el asistente
                     con tus servicios y precios, y lo mantenemos actualizado. Si
                     algo cambia en tu clínica, nos mandas un mensaje y lo ajustamos
