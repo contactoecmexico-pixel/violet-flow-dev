@@ -645,17 +645,17 @@ function LP() {
             Exactamente qué obtienes con EcoWeb Profesional
           </h2>
           <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
-            Este es el plan que recomendamos para clínicas de 1-15 sillones:
+            Este es el plan que recomendamos para clínicas de 1 a 15 sillones:
           </p>
 
           <ul className="mt-8 space-y-4">
             {[
-              "Asistente conversacional 24/7 por WhatsApp — responde en 1 minuto, cualquier hora del día, cualquier día del año",
-              "Agendamiento en tiempo real — las citas van directo al calendario, sin dobles reservas ni errores",
-              "Confirmaciones automáticas — el sistema manda recordatorio 24 horas antes; el paciente responde; tú sabes exactamente qué esperar cada día",
-              "Revisión y optimización mensual — nuestro equipo revisa conversaciones reales y ajusta lo que sea necesario",
-              "Soporte prioritario con respuesta en menos de 24 horas",
-              "Instalación y configuración completa — absorbida",
+              "Asistente conversacional 24/7 por WhatsApp. Responde en 1 minuto, cualquier hora del día, cualquier día del año.",
+              "Agendamiento en tiempo real. Las citas van directo al calendario, sin dobles reservas ni errores.",
+              "Confirmaciones automáticas. El sistema manda recordatorio 24 horas antes; el paciente responde; tú sabes exactamente qué esperar cada día.",
+              "Revisión y optimización mensual. Nuestro equipo revisa conversaciones reales y ajusta lo que sea necesario.",
+              "Soporte prioritario con respuesta en menos de 24 horas.",
+              "Instalación y configuración completa",
             ].map((t, i) => (
               <li key={i} className="flex items-start gap-3">
                 <span
@@ -672,21 +672,70 @@ function LP() {
           </ul>
 
           <p className="mt-8 font-sans text-[15px]" style={{ color: "#666" }}>
-            El setup normalmente cuesta $19,999 MXN. Incluye levantamiento de información de
-            tu clínica, configuración técnica, entrenamiento del asistente con tus servicios
-            y precios, pruebas de flujo y la primera semana de monitoreo intensivo.
+            La implementación tiene un costo único de $19,999 MXN. Incluye levantamiento
+            de la información de tu clínica, configuración técnica, entrenamiento del
+            asistente con tus servicios y precios, pruebas de flujo y la primera semana
+            de monitoreo intensivo. Es un pago único. No se repite.
           </p>
 
           <h3
             className="mt-12 font-display font-bold"
             style={{ color: VIOLET, fontSize: 24 }}
           >
-            Tu inversión: $7,000 – $12,000 MXN/mes
+            Tu inversión
           </h3>
-          <p className="mt-3 font-sans text-[15px]" style={{ color: "#666" }}>
-            El costo mensual se adapta al volumen real de mensajes de tu clínica. No es lo
-            mismo una clínica que recibe 100 mensajes al mes que una que recibe 100 al día —
-            y tú no deberías pagar por capacidad que no necesitas.
+
+          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div
+              style={{
+                backgroundColor: "#FFFFFF",
+                borderRadius: 12,
+                padding: 24,
+                borderTop: `4px solid ${GREEN}`,
+                boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+              }}
+            >
+              <p className="font-sans" style={{ fontSize: 13, color: "#999", fontWeight: 400 }}>
+                Implementación · pago único
+              </p>
+              <p
+                className="font-display"
+                style={{ fontSize: 32, color: VIOLET, fontWeight: 800, marginTop: 8 }}
+              >
+                $19,999 MXN
+              </p>
+              <p className="font-sans" style={{ fontSize: 14, color: "#666", marginTop: 8, fontWeight: 400 }}>
+                Levantamiento, configuración, entrenamiento, pruebas y go-live acompañado.
+              </p>
+            </div>
+            <div
+              style={{
+                backgroundColor: "#FFFFFF",
+                borderRadius: 12,
+                padding: 24,
+                borderTop: `4px solid ${GREEN}`,
+                boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+              }}
+            >
+              <p className="font-sans" style={{ fontSize: 13, color: "#999", fontWeight: 400 }}>
+                Servicio mensual
+              </p>
+              <p
+                className="font-display"
+                style={{ fontSize: 32, color: VIOLET, fontWeight: 800, marginTop: 8 }}
+              >
+                $7,000 – $12,000 MXN
+              </p>
+              <p className="font-sans" style={{ fontSize: 14, color: "#666", marginTop: 8, fontWeight: 400 }}>
+                Según el volumen de mensajes de tu clínica. Sin contrato de permanencia.
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-6 font-sans text-[15px]" style={{ color: "#666" }}>
+            El costo mensual se adapta al volumen real de mensajes de tu clínica. No es
+            lo mismo una clínica que recibe 100 mensajes al mes que una que recibe 100
+            al día. Tú no deberías pagar por capacidad que no necesitas.
           </p>
 
           <div className="mt-8 overflow-x-auto">
@@ -704,7 +753,7 @@ function LP() {
               <tbody style={{ color: "#444" }}>
                 <tr style={{ borderBottom: "1px solid #eee" }}>
                   <td className="p-4">Recepcionista tiempo completo</td>
-                  <td className="p-4">$12,000–$15,000/mes</td>
+                  <td className="p-4">$12,000 – $15,000/mes</td>
                   <td className="p-4">8 hrs/día, L-V, con vacaciones e incapacidades</td>
                 </tr>
                 <tr
@@ -718,7 +767,7 @@ function LP() {
                     EcoWeb Profesional
                   </td>
                   <td className="p-4 font-medium" style={{ color: VIOLET }}>
-                    $7,000–$12,000/mes
+                    $19,999 setup + $7,000 – $12,000/mes
                   </td>
                   <td className="p-4">
                     24/7, 365 días, sin descansos, nosotros lo gestionamos
@@ -726,8 +775,8 @@ function LP() {
                 </tr>
                 <tr>
                   <td className="p-4">Pacientes perdidos fuera de horario</td>
-                  <td className="p-4">$30,000–$80,000/mes</td>
-                  <td className="p-4">—</td>
+                  <td className="p-4">$30,000 – $80,000/mes</td>
+                  <td className="p-4">Dinero que tu clínica pierde cada mes</td>
                 </tr>
               </tbody>
             </table>
@@ -737,11 +786,14 @@ function LP() {
             className="mt-8 font-sans text-base"
             style={{ color: VIOLET, fontWeight: 500 }}
           >
-            La matemática es clara: recuperar 5 citas al mes con ticket promedio de $1,500 =
-            $7,500. El sistema ya se pagó. Todo lo demás es ganancia.
+            La matemática es clara: recuperar 3 citas al mes con ticket promedio de
+            $1,500 = $4,500. En 4 o 5 meses la implementación ya se pagó. Y el servicio
+            mensual se cubre con las primeras citas recuperadas cada mes. Todo lo demás
+            es ganancia.
           </p>
         </Reveal>
       </Section>
+
 
       {/* SECCIÓN 8 — ESCASEZ */}
       <Section dark>
