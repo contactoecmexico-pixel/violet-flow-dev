@@ -39,7 +39,7 @@ export function Navbar() {
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0F6E56")}
           onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1DB86B")}
         >
-          Agenda tu demo →
+          Quiero mi asistente 24/7 →
         </a>
 
         <button
@@ -76,7 +76,7 @@ export function Navbar() {
               className="mt-2 inline-block rounded-lg px-6 py-3 text-center font-display font-bold text-white"
               style={{ backgroundColor: "#1DB86B" }}
             >
-              Agenda tu demo →
+              Quiero mi asistente 24/7 →
             </a>
           </div>
         </div>
