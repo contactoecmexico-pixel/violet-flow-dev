@@ -6,7 +6,7 @@ export function Wordmark({ className = "" }: { className?: string }) {
     <img
       src={ecowebLogo.url}
       alt="ecoweb"
-      className={`h-10 w-auto ${className}`}
+      className={`h-12 w-auto md:h-14 ${className}`}
     />
   );
 }
