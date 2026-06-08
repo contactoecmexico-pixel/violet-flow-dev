@@ -13,7 +13,7 @@ export function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8 md:py-5">
         <Link to="/" onClick={() => setOpen(false)} aria-label="Inicio">
-          <Wordmark />
+          <Wordmark eager />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
