@@ -6,7 +6,7 @@ import { Reveal } from "@/components/reveal";
 export const Route = createFileRoute("/lp")({
   head: () => ({
     meta: [
-      { title: "Asistente WhatsApp 24/7 para clínicas dentales — EcoWeb" },
+      { title: "Asistente WhatsApp 24/7 para clínicas dentales | EcoWeb" },
       {
         name: "description",
         content:
@@ -187,7 +187,7 @@ function LP() {
               }}
             >
               EcoWeb instala un asistente que atiende, responde y agenda citas por WhatsApp
-              24/7 — sin que tú ni tu equipo hagan nada.
+              24/7. Sin que tú ni tu equipo hagan nada.
             </p>
             <p
               className="mx-auto mt-6 font-sans text-base"
@@ -234,7 +234,7 @@ function LP() {
             </p>
             <p>
               Meses así se acumulan. Las citas vacías se acumulan. Y sin que te des cuenta,
-              tu clínica está perdiendo entre $30,000 y $80,000 pesos al mes — no porque no
+              tu clínica está perdiendo entre $30,000 y $80,000 pesos al mes. No porque no
               haya pacientes buscándote, sino porque nadie les está respondiendo cuando
               preguntan.
             </p>
@@ -254,7 +254,7 @@ function LP() {
             className="font-display font-bold text-white"
             style={{ fontSize: "clamp(28px, 3.5vw, 36px)" }}
           >
-            Hay una razón por la que esto sigue pasando — y no es culpa tuya
+            Hay una razón por la que esto sigue pasando. Y no es culpa tuya
           </h2>
           <div className="mt-6 space-y-5 font-sans text-base" style={{ color: "#CCCCCC" }}>
             <p>La razón es simple: no puedes estar en dos lugares al mismo tiempo.</p>
@@ -278,7 +278,7 @@ function LP() {
           >
             <p className="font-sans text-base text-white">
               Somos EcoWeb. Instalamos y gestionamos sistemas conversacionales para clínicas
-              dentales en México — específicamente para clínicas de 1 a 15 sillones como la
+              dentales en México. Específicamente para clínicas de 1 a 15 sillones como la
               tuya.
             </p>
           </div>
@@ -290,7 +290,7 @@ function LP() {
               no-shows.
             </p>
             <p>
-              Tú no tocas nada — ni lo configuras, ni lo actualizas, ni lo mantienes.
+              Tú no tocas nada. Ni lo configuras, ni lo actualizas, ni lo mantienes.
               Nosotros nos encargamos de todo.
             </p>
           </div>
@@ -313,7 +313,7 @@ function LP() {
             {[
               {
                 n: "35%",
-                t: "de los pacientes que buscan dentista lo hacen después de las 8 PM — cuando la mayoría de las clínicas ya cerraron",
+                t: "de los pacientes que buscan dentista lo hacen después de las 8 PM, cuando la mayoría de las clínicas ya cerraron",
               },
               {
                 n: "25-40%",
@@ -357,7 +357,7 @@ function LP() {
                 8-12
               </div>
               <p className="mt-2 font-sans text-[15px]" style={{ color: "#555" }}>
-                citas recuperadas al mes en promedio durante los primeros 30 días — que antes
+                citas recuperadas al mes en promedio durante los primeros 30 días, que antes
                 simplemente no existían
               </p>
             </div>
@@ -379,7 +379,7 @@ function LP() {
             className="font-display font-bold text-white"
             style={{ fontSize: "clamp(28px, 3.5vw, 36px)" }}
           >
-            Lo que cambia en tu clínica — y en tu vida — desde la primera semana
+            Lo que cambia en tu clínica y en tu vida desde la primera semana
           </h2>
           <div className="mt-10 space-y-10">
             {[
@@ -401,7 +401,7 @@ function LP() {
               },
               {
                 h: "Y tú no configuras nada. Nunca.",
-                t: "No hay cuenta nueva que administrar. No hay nada que romper. Nosotros lo instalamos, lo entrenamos con los datos de tu clínica, y lo mantenemos. Si algo cambia — precios, horarios, doctores — nos mandas un mensaje y lo actualizamos ese día.",
+                t: "No hay cuenta nueva que administrar. No hay nada que romper. Nosotros lo instalamos, lo entrenamos con los datos de tu clínica, y lo mantenemos. Si algo cambia, ya sea precios, horarios o doctores, nos mandas un mensaje y lo actualizamos ese día.",
               },
             ].map((b, i) => (
               <div key={i}>
@@ -763,7 +763,7 @@ function LP() {
               </p>
               <p>
                 Casi siempre hay lugar en la semana siguiente. Pero el precio actual no va a
-                durar indefinidamente — estamos en fase de crecimiento y los precios se
+                durar indefinidamente. Estamos en fase de crecimiento y los precios se
                 ajustan conforme crecemos.
               </p>
               <p>Si estás considerando esto, el momento de hacer la demo es ahora.</p>
@@ -783,7 +783,7 @@ function LP() {
               className="font-display font-bold"
               style={{ color: VIOLET, fontSize: 32 }}
             >
-              Nuestro compromiso — sin letras chicas:
+              Nuestro compromiso, sin letras chicas:
             </h2>
             <blockquote
               className="mt-6 rounded-lg p-6"
@@ -883,7 +883,7 @@ function LP() {
               atendiendo, sin poder hacer absolutamente nada al respecto.
             </p>
             <p>El siguiente fin de semana, igual.</p>
-            <p>No es catastrofismo — es aritmética.</p>
+            <p>No es catastrofismo. Es aritmética.</p>
           </div>
 
           <div
@@ -925,7 +925,7 @@ function LP() {
                 className="font-display font-bold"
                 style={{ color: GREEN }}
               >
-                P.D. —{" "}
+                P.D.{" "}
               </span>
               Si llegaste hasta aquí, el dolor es real. Ya sabes que estás perdiendo
               pacientes fuera de horario. Ya sabes que tu recepcionista no puede cubrir las
@@ -945,7 +945,7 @@ function LP() {
               EcoWeb lo instala. Nosotros lo gestionamos. Tú no tocas nada.
             </p>
             <p className="mt-4 font-sans text-[15px]" style={{ color: "#999" }}>
-              Instalamos 3 clínicas por semana — los slots casi siempre están tomados.
+              Instalamos 3 clínicas por semana. Los slots casi siempre están tomados.
             </p>
             <div className="mt-8">
               <PrimaryCTA big>Agenda tu demo de 15 minutos →</PrimaryCTA>

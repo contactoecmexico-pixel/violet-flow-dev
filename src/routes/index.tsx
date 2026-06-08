@@ -16,7 +16,7 @@ const WA_BOT =
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ecoweb — Asistente de WhatsApp para clínicas dentales" },
+      { title: "ecoweb | Asistente de WhatsApp para clínicas dentales" },
       {
         name: "description",
         content:
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "ecoweb — Asistente de WhatsApp para clínicas dentales",
+        content: "ecoweb | Asistente de WhatsApp para clínicas dentales",
       },
       {
         property: "og:description",
@@ -182,7 +182,7 @@ function HomePage() {
             {[
               { Icon: ShieldCheck, text: "Sin contrato de permanencia" },
               { Icon: BadgeCheck, text: "Garantía de resultados en 30 días" },
-              { Icon: MessageCircle, text: "Funciona por WhatsApp — donde ya están tus pacientes" },
+              { Icon: MessageCircle, text: "Funciona por WhatsApp, donde ya están tus pacientes" },
             ].map(({ Icon, text }, i, arr) => (
               <div
                 key={text}
