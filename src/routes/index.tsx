@@ -544,27 +544,16 @@ function HomePage() {
                   verás tu cita reflejada en el calendario.
                 </span>
               </div>
-              <div
-                style={{
-                  backgroundColor: "#F9FAF9",
-                  border: "2px dashed #DDD",
-                  borderRadius: "12px",
-                  height: "400px",
-                  marginTop: "16px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Calendar size={40} color="#CCC" />
-                <p
-                  className="font-sans"
-                  style={{ color: "#999", fontSize: "15px", marginTop: "12px", fontWeight: 400 }}
-                >
-                  Calendario — próximamente
-                </p>
-              </div>
+              <iframe
+                src="https://calendar.google.com/calendar/embed?src=a197c8d8ae55383cd3707ab8226739bf8f2294706cb176d4eb7539027025c172%40group.calendar.google.com&ctz=America%2FMexico_City"
+                style={{ border: 0, borderRadius: "12px" }}
+                width="100%"
+                height="500"
+                frameBorder="0"
+                scrolling="no"
+                title="Calendario del asistente en vivo"
+                className="mt-4 h-[450px] md:h-[500px]"
+              />
             </div>
           </Reveal>
         </div>
