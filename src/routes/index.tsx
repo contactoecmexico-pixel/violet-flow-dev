@@ -11,7 +11,7 @@ import whatsappMockup from "@/assets/whatsapp-mockup.webp.asset.json";
 
 const WA_MAIN = "https://wa.me/+527713429112";
 const WA_BOT =
-  "https://wa.me/+527717083198?text=Hola%2C%20buenas%20tardes%2C%20quisiera%20informaci%C3%B3n";
+  "https://wa.me/+525537142099?text=Hola%2C%20buenas%20tardes%2C%20quisiera%20informaci%C3%B3n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
