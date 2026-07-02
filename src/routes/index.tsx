@@ -4,7 +4,6 @@ import {
   BadgeCheck,
   MessageCircle,
   Info,
-  Calendar,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import whatsappMockup from "@/assets/whatsapp-mockup.webp.asset.json";
