@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SolucionesDigitalesRouteImport } from './routes/soluciones-digitales'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as LpRouteImport } from './routes/lp'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SolucionesDigitalesRoute = SolucionesDigitalesRouteImport.update({
+  id: '/soluciones-digitales',
+  path: '/soluciones-digitales',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
   path: '/servicios',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/lp': typeof LpRoute
   '/servicios': typeof ServiciosRoute
+  '/soluciones-digitales': typeof SolucionesDigitalesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/lp': typeof LpRoute
   '/servicios': typeof ServiciosRoute
+  '/soluciones-digitales': typeof SolucionesDigitalesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,20 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/lp': typeof LpRoute
   '/servicios': typeof ServiciosRoute
+  '/soluciones-digitales': typeof SolucionesDigitalesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/lp' | '/servicios'
+  fullPaths: '/' | '/blog' | '/lp' | '/servicios' | '/soluciones-digitales'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog' | '/lp' | '/servicios'
-  id: '__root__' | '/' | '/blog' | '/lp' | '/servicios'
+  to: '/' | '/blog' | '/lp' | '/servicios' | '/soluciones-digitales'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/lp'
+    | '/servicios'
+    | '/soluciones-digitales'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +82,18 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   LpRoute: typeof LpRoute
   ServiciosRoute: typeof ServiciosRoute
+  SolucionesDigitalesRoute: typeof SolucionesDigitalesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/soluciones-digitales': {
+      id: '/soluciones-digitales'
+      path: '/soluciones-digitales'
+      fullPath: '/soluciones-digitales'
+      preLoaderRoute: typeof SolucionesDigitalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/servicios': {
       id: '/servicios'
       path: '/servicios'
@@ -107,6 +130,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   LpRoute: LpRoute,
   ServiciosRoute: ServiciosRoute,
+  SolucionesDigitalesRoute: SolucionesDigitalesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

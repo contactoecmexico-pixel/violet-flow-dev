@@ -11,18 +11,38 @@ export const Route = createFileRoute("/servicios")({
       {
         name: "description",
         content:
-          "Sistemas conversacionales con IA para clínicas dentales y soluciones digitales a la medida para cualquier negocio.",
+          "Sistemas conversacionales con IA instalados y gestionados para clínicas dentales en México.",
       },
       { property: "og:title", content: "Servicios | ecoweb" },
       {
         property: "og:description",
         content:
-          "Tecnología que trabaja. Sin que tú la toques. Asistentes con IA, páginas web, automatizaciones y proyectos a medida.",
+          "Tecnología que trabaja. Sin que tú la toques. Asistente con IA por WhatsApp para clínicas dentales.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Servicios,
 });
+
+const PLANS = [
+  {
+    name: "Base",
+    volume: "hasta 2,100 conversaciones/mes (~70 al día)",
+    price: "$8,000 MXN",
+  },
+  {
+    name: "Tramo 2",
+    volume: "hasta 3,000 conversaciones/mes (~100 al día)",
+    price: "$10,500 MXN",
+  },
+  {
+    name: "Tramo 3",
+    volume: "hasta 4,500 conversaciones/mes (~150 al día)",
+    price: "$13,500 MXN",
+  },
+];
 
 function PrimaryButton({
   href,
@@ -48,172 +68,7 @@ function PrimaryButton({
   );
 }
 
-function OutlineButton({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex w-full items-center justify-center rounded-md border-2 px-5 py-3 font-sans text-sm font-medium transition-colors"
-      style={{ borderColor: "#1DB86B", color: "#1DB86B", backgroundColor: "transparent" }}
-      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(29,184,107,0.1)")}
-      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-    >
-      {children}
-    </a>
-  );
-}
-
-function OtherCard({
-  badge,
-  title,
-  text,
-  priceLabel,
-  priceAmount,
-  priceSub,
-  cta,
-}: {
-  badge: string;
-  title: string;
-  text: string;
-  priceLabel: string;
-  priceAmount: string;
-  priceSub: string;
-  cta: string;
-}) {
-  return (
-    <div
-      className="flex flex-col rounded-2xl p-8"
-      style={{ backgroundColor: "#2E2841", borderTop: "3px solid #1DB86B" }}
-    >
-      <span
-        className="inline-block self-start rounded-full font-sans"
-        style={{
-          backgroundColor: "rgba(29,184,107,0.1)",
-          border: "1px solid rgba(29,184,107,0.3)",
-          padding: "4px 12px",
-          fontSize: "12px",
-          color: "#1DB86B",
-        }}
-      >
-        {badge}
-      </span>
-      <h3
-        className="font-display"
-        style={{ fontSize: "22px", color: "#ffffff", marginTop: "16px", fontWeight: 700 }}
-      >
-        {title}
-      </h3>
-      <p
-        className="font-sans"
-        style={{ fontSize: "14px", color: "#AAAAAA", marginTop: "12px", lineHeight: 1.7 }}
-      >
-        {text}
-      </p>
-      <div style={{ marginTop: "20px" }}>
-        <div className="font-sans" style={{ fontSize: "12px", color: "#777" }}>
-          {priceLabel}
-        </div>
-        <div
-          className="font-display"
-          style={{ fontSize: "26px", color: "#ffffff", fontWeight: 700 }}
-        >
-          {priceAmount}
-        </div>
-        <div className="font-sans" style={{ fontSize: "13px", color: "#777" }}>
-          {priceSub}
-        </div>
-      </div>
-      <div className="mt-auto pt-5">
-        <OutlineButton href={WA}>{cta}</OutlineButton>
-      </div>
-    </div>
-  );
-}
-
-function WebPlanCard({
-  badge,
-  title,
-  subtitle,
-  price,
-  priceLabel,
-  features,
-  cta,
-}: {
-  badge: string;
-  title: string;
-  subtitle: string;
-  price: string;
-  priceLabel: string;
-  features: string[];
-  cta: string;
-}) {
-  return (
-    <div
-      className="flex flex-col"
-      style={{
-        backgroundColor: "#2E2841",
-        borderRadius: "16px",
-        padding: "32px",
-        borderTop: "3px solid #1DB86B",
-      }}
-    >
-      <span
-        className="inline-block self-start rounded-full font-sans"
-        style={{
-          backgroundColor: "rgba(29,184,107,0.1)",
-          border: "1px solid rgba(29,184,107,0.3)",
-          padding: "4px 12px",
-          fontSize: "12px",
-          color: "#1DB86B",
-        }}
-      >
-        {badge}
-      </span>
-      <h3
-        className="font-display"
-        style={{ fontSize: "24px", color: "#ffffff", marginTop: "16px", fontWeight: 700 }}
-      >
-        {title}
-      </h3>
-      <p
-        className="font-sans"
-        style={{ fontSize: "14px", color: "#AAAAAA", marginTop: "8px", lineHeight: 1.6 }}
-      >
-        {subtitle}
-      </p>
-      <div style={{ marginTop: "20px" }}>
-        <div
-          className="font-display"
-          style={{ fontSize: "40px", color: "#ffffff", fontWeight: 800, lineHeight: 1 }}
-        >
-          {price}
-        </div>
-        <div className="font-sans" style={{ fontSize: "14px", color: "#999", marginTop: "4px" }}>
-          {priceLabel}
-        </div>
-      </div>
-      <ul style={{ marginTop: "20px" }}>
-        {features.map((f) => (
-          <li
-            key={f}
-            className="flex items-start font-sans"
-            style={{ fontSize: "14px", color: "#CCCCCC", marginBottom: "10px", gap: "10px" }}
-          >
-            <CheckCircle size={16} color="#1DB86B" className="mt-0.5 shrink-0" />
-            <span>{f}</span>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-auto pt-5">
-        <OutlineButton href={WA}>{cta}</OutlineButton>
-      </div>
-    </div>
-  );
-}
-
 function Servicios() {
-
   const features = [
     "Respuesta automática 24/7 por WhatsApp",
     "Agendamiento en tiempo real",
@@ -258,8 +113,7 @@ function Servicios() {
               }}
             >
               Instalamos y gestionamos sistemas conversacionales con IA para clínicas
-              dentales y desarrollamos soluciones digitales a la medida para cualquier
-              tipo de negocio.
+              dentales en México.
             </p>
           </Reveal>
         </div>
@@ -331,7 +185,7 @@ function Servicios() {
                   style={{ fontSize: "16px", color: "#555", marginTop: "16px", lineHeight: 1.7 }}
                 >
                   Un asistente que responde consultas de pacientes por WhatsApp 24/7,
-                  agenda citas en tu calendario, y confirma asistencias automáticamente —
+                  agenda citas en tu calendario, y confirma asistencias automáticamente,
                   sin que tú ni tu equipo configuren nada.
                 </p>
                 <p
@@ -345,7 +199,7 @@ function Servicios() {
                   className="font-sans"
                   style={{ fontSize: "15px", color: "#888", marginTop: "16px" }}
                 >
-                  Diseñado para clínicas de 1 a 15 sillones en México.
+                  Diseñado para clínicas de 2 a 15 sillones en México.
                 </p>
                 <div style={{ marginTop: "24px" }}>
                   <PrimaryButton href={WA}>Quiero mi asistente 24/7 →</PrimaryButton>
@@ -365,26 +219,69 @@ function Servicios() {
                     className="font-display"
                     style={{ fontSize: "20px", color: "#262033", fontWeight: 700 }}
                   >
-                    $19,999 MXN · pago único
+                    $24,000 MXN (IVA incluido) · pago único
+                  </div>
+                  <div
+                    className="font-sans"
+                    style={{ fontSize: "13px", color: "#666", marginTop: "6px", lineHeight: 1.6 }}
+                  >
+                    Se paga en dos partes: 50% al arrancar y 50% cuando el sistema ya está
+                    funcionando en tu clínica.
                   </div>
 
                   <div
                     className="font-sans"
-                    style={{ fontSize: "12px", color: "#999", marginTop: "16px", marginBottom: "4px" }}
+                    style={{ fontSize: "12px", color: "#999", marginTop: "20px", marginBottom: "8px" }}
                   >
                     Servicio mensual
                   </div>
-                  <div
-                    className="font-display"
-                    style={{ fontSize: "32px", color: "#262033", fontWeight: 800 }}
+                  <ul>
+                    {PLANS.map((p) => (
+                      <li
+                        key={p.name}
+                        style={{
+                          borderTop: "1px solid #eee",
+                          paddingTop: "10px",
+                          paddingBottom: "10px",
+                        }}
+                      >
+                        <div
+                          className="flex flex-wrap items-baseline justify-between gap-2 font-display"
+                          style={{ fontSize: "16px", color: "#262033", fontWeight: 700 }}
+                        >
+                          <span>{p.name}</span>
+                          <span style={{ color: "#1DB86B", whiteSpace: "nowrap" }}>
+                            {p.price}
+                          </span>
+                        </div>
+                        <div
+                          className="font-sans"
+                          style={{ fontSize: "13px", color: "#777", marginTop: "2px" }}
+                        >
+                          {p.volume}
+                        </div>
+                      </li>
+                    ))}
+                    <li
+                      className="font-sans"
+                      style={{
+                        borderTop: "1px solid #eee",
+                        paddingTop: "10px",
+                        fontSize: "13px",
+                        color: "#777",
+                      }}
+                    >
+                      Más de 4,500 conversaciones/mes: cotización según necesidades.
+                    </li>
+                  </ul>
+                  <p
+                    className="font-sans"
+                    style={{ fontSize: "13px", color: "#666", marginTop: "12px", lineHeight: 1.6 }}
                   >
-                    $7,000 – $12,000 MXN
-                  </div>
-                  <div className="font-sans" style={{ fontSize: "13px", color: "#999", marginTop: "2px" }}>
-                    según volumen de tu clínica
-                  </div>
+                    Los tres planes incluyen el sistema completo. Pagas por volumen
+                    atendido, no por funciones desbloqueadas.
+                  </p>
                 </div>
-
 
                 <ul>
                   {features.map((f) => (
@@ -419,136 +316,36 @@ function Servicios() {
         </div>
       </section>
 
-      {/* SECCIÓN 3: OTROS SERVICIOS */}
+      {/* SECCIÓN 3: CIERRE */}
       <section style={{ backgroundColor: "#262033", padding: "80px 16px" }}>
-        <div className="mx-auto" style={{ maxWidth: "1100px" }}>
+        <div className="mx-auto text-center" style={{ maxWidth: "700px" }}>
           <Reveal>
-            <div
-              className="text-center font-display uppercase"
-              style={{
-                fontSize: "14px",
-                color: "#1DB86B",
-                letterSpacing: "2px",
-                marginBottom: "8px",
-                fontWeight: 700,
-              }}
-            >
-              También hacemos
-            </div>
             <h2
-              className="text-center font-display text-[28px] md:text-[36px]"
-              style={{ color: "#ffffff", marginBottom: "48px", fontWeight: 700 }}
+              className="font-display text-[28px] md:text-[36px]"
+              style={{ color: "#ffffff", fontWeight: 800 }}
             >
-              Soluciones digitales para cualquier negocio
+              ¿No sabes en qué plan caes?
             </h2>
-          </Reveal>
-
-          <Reveal>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <WebPlanCard
-                badge="Más popular"
-                title="Página Web Profesional"
-                subtitle="Para negocios que necesitan presencia online efectiva"
-                price="$7,000"
-                priceLabel="MXN / proyecto"
-                features={[
-                  "Diseño responsive hasta 5 páginas",
-                  "Certificado SSL gratuito",
-                  "Formularios de contacto funcionales",
-                  "Integración de redes sociales y WhatsApp",
-                  "Redacción profesional de textos",
-                  "SEO estructurado",
-                  "3 revisiones de diseño completas",
-                  "Soporte técnico 60 días",
-                  "Páginas adicionales: $799 c/u",
-                ]}
-                cta="Cotizar mi página →"
-              />
-              <WebPlanCard
-                badge="Tienda en línea"
-                title="E-commerce"
-                subtitle="Solución completa para vender en línea"
-                price="$15,000"
-                priceLabel="MXN / proyecto"
-                features={[
-                  "Diseño responsive páginas ilimitadas",
-                  "Tienda en línea integrada con carrito y checkout",
-                  "Carga inicial de hasta 15 productos",
-                  "Certificado SSL gratuito",
-                  "Integración de WhatsApp",
-                  "Capacitación en ventas y control del sitio",
-                  "4 revisiones de diseño completas",
-                  "Soporte técnico 90 días",
-                  "Producto extra agregado: $50 MXN",
-                ]}
-                cta="Cotizar mi tienda →"
-              />
-            </div>
-          </Reveal>
-
-          <Reveal>
-            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-              <OtherCard
-                badge="Automatización"
-                title="Automatizaciones con IA para procesos digitales"
-                text="Conectamos tus herramientas, automatizamos flujos de trabajo y eliminamos tareas repetitivas. CRM, WhatsApp, inventario, facturación. Lo que necesites conectar, lo conectamos."
-                priceLabel="Precio"
-                priceAmount="A la medida"
-                priceSub="cotización sin costo"
-                cta="Cotizar proyecto →"
-              />
-              <OtherCard
-                badge="Desarrollo a medida"
-                title="Proyectos digitales complejos y a la medida"
-                text="Sistemas personalizados, integraciones avanzadas, dashboards, plataformas y cualquier proyecto que requiera desarrollo a medida. Evaluamos el alcance y te damos un plan claro."
-                priceLabel="Precio"
-                priceAmount="A la medida"
-                priceSub="cotización sin costo"
-                cta="Hablar del proyecto →"
-              />
-            </div>
-          </Reveal>
-
-        </div>
-      </section>
-
-      {/* SECCIÓN 4: CTA FINAL */}
-      <section style={{ backgroundColor: "#F5F7F5", padding: "80px 16px" }}>
-        <div className="mx-auto" style={{ maxWidth: "700px" }}>
-          <Reveal>
-            <div
-              className="text-center"
-              style={{
-                backgroundColor: "#262033",
-                borderRadius: "20px",
-                padding: "32px",
-              }}
+            <p
+              className="font-sans"
+              style={{ fontSize: "17px", color: "#CCCCCC", marginTop: "16px", lineHeight: 1.7 }}
             >
-              <h2
-                className="font-display text-[28px] md:text-[36px]"
-                style={{ color: "#ffffff", fontWeight: 800 }}
-              >
-                ¿No sabes cuál es el tuyo?
-              </h2>
-              <p
-                className="font-sans"
-                style={{ fontSize: "17px", color: "#CCCCCC", marginTop: "16px" }}
-              >
-                Cuéntanos qué necesitas. Te decimos honestamente si podemos ayudarte y
-                cómo.
-              </p>
-              <div style={{ marginTop: "32px" }}>
-                <PrimaryButton href={WA} large>
-                  Agenda una llamada →
-                </PrimaryButton>
-              </div>
-              <p
-                className="font-sans"
-                style={{ fontSize: "13px", color: "#777", marginTop: "12px" }}
-              >
-                Sin compromiso. Sin presión.
-              </p>
+              No lo vas a saber hasta que veamos cuántas conversaciones recibe tu clínica
+              en un día normal. Casi nadie las tiene contadas. Agenda una llamada, lo
+              revisamos juntos en 15 minutos, y arrancas en el plan Base los primeros 60
+              días mientras el sistema mide tu volumen real.
+            </p>
+            <div style={{ marginTop: "32px" }}>
+              <PrimaryButton href={WA} large>
+                Agenda una llamada →
+              </PrimaryButton>
             </div>
+            <p
+              className="font-sans"
+              style={{ fontSize: "13px", color: "#777", marginTop: "12px" }}
+            >
+              Sin compromiso. Sin presión.
+            </p>
           </Reveal>
         </div>
       </section>
