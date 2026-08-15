@@ -90,7 +90,7 @@ function SecondaryButton({
 function HomePage() {
   return (
     <>
-      {/* SECCIÓN 1 — HERO */}
+      {/* SECCIÓN 1: HERO */}
       <section
         style={{ backgroundColor: "#262033", minHeight: "680px", overflow: "visible" }}
         className="relative px-8 pb-20 pt-[60px] lg:pb-[80px] lg:pt-[100px]"
@@ -109,7 +109,7 @@ function HomePage() {
                   fontWeight: 400,
                 }}
               >
-                Para clínicas dentales de 1 a 10 sillones en México
+                Para clínicas dentales de 2 a 15 sillones en México
               </p>
               <h1
                 className="font-display text-[32px] md:text-[36px] lg:text-[52px]"
@@ -130,8 +130,9 @@ function HomePage() {
                 className="font-sans"
                 style={{ color: "#999999", marginTop: "16px", fontSize: "15px", fontWeight: 400 }}
               >
-                Sin contrato de permanencia. Si no recupera su costo en 30 días,
-                trabajamos gratis hasta lograrlo.
+                Sin contrato de permanencia. La instalación se paga en dos partes: la mitad
+                al arrancar y la mitad cuando el sistema ya está funcionando en tu
+                clínica.
               </p>
               <div className="mt-8 flex w-full flex-col gap-3 lg:w-auto lg:flex-row">
                 <PrimaryButton href={WA_MAIN} full large>
@@ -173,13 +174,13 @@ function HomePage() {
 
 
 
-      {/* SECCIÓN 2 — TRUST STRIP */}
+      {/* SECCIÓN 2: TRUST STRIP */}
       <section style={{ backgroundColor: "#1E1730" }} className="px-6 py-8">
         <Reveal className="mx-auto max-w-[1100px]">
           <div className="grid grid-cols-1 gap-3 md:flex md:flex-row md:items-center md:justify-between md:gap-0">
             {[
               { Icon: ShieldCheck, text: "Sin contrato de permanencia" },
-              { Icon: BadgeCheck, text: "Garantía de resultados en 30 días" },
+              { Icon: BadgeCheck, text: "La mitad de la instalación se paga hasta que ya funciona" },
               { Icon: MessageCircle, text: "Funciona por WhatsApp, donde ya están tus pacientes" },
             ].map(({ Icon, text }, i, arr) => (
               <div
@@ -204,7 +205,7 @@ function HomePage() {
         </Reveal>
       </section>
 
-      {/* SECCIÓN 3 — BENEFICIOS */}
+      {/* SECCIÓN 3: BENEFICIOS */}
       <section
         style={{ backgroundColor: "#F5F7F5" }}
         className="px-6 py-12 md:py-20"
@@ -321,7 +322,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECCIÓN 4 — CÓMO FUNCIONA */}
+      {/* SECCIÓN 4: CÓMO FUNCIONA */}
       <section
         style={{ backgroundColor: "#262033" }}
         className="px-6 py-12 md:py-20"
@@ -425,7 +426,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECCIÓN 5 — MIRA CÓMO FUNCIONA + AGENDA */}
+      {/* SECCIÓN 5: MIRA CÓMO FUNCIONA + AGENDA */}
       <section
         style={{ backgroundColor: "#F5F7F5" }}
         className="px-6 py-12 md:py-20"
@@ -459,7 +460,7 @@ function HomePage() {
                 }}
               >
                 Escribe a este número y chatea como si fueras un paciente. Pregunta
-                precios, pide una cita, consulta horarios — lo que sea. Así funciona
+                precios, pide una cita, consulta horarios, lo que sea. Así funciona
                 el asistente que instalamos en tu clínica.
               </p>
               <div style={{ marginTop: "24px" }}>
@@ -559,7 +560,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* SECCIÓN 6 — CTA FINAL */}
+      {/* SECCIÓN 6: CTA FINAL */}
       <section
         style={{ backgroundColor: "#262033" }}
         className="px-6 py-20"
