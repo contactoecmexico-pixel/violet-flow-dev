@@ -132,9 +132,10 @@ function LP() {
   const [closedDays, setClosedDays] = useState(2);
 
   // Calc 2 input
-  const [plan, setPlan] = useState(7000);
+  const [plan, setPlan] = useState(8000);
 
-  const SETUP = 19999;
+  const SETUP = 24000;
+  const PLANS = [8000, 10500, 13500];
 
   const calc = useMemo(() => {
     const lostPatientsMonth = Math.round(msgsWeek * (convPct / 100) * 4);
@@ -294,7 +295,7 @@ function LP() {
           >
             <p className="font-sans text-base text-white">
               Somos EcoWeb. Instalamos y gestionamos sistemas conversacionales para clínicas
-              dentales en México. Específicamente para clínicas de 1 a 15 sillones como la
+              dentales en México. Específicamente para clínicas de 2 a 15 sillones como la
               tuya.
             </p>
           </div>
@@ -378,13 +379,6 @@ function LP() {
               </p>
             </div>
           </div>
-          <p
-            className="mt-8 text-center font-sans text-base italic"
-            style={{ color: "#666" }}
-          >
-            No son promesas. Son resultados de clínicas dentales con el mismo perfil que el
-            tuyo.
-          </p>
         </Reveal>
       </Section>
 
@@ -401,19 +395,19 @@ function LP() {
             {[
               {
                 h: "Tu clínica ya no pierde el fin de semana.",
-                t: "Los pacientes que escriben el viernes a las 9 PM reciben respuesta en 1 minuto. Precios, horarios, información del doctor. Si quieren agendar, quedan agendados antes de que te vayas a dormir. El lunes llegas con una agenda más llena — sin haber hecho absolutamente nada.",
+                t: "Los pacientes que escriben el viernes a las 9 PM reciben respuesta en 1 minuto. Precios, horarios, información del doctor. Si quieren agendar, quedan agendados antes de que te vayas a dormir. El lunes llegas con una agenda más llena, sin haber hecho absolutamente nada.",
               },
               {
                 h: "Dejas de revisar el WhatsApp entre paciente y paciente.",
-                t: "Hay alguien cubriendo ese canal. Cuando volteas el teléfono ya no hay 15 mensajes urgentes esperando — hay citas nuevas confirmadas. La sensación de \"estoy perdiendo pacientes mientras atiendo pacientes\" desaparece.",
+                t: "Hay alguien cubriendo ese canal. Cuando volteas el teléfono ya no hay 15 mensajes urgentes esperando: hay citas nuevas confirmadas. La sensación de \"estoy perdiendo pacientes mientras atiendo pacientes\" desaparece.",
               },
               {
                 h: "Tu recepcionista deja de ser operadora telefónica.",
-                t: "Las 2-3 horas diarias que tu equipo gasta llamando para confirmar citas se convierten en atención presencial de calidad. El sistema confirma automáticamente 24 horas antes — el paciente responde \"Sí\" o \"No\" y tú ya sabes qué esperar el día siguiente.",
+                t: "Las 2-3 horas diarias que tu equipo gasta llamando para confirmar citas se convierten en atención presencial de calidad. El sistema confirma automáticamente 24 horas antes; el paciente responde \"Sí\" o \"No\" y tú ya sabes qué esperar el día siguiente.",
               },
               {
                 h: "Tus pacientes notan la diferencia.",
-                t: "Respuesta inmediata. Lenguaje natural y profesional, en el español que usamos en México. Sin esperas, sin errores, sin \"te llamo en un momento\". La percepción de tu clínica cambia: de \"el consultorio que a veces contesta\" a \"la clínica que siempre está disponible\". Eso construye reputación — y la reputación trae referidos.",
+                t: "Respuesta inmediata. Lenguaje natural y profesional, en el español que usamos en México. Sin esperas, sin errores, sin \"te llamo en un momento\". La percepción de tu clínica cambia: de \"el consultorio que a veces contesta\" a \"la clínica que siempre está disponible\". Eso construye reputación, y la reputación trae referidos.",
               },
               {
                 h: "Y tú no configuras nada. Nunca.",
@@ -546,12 +540,17 @@ function LP() {
                 value={`$${plan.toLocaleString("en-US")} MXN/mes`}
               >
                 <Slider
-                  value={[plan]}
-                  onValueChange={(v) => setPlan(v[0])}
-                  min={7000}
-                  max={12000}
-                  step={500}
+                  value={[PLANS.indexOf(plan) === -1 ? 0 : PLANS.indexOf(plan)]}
+                  onValueChange={(v) => setPlan(PLANS[v[0]])}
+                  min={0}
+                  max={2}
+                  step={1}
                 />
+                <div className="mt-2 flex justify-between font-sans text-xs" style={{ color: "#888" }}>
+                  <span>Base $8,000</span>
+                  <span>Tramo 2 $10,500</span>
+                  <span>Tramo 3 $13,500</span>
+                </div>
               </SliderRow>
             </div>
 
@@ -579,7 +578,7 @@ function LP() {
                   marginTop: 4,
                 }}
               >
-                $19,999 MXN
+                $24,000 MXN (IVA incluido)
               </p>
             </div>
 
@@ -698,7 +697,7 @@ function LP() {
             Exactamente qué obtienes con EcoWeb Profesional
           </h2>
           <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
-            Este es el plan que recomendamos para clínicas de 1 a 15 sillones:
+            Esto es lo que incluye el servicio, en cualquiera de los tres planes:
           </p>
 
           <ul className="mt-8 space-y-4">
@@ -725,10 +724,12 @@ function LP() {
           </ul>
 
           <p className="mt-8 font-sans text-[15px]" style={{ color: "#666" }}>
-            La implementación tiene un costo único de $19,999 MXN. Incluye levantamiento
-            de la información de tu clínica, configuración técnica, entrenamiento del
-            asistente con tus servicios y precios, pruebas de flujo y la primera semana
-            de monitoreo intensivo. Es un pago único. No se repite.
+            La implementación tiene un costo único de $24,000 MXN (IVA incluido). Incluye
+            levantamiento de la información de tu clínica, configuración técnica,
+            entrenamiento del asistente con tus servicios y precios, pruebas de flujo y la
+            primera semana de monitoreo intensivo. Es un pago único. No se repite. Se paga
+            en dos partes: 50% al arrancar y 50% cuando el sistema ya está funcionando en
+            tu clínica.
           </p>
 
           <h3
@@ -738,57 +739,80 @@ function LP() {
             Tu inversión
           </h3>
 
-          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
-            <div
-              style={{
-                backgroundColor: "#FFFFFF",
-                borderRadius: 12,
-                padding: 24,
-                borderTop: `4px solid ${GREEN}`,
-                boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
-              }}
+          <div
+            className="mt-6"
+            style={{
+              backgroundColor: "#FFFFFF",
+              borderRadius: 12,
+              padding: 24,
+              borderTop: `4px solid ${GREEN}`,
+              boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+            }}
+          >
+            <p className="font-sans" style={{ fontSize: 13, color: "#999", fontWeight: 400 }}>
+              Implementación · pago único
+            </p>
+            <p
+              className="font-display"
+              style={{ fontSize: 32, color: VIOLET, fontWeight: 800, marginTop: 8 }}
             >
-              <p className="font-sans" style={{ fontSize: 13, color: "#999", fontWeight: 400 }}>
-                Implementación · pago único
-              </p>
-              <p
-                className="font-display"
-                style={{ fontSize: 32, color: VIOLET, fontWeight: 800, marginTop: 8 }}
+              $24,000 MXN
+            </p>
+            <p className="font-sans" style={{ fontSize: 14, color: "#666", marginTop: 8, fontWeight: 400 }}>
+              IVA incluido. Se paga en dos partes: 50% al arrancar y 50% cuando el sistema
+              ya está funcionando en tu clínica.
+            </p>
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
+            {[
+              {
+                name: "Plan Base",
+                price: "$8,000 MXN/mes",
+                desc: "Para clínicas con volumen de mensajes moderado.",
+              },
+              {
+                name: "Plan Tramo 2",
+                price: "$10,500 MXN/mes",
+                desc: "Para clínicas con volumen de mensajes alto.",
+              },
+              {
+                name: "Plan Tramo 3",
+                price: "$13,500 MXN/mes",
+                desc: "Para clínicas con volumen de mensajes muy alto.",
+              },
+            ].map((p) => (
+              <div
+                key={p.name}
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 12,
+                  padding: 24,
+                  borderTop: `4px solid ${GREEN}`,
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+                }}
               >
-                $19,999 MXN
-              </p>
-              <p className="font-sans" style={{ fontSize: 14, color: "#666", marginTop: 8, fontWeight: 400 }}>
-                Levantamiento, configuración, entrenamiento, pruebas y go-live acompañado.
-              </p>
-            </div>
-            <div
-              style={{
-                backgroundColor: "#FFFFFF",
-                borderRadius: 12,
-                padding: 24,
-                borderTop: `4px solid ${GREEN}`,
-                boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
-              }}
-            >
-              <p className="font-sans" style={{ fontSize: 13, color: "#999", fontWeight: 400 }}>
-                Servicio mensual
-              </p>
-              <p
-                className="font-display"
-                style={{ fontSize: 32, color: VIOLET, fontWeight: 800, marginTop: 8 }}
-              >
-                $7,000 – $12,000 MXN
-              </p>
-              <p className="font-sans" style={{ fontSize: 14, color: "#666", marginTop: 8, fontWeight: 400 }}>
-                Según el volumen de mensajes de tu clínica. Sin contrato de permanencia.
-              </p>
-            </div>
+                <p className="font-sans" style={{ fontSize: 13, color: "#999", fontWeight: 400 }}>
+                  {p.name}
+                </p>
+                <p
+                  className="font-display"
+                  style={{ fontSize: 26, color: VIOLET, fontWeight: 800, marginTop: 8 }}
+                >
+                  {p.price}
+                </p>
+                <p className="font-sans" style={{ fontSize: 14, color: "#666", marginTop: 8, fontWeight: 400 }}>
+                  {p.desc}
+                </p>
+              </div>
+            ))}
           </div>
 
           <p className="mt-6 font-sans text-[15px]" style={{ color: "#666" }}>
-            El costo mensual se adapta al volumen real de mensajes de tu clínica. No es
-            lo mismo una clínica que recibe 100 mensajes al mes que una que recibe 100
-            al día. Tú no deberías pagar por capacidad que no necesitas.
+            Los tres planes incluyen el sistema completo. La diferencia está en el volumen
+            de mensajes que atiende tu clínica. No es lo mismo una clínica que recibe 100
+            mensajes al mes que una que recibe 100 al día. Tú no deberías pagar por
+            capacidad que no necesitas. Sin contrato de permanencia.
           </p>
 
           <div className="mt-8 overflow-x-auto">
@@ -806,7 +830,7 @@ function LP() {
               <tbody style={{ color: "#444" }}>
                 <tr style={{ borderBottom: "1px solid #eee" }}>
                   <td className="p-4">Recepcionista tiempo completo</td>
-                  <td className="p-4">$12,000 – $15,000/mes</td>
+                  <td className="p-4">$12,000 a $15,000/mes</td>
                   <td className="p-4">8 hrs/día, L-V, con vacaciones e incapacidades</td>
                 </tr>
                 <tr
@@ -820,7 +844,8 @@ function LP() {
                     EcoWeb Profesional
                   </td>
                   <td className="p-4 font-medium" style={{ color: VIOLET }}>
-                    $19,999 setup + $7,000 – $12,000/mes
+                    $24,000 de implementación (IVA incluido) + $8,000, $10,500 o
+                    $13,500/mes
                   </td>
                   <td className="p-4">
                     24/7, 365 días, sin descansos, nosotros lo gestionamos
@@ -828,7 +853,7 @@ function LP() {
                 </tr>
                 <tr>
                   <td className="p-4">Pacientes perdidos fuera de horario</td>
-                  <td className="p-4">$30,000 – $80,000/mes</td>
+                  <td className="p-4">$30,000 a $80,000/mes</td>
                   <td className="p-4">Dinero que tu clínica pierde cada mes</td>
                 </tr>
               </tbody>
@@ -847,35 +872,6 @@ function LP() {
         </Reveal>
       </Section>
 
-
-      {/* SECCIÓN 8 — ESCASEZ */}
-      <Section dark>
-        <Reveal>
-          <div className="mx-auto text-center" style={{ maxWidth: 700 }}>
-            <h2 className="font-display font-bold text-white" style={{ fontSize: 28 }}>
-              Una nota antes de seguir
-            </h2>
-            <div
-              className="mt-6 space-y-5 text-left font-sans text-base"
-              style={{ color: "#CCCCCC" }}
-            >
-              <p>Instalamos máximo 3 clínicas por semana.</p>
-              <p>
-                No es estrategia de marketing. Es una limitación real de nuestro proceso:
-                cada instalación incluye levantamiento personalizado, configuración,
-                entrenamiento, pruebas, y go-live acompañado. No podemos hacerlo bien si lo
-                hacemos a granel.
-              </p>
-              <p>
-                Casi siempre hay lugar en la semana siguiente. Pero el precio actual no va a
-                durar indefinidamente. Estamos en fase de crecimiento y los precios se
-                ajustan conforme crecemos.
-              </p>
-              <p>Si estás considerando esto, el momento de agendar la llamada es ahora.</p>
-            </div>
-          </div>
-        </Reveal>
-      </Section>
 
       {/* SECCIÓN 9 — GARANTÍA */}
       <Section>
@@ -913,12 +909,12 @@ function LP() {
               <p>
                 ¿Por qué podemos ofrecer esto? Porque nosotros controlamos el sistema.
                 Sabemos qué ajustar si los números no cuadran. Y sabemos que para cualquier
-                clínica con tráfico real de pacientes, el ROI llega — en el primer mes o en
+                clínica con tráfico real de pacientes, el ROI llega en el primer mes o en
                 el segundo.
               </p>
               <p>
-                El único requisito: que tu clínica tenga al menos 50 consultas entrantes al
-                mes. Si tienes menos que eso, el problema que tienes no es el asistente — es
+                El único requisito: que tu clínica reciba al menos 100 conversaciones al
+                día. Si tienes menos que eso, el problema que tienes no es el asistente: es
                 captación, y eso es una conversación diferente.
               </p>
               <p>
@@ -1049,9 +1045,6 @@ function LP() {
             >
               EcoWeb lo instala. Nosotros lo gestionamos. Tú no tocas nada.
             </p>
-            <p className="mt-4 font-sans text-[15px]" style={{ color: "#999" }}>
-              Instalamos 3 clínicas por semana. Los slots casi siempre están tomados.
-            </p>
             <div className="mt-8">
               <PrimaryCTA big>Quiero mi asistente 24/7 →</PrimaryCTA>
             </div>
@@ -1123,7 +1116,11 @@ function ResultCard({
       </p>
       <p
         className="mt-2 font-display font-extrabold leading-none"
-        style={{ color, fontSize: big ? 48 : 40, wordBreak: "break-word" }}
+        style={{
+          color,
+          fontSize: big ? "clamp(26px, 4vw, 44px)" : "clamp(22px, 3.4vw, 36px)",
+          whiteSpace: "nowrap",
+        }}
       >
         {value}
       </p>
