@@ -135,6 +135,7 @@ function LP() {
   const [plan, setPlan] = useState(8000);
 
   const SETUP = 24000;
+  const PLANS = [8000, 10500, 13500];
 
   const calc = useMemo(() => {
     const lostPatientsMonth = Math.round(msgsWeek * (convPct / 100) * 4);
@@ -394,19 +395,19 @@ function LP() {
             {[
               {
                 h: "Tu clínica ya no pierde el fin de semana.",
-                t: "Los pacientes que escriben el viernes a las 9 PM reciben respuesta en 1 minuto. Precios, horarios, información del doctor. Si quieren agendar, quedan agendados antes de que te vayas a dormir. El lunes llegas con una agenda más llena — sin haber hecho absolutamente nada.",
+                t: "Los pacientes que escriben el viernes a las 9 PM reciben respuesta en 1 minuto. Precios, horarios, información del doctor. Si quieren agendar, quedan agendados antes de que te vayas a dormir. El lunes llegas con una agenda más llena, sin haber hecho absolutamente nada.",
               },
               {
                 h: "Dejas de revisar el WhatsApp entre paciente y paciente.",
-                t: "Hay alguien cubriendo ese canal. Cuando volteas el teléfono ya no hay 15 mensajes urgentes esperando — hay citas nuevas confirmadas. La sensación de \"estoy perdiendo pacientes mientras atiendo pacientes\" desaparece.",
+                t: "Hay alguien cubriendo ese canal. Cuando volteas el teléfono ya no hay 15 mensajes urgentes esperando: hay citas nuevas confirmadas. La sensación de \"estoy perdiendo pacientes mientras atiendo pacientes\" desaparece.",
               },
               {
                 h: "Tu recepcionista deja de ser operadora telefónica.",
-                t: "Las 2-3 horas diarias que tu equipo gasta llamando para confirmar citas se convierten en atención presencial de calidad. El sistema confirma automáticamente 24 horas antes — el paciente responde \"Sí\" o \"No\" y tú ya sabes qué esperar el día siguiente.",
+                t: "Las 2-3 horas diarias que tu equipo gasta llamando para confirmar citas se convierten en atención presencial de calidad. El sistema confirma automáticamente 24 horas antes; el paciente responde \"Sí\" o \"No\" y tú ya sabes qué esperar el día siguiente.",
               },
               {
                 h: "Tus pacientes notan la diferencia.",
-                t: "Respuesta inmediata. Lenguaje natural y profesional, en el español que usamos en México. Sin esperas, sin errores, sin \"te llamo en un momento\". La percepción de tu clínica cambia: de \"el consultorio que a veces contesta\" a \"la clínica que siempre está disponible\". Eso construye reputación — y la reputación trae referidos.",
+                t: "Respuesta inmediata. Lenguaje natural y profesional, en el español que usamos en México. Sin esperas, sin errores, sin \"te llamo en un momento\". La percepción de tu clínica cambia: de \"el consultorio que a veces contesta\" a \"la clínica que siempre está disponible\". Eso construye reputación, y la reputación trae referidos.",
               },
               {
                 h: "Y tú no configuras nada. Nunca.",
