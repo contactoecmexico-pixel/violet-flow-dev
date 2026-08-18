@@ -454,7 +454,7 @@ function LP() {
             ¿Cuánto está perdiendo tu clínica?
           </h2>
           <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
-            Mueve los controles para ver un estimado basado en los datos de tu consultorio.
+            Contesta con los datos de tu consultorio. Los números son tuyos, no nuestros.
           </p>
 
           {/* Sliders */}
@@ -467,72 +467,102 @@ function LP() {
                 value={[ticket]}
                 onValueChange={(v) => setTicket(v[0])}
                 min={500}
-                max={5000}
+                max={10000}
                 step={100}
               />
             </SliderRow>
             <SliderRow
-              label="Mensajes fuera de horario por semana"
+              label="Citas que programas por semana"
+              value={`${apptsWeek}`}
+            >
+              <Slider
+                value={[apptsWeek]}
+                onValueChange={(v) => setApptsWeek(v[0])}
+                min={10}
+                max={150}
+                step={5}
+              />
+            </SliderRow>
+            <SliderRow
+              label="De cada 10 citas, ¿cuántas no se presentan?"
+              value={`${noShowOf10} de cada 10`}
+            >
+              <Slider
+                value={[noShowOf10]}
+                onValueChange={(v) => setNoShowOf10(v[0])}
+                min={1}
+                max={6}
+                step={1}
+              />
+            </SliderRow>
+            <SliderRow
+              label="Pacientes nuevos que te escriben fuera de horario por semana"
               value={`${msgsWeek}`}
             >
               <Slider
                 value={[msgsWeek]}
                 onValueChange={(v) => setMsgsWeek(v[0])}
                 min={5}
-                max={200}
+                max={100}
                 step={5}
               />
             </SliderRow>
             <SliderRow
-              label="De cada 10 que escriben, ¿cuántos agendan?"
-              value={`${convPct}%`}
+              label="De cada 10 que escriben, ¿cuántos terminan agendando?"
+              value={`${convOf10} de cada 10`}
             >
               <Slider
-                value={[convPct]}
-                onValueChange={(v) => setConvPct(v[0])}
-                min={10}
-                max={80}
-                step={5}
-              />
-            </SliderRow>
-            <SliderRow
-              label="Días que cierra la clínica por semana"
-              value={`${closedDays}`}
-            >
-              <Slider
-                value={[closedDays]}
-                onValueChange={(v) => setClosedDays(v[0])}
+                value={[convOf10]}
+                onValueChange={(v) => setConvOf10(v[0])}
                 min={1}
-                max={3}
+                max={8}
                 step={1}
               />
             </SliderRow>
           </div>
 
           {/* Result cards */}
-          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-            <ResultCard label="Pacientes perdidos / mes" value={calc.lostPatientsMonth.toString()} color={RED} />
-            <ResultCard label="Dinero perdido / mes" value={fmt(calc.lostMoneyMonth)} color={RED} />
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <ResultCard
+              label="Citas perdidas / mes"
+              value={calc.lostApptsMonth.toString()}
+              color={RED}
+              sub="Entre las que no se presentan y los pacientes que nunca recibieron respuesta"
+            />
+            <ResultCard
+              label="Por no-shows / mes"
+              value={fmt(calc.noShowLossMonth)}
+              color={RED}
+              sub="Citas agendadas que quedaron en sillón vacío"
+            />
+            <ResultCard
+              label="Por no responder a tiempo / mes"
+              value={fmt(calc.afterHoursLossMonth)}
+              color={RED}
+              sub="Pacientes que te escribieron y agendaron en otro lado"
+            />
             <ResultCard
               label="Pérdida proyectada / año"
               value={fmt(calc.lostYear)}
               color={RED}
-              big
               outlined
+              sub="Si nada cambia"
             />
           </div>
 
           {/* Chairs */}
           <div className="mt-10">
             <p className="mb-4 font-sans text-sm" style={{ color: "#666" }}>
-              De cada 10 pacientes potenciales, así se ven los que pierdes (en rojo) vs los que sí agendan (en verde):
+              De cada 10 pacientes que te escriben fuera de horario, así se ven los que sí
+              agendarían (verde) contra los que se pierden (rojo).
             </p>
             <div className="flex flex-wrap justify-center gap-3 md:gap-5">
               {Array.from({ length: 10 }).map((_, i) => (
-                <Chair key={i} lost={i < lostChairs} ticket={ticket} />
+                <Chair key={i} lost={i >= greenChairs} ticket={ticket} />
               ))}
             </div>
           </div>
+
         </Reveal>
 
         {/* CALCULADORA 2 */}
