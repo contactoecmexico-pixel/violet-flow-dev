@@ -1190,7 +1190,9 @@ function ResultCard({
         className="mt-2 font-display font-extrabold leading-none"
         style={{
           color,
-          fontSize: big ? "clamp(26px, 4vw, 44px)" : "clamp(22px, 3.4vw, 36px)",
+          fontSize: big ? "clamp(20px, 2.6vw, 34px)" : "clamp(18px, 2.1vw, 28px)",
+          overflowWrap: "normal",
+          wordBreak: "keep-all",
           whiteSpace: "nowrap",
         }}
       >
