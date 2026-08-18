@@ -132,60 +132,69 @@ function Chair({ lost, ticket }: { lost: boolean; ticket: number }) {
 function LP() {
   // Calc 1 inputs
   const [ticket, setTicket] = useState(1500);
-  const [msgsWeek, setMsgsWeek] = useState(30);
-  const [convPct, setConvPct] = useState(30); // % lost
-  const [closedDays, setClosedDays] = useState(2);
+  const [apptsWeek, setApptsWeek] = useState(30);
+  const [noShowOf10, setNoShowOf10] = useState(2);
+  const [msgsWeek, setMsgsWeek] = useState(20);
+  const [convOf10, setConvOf10] = useState(3);
 
-  // Calc 2 input
+  // Calc 2 inputs
+  const [recoveryPct, setRecoveryPct] = useState(40);
   const [plan, setPlan] = useState(8000);
 
   const SETUP = 24000;
   const PLANS = [8000, 10500, 13500];
 
   const calc = useMemo(() => {
-    const lostPatientsMonth = Math.round(msgsWeek * (convPct / 100) * 4);
-    const lostMoneyMonth = lostPatientsMonth * ticket;
+    const noShowApptsMonth = Math.round(apptsWeek * 4 * (noShowOf10 / 10));
+    const noShowLossMonth = noShowApptsMonth * ticket;
+
+    const msgsMonth = msgsWeek * 4;
+    const missedPatientsMonth = Math.round(msgsMonth * (convOf10 / 10));
+    const afterHoursLossMonth = missedPatientsMonth * ticket;
+
+    const lostApptsMonth = noShowApptsMonth + missedPatientsMonth;
+    const lostMoneyMonth = noShowLossMonth + afterHoursLossMonth;
     const lostYear = lostMoneyMonth * 12;
 
-    const breakeven = Math.ceil(plan / ticket);
-    const extraMonth = lostMoneyMonth - plan;
-    const extraYear = extraMonth * 12;
-    const roiPct =
-      plan > 0
-        ? ((lostMoneyMonth * 12 - plan * 12) / (plan * 12)) * 100
-        : 0;
+    // Calc 2
+    const recoveredMonth = Math.round(lostMoneyMonth * (recoveryPct / 100));
+    const recoveredYear = recoveredMonth * 12;
+    const recoveredApptsMonth = Math.round(lostApptsMonth * (recoveryPct / 100));
 
-    // Year-1 economics including one-time setup
-    const totalYear1 = plan * 12 + SETUP;
-    const recoveredYear = lostMoneyMonth * 12;
+    const totalYear1 = SETUP + plan * 12;
     const netYear1 = recoveredYear - totalYear1;
     const roiYear1 = totalYear1 > 0 ? (netYear1 / totalYear1) * 100 : 0;
-    const breakEvenMonths =
-      lostMoneyMonth > 0 ? Math.ceil(totalYear1 / lostMoneyMonth) : 0;
+
+    const netCashMonth = recoveredMonth - plan;
+    const payoffMonths =
+      netCashMonth > 0 ? Math.max(1, Math.ceil(SETUP / netCashMonth)) : null;
 
     return {
-      lostPatientsMonth,
+      noShowApptsMonth,
+      noShowLossMonth,
+      missedPatientsMonth,
+      afterHoursLossMonth,
+      lostApptsMonth,
       lostMoneyMonth,
       lostYear,
-      breakeven,
-      extraMonth,
-      extraYear,
-      roiPct,
-      totalYear1,
+      recoveredMonth,
       recoveredYear,
+      recoveredApptsMonth,
+      totalYear1,
       netYear1,
       roiYear1,
-      breakEvenMonths,
+      payoffMonths,
     };
-  }, [ticket, msgsWeek, convPct, closedDays, plan]);
+  }, [ticket, apptsWeek, noShowOf10, msgsWeek, convOf10, recoveryPct, plan]);
 
-  // chairs: 10 total. lost count = round(convPct/10)
-  const lostChairs = Math.min(10, Math.max(0, Math.round(convPct / 10)));
+  // chairs: 10 total. green = convOf10
+  const greenChairs = Math.min(10, Math.max(0, convOf10));
 
-  // year-1 break-even bar (total bar = recovered year revenue)
-  const barBase = Math.max(calc.recoveredYear, calc.totalYear1);
-  const costPct = barBase > 0 ? (calc.totalYear1 / barBase) * 100 : 100;
+  // bar: investment vs net gain
+  const barBase = Math.max(calc.totalYear1 + Math.max(calc.netYear1, 0), 1);
+  const costPct = (calc.totalYear1 / barBase) * 100;
   const negative = calc.netYear1 < 0;
+
 
 
   return (
