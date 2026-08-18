@@ -114,13 +114,18 @@ function Chair({ lost, ticket }: { lost: boolean; ticket: number }) {
       </svg>
       <span
         className="mt-1 font-sans text-[11px]"
-        style={{ color: lost ? RED : "#888", opacity: lost ? 1 : 0.6 }}
+        style={{
+          color: lost ? RED : GREEN,
+          opacity: lost ? 0 : 1,
+          whiteSpace: "nowrap",
+        }}
       >
-        {lost ? fmtNoUnit(ticket) : ""}
+        {lost ? "" : fmtNoUnit(ticket)}
       </span>
     </div>
   );
 }
+
 
 /* ------------------------ MAIN PAGE ------------------------ */
 
