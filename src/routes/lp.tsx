@@ -572,13 +572,29 @@ function LP() {
               className="font-display font-bold"
               style={{ color: VIOLET, fontSize: "clamp(28px, 3.5vw, 36px)" }}
             >
-              ¿Cuánto ganarías con EcoWeb?
+              ¿Cuánto recuperarías con EcoWeb?
             </h2>
             <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
-              Usamos los mismos datos de arriba. Solo agrega el plan de EcoWeb.
+              Usamos los mismos datos de arriba. Tú decides qué tan conservador quieres ser.
             </p>
 
-            <div className="mt-8 max-w-md">
+            <div className="mt-8 grid grid-cols-1 gap-7 md:grid-cols-2">
+              <SliderRow
+                label="¿Qué porcentaje de eso crees que se puede recuperar?"
+                value={`${recoveryPct}%`}
+              >
+                <Slider
+                  value={[recoveryPct]}
+                  onValueChange={(v) => setRecoveryPct(v[0])}
+                  min={20}
+                  max={80}
+                  step={5}
+                />
+                <p className="mt-2 font-sans text-xs" style={{ color: "#888" }}>
+                  Ningún sistema recupera el 100%. Muévelo a donde tú creas que es realista y
+                  haz la cuenta con ese número.
+                </p>
+              </SliderRow>
               <SliderRow
                 label="Plan mensual de EcoWeb"
                 value={`$${plan.toLocaleString("en-US")} MXN/mes`}
@@ -624,9 +640,19 @@ function LP() {
               >
                 $24,000 MXN (IVA incluido)
               </p>
+              <p className="mt-2 font-sans" style={{ fontSize: 12, color: "#888" }}>
+                Se paga en dos partes: 50% al arrancar y 50% cuando el sistema ya está
+                funcionando.
+              </p>
             </div>
 
-            <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <ResultCard
+                label="Citas recuperadas / mes"
+                value={calc.recoveredApptsMonth.toString()}
+                color={GREEN}
+                sub="Citas que hoy simplemente no existen"
+              />
               <ResultCard
                 label="Inversión total primer año"
                 value={fmt(calc.totalYear1)}
@@ -635,25 +661,29 @@ function LP() {
               />
               <ResultCard
                 label="El sistema se paga en"
-                value={`${calc.breakEvenMonths} meses`}
+                value={
+                  calc.payoffMonths === null
+                    ? "No alcanza"
+                    : `${calc.payoffMonths} ${calc.payoffMonths === 1 ? "mes" : "meses"}`
+                }
                 color={GREEN}
                 sub="Después de eso, todo es ganancia"
               />
               <ResultCard
                 label="Ganancia neta primer año"
-                value={fmt(Math.max(calc.netYear1, 0))}
-                color={GREEN}
-                big
+                value={fmt(calc.netYear1)}
+                color={calc.netYear1 < 0 ? RED : GREEN}
+                sub="Ya descontando todo lo que nos pagas"
               />
               <ResultCard
                 label="ROI primer año"
-                value={`${Math.round(Math.max(calc.roiYear1, 0))}%`}
-                color={GREEN}
-                big
+                value={`${Math.round(calc.roiYear1)}%`}
+                color={calc.roiYear1 < 0 ? RED : GREEN}
+                sub="Por cada peso invertido"
               />
             </div>
 
-            {/* Break-even bar (year 1) */}
+            {/* Barra inversión vs ganancia neta */}
             <div className="mt-10">
               {negative ? (
                 <div>
@@ -662,15 +692,15 @@ function LP() {
                     style={{ height: 40, backgroundColor: RED, opacity: 0.85 }}
                   />
                   <p className="mt-3 font-sans text-sm" style={{ color: RED }}>
-                    Con este volumen de mensajes, el plan seleccionado puede no ser la mejor
-                    opción. Contáctanos para un plan ajustado.
+                    Con este porcentaje de recuperación, el plan seleccionado puede no ser la
+                    mejor opción. Contáctanos para un plan ajustado.
                   </p>
                 </div>
               ) : (
                 <div>
                   <div className="mb-2 flex justify-between font-sans text-xs" style={{ color: "#555" }}>
                     <span>Inversión total ({fmt(calc.totalYear1)})</span>
-                    <span>Ganancia neta ({fmt(Math.max(calc.netYear1, 0))})</span>
+                    <span>Ganancia neta ({fmt(calc.netYear1)})</span>
                   </div>
                   <div
                     className="flex overflow-hidden rounded-lg"
@@ -692,9 +722,6 @@ function LP() {
                       }}
                     />
                   </div>
-                  <p className="mt-2 text-center font-sans text-xs" style={{ color: "#666" }}>
-                    Sobre 12 meses de ingresos recuperados. El rojo es lo que cubre tu inversión total.
-                  </p>
                 </div>
               )}
             </div>
@@ -711,16 +738,17 @@ function LP() {
                 className="mt-4 font-display font-extrabold text-white"
                 style={{ fontSize: 18 }}
               >
-                Con una inversión de {fmt(calc.totalYear1)} el primer año, lo conviertes en{" "}
-                <span style={{ color: GREEN }}>{fmt(Math.max(calc.netYear1, 0))}</span> de
-                ganancia.
+                Recuperando solo el {recoveryPct}%, con una inversión de{" "}
+                {fmt(calc.totalYear1)} el primer año, lo conviertes en{" "}
+                <span style={{ color: GREEN }}>{fmt(calc.netYear1)}</span> de ganancia.
               </p>
               <p
                 className="mt-3 font-sans"
                 style={{ color: "#CCCCCC", fontSize: 15 }}
               >
-                Desde el año 2, sin costo de implementación, la ganancia crece.
+                Desde el año 2 ya no pagas implementación, así que la ganancia sube.
               </p>
+
               <div className="mt-8">
                 <PrimaryCTA big>Quiero mi asistente 24/7 →</PrimaryCTA>
               </div>
