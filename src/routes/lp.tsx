@@ -114,73 +114,87 @@ function Chair({ lost, ticket }: { lost: boolean; ticket: number }) {
       </svg>
       <span
         className="mt-1 font-sans text-[11px]"
-        style={{ color: lost ? RED : "#888", opacity: lost ? 1 : 0.6 }}
+        style={{
+          color: lost ? RED : GREEN,
+          opacity: lost ? 0 : 1,
+          whiteSpace: "nowrap",
+        }}
       >
-        {lost ? fmtNoUnit(ticket) : ""}
+        {lost ? "" : fmtNoUnit(ticket)}
       </span>
     </div>
   );
 }
+
 
 /* ------------------------ MAIN PAGE ------------------------ */
 
 function LP() {
   // Calc 1 inputs
   const [ticket, setTicket] = useState(1500);
-  const [msgsWeek, setMsgsWeek] = useState(30);
-  const [convPct, setConvPct] = useState(30); // % lost
-  const [closedDays, setClosedDays] = useState(2);
+  const [apptsWeek, setApptsWeek] = useState(30);
+  const [noShowOf10, setNoShowOf10] = useState(2);
+  const [msgsWeek, setMsgsWeek] = useState(20);
+  const [convOf10, setConvOf10] = useState(3);
 
-  // Calc 2 input
+  // Calc 2 inputs
+  const [recoveryPct, setRecoveryPct] = useState(40);
   const [plan, setPlan] = useState(8000);
 
   const SETUP = 24000;
   const PLANS = [8000, 10500, 13500];
 
   const calc = useMemo(() => {
-    const lostPatientsMonth = Math.round(msgsWeek * (convPct / 100) * 4);
-    const lostMoneyMonth = lostPatientsMonth * ticket;
+    const noShowApptsMonth = Math.round(apptsWeek * 4 * (noShowOf10 / 10));
+    const noShowLossMonth = noShowApptsMonth * ticket;
+
+    const msgsMonth = msgsWeek * 4;
+    const missedPatientsMonth = Math.round(msgsMonth * (convOf10 / 10));
+    const afterHoursLossMonth = missedPatientsMonth * ticket;
+
+    const lostApptsMonth = noShowApptsMonth + missedPatientsMonth;
+    const lostMoneyMonth = noShowLossMonth + afterHoursLossMonth;
     const lostYear = lostMoneyMonth * 12;
 
-    const breakeven = Math.ceil(plan / ticket);
-    const extraMonth = lostMoneyMonth - plan;
-    const extraYear = extraMonth * 12;
-    const roiPct =
-      plan > 0
-        ? ((lostMoneyMonth * 12 - plan * 12) / (plan * 12)) * 100
-        : 0;
+    // Calc 2
+    const recoveredMonth = Math.round(lostMoneyMonth * (recoveryPct / 100));
+    const recoveredYear = recoveredMonth * 12;
+    const recoveredApptsMonth = Math.round(lostApptsMonth * (recoveryPct / 100));
 
-    // Year-1 economics including one-time setup
-    const totalYear1 = plan * 12 + SETUP;
-    const recoveredYear = lostMoneyMonth * 12;
+    const totalYear1 = SETUP + plan * 12;
     const netYear1 = recoveredYear - totalYear1;
     const roiYear1 = totalYear1 > 0 ? (netYear1 / totalYear1) * 100 : 0;
-    const breakEvenMonths =
-      lostMoneyMonth > 0 ? Math.ceil(totalYear1 / lostMoneyMonth) : 0;
+
+    const netCashMonth = recoveredMonth - plan;
+    const payoffMonths =
+      netCashMonth > 0 ? Math.max(1, Math.ceil(SETUP / netCashMonth)) : null;
 
     return {
-      lostPatientsMonth,
+      noShowApptsMonth,
+      noShowLossMonth,
+      missedPatientsMonth,
+      afterHoursLossMonth,
+      lostApptsMonth,
       lostMoneyMonth,
       lostYear,
-      breakeven,
-      extraMonth,
-      extraYear,
-      roiPct,
-      totalYear1,
+      recoveredMonth,
       recoveredYear,
+      recoveredApptsMonth,
+      totalYear1,
       netYear1,
       roiYear1,
-      breakEvenMonths,
+      payoffMonths,
     };
-  }, [ticket, msgsWeek, convPct, closedDays, plan]);
+  }, [ticket, apptsWeek, noShowOf10, msgsWeek, convOf10, recoveryPct, plan]);
 
-  // chairs: 10 total. lost count = round(convPct/10)
-  const lostChairs = Math.min(10, Math.max(0, Math.round(convPct / 10)));
+  // chairs: 10 total. green = convOf10
+  const greenChairs = Math.min(10, Math.max(0, convOf10));
 
-  // year-1 break-even bar (total bar = recovered year revenue)
-  const barBase = Math.max(calc.recoveredYear, calc.totalYear1);
-  const costPct = barBase > 0 ? (calc.totalYear1 / barBase) * 100 : 100;
+  // bar: investment vs net gain
+  const barBase = Math.max(calc.totalYear1 + Math.max(calc.netYear1, 0), 1);
+  const costPct = (calc.totalYear1 / barBase) * 100;
   const negative = calc.netYear1 < 0;
+
 
 
   return (
@@ -440,7 +454,7 @@ function LP() {
             ¿Cuánto está perdiendo tu clínica?
           </h2>
           <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
-            Mueve los controles para ver un estimado basado en los datos de tu consultorio.
+            Contesta con los datos de tu consultorio. Los números son tuyos, no nuestros.
           </p>
 
           {/* Sliders */}
@@ -453,72 +467,102 @@ function LP() {
                 value={[ticket]}
                 onValueChange={(v) => setTicket(v[0])}
                 min={500}
-                max={5000}
+                max={10000}
                 step={100}
               />
             </SliderRow>
             <SliderRow
-              label="Mensajes fuera de horario por semana"
+              label="Citas que programas por semana"
+              value={`${apptsWeek}`}
+            >
+              <Slider
+                value={[apptsWeek]}
+                onValueChange={(v) => setApptsWeek(v[0])}
+                min={10}
+                max={150}
+                step={5}
+              />
+            </SliderRow>
+            <SliderRow
+              label="De cada 10 citas, ¿cuántas no se presentan?"
+              value={`${noShowOf10} de cada 10`}
+            >
+              <Slider
+                value={[noShowOf10]}
+                onValueChange={(v) => setNoShowOf10(v[0])}
+                min={1}
+                max={6}
+                step={1}
+              />
+            </SliderRow>
+            <SliderRow
+              label="Pacientes nuevos que te escriben fuera de horario por semana"
               value={`${msgsWeek}`}
             >
               <Slider
                 value={[msgsWeek]}
                 onValueChange={(v) => setMsgsWeek(v[0])}
                 min={5}
-                max={200}
+                max={100}
                 step={5}
               />
             </SliderRow>
             <SliderRow
-              label="De cada 10 que escriben, ¿cuántos agendan?"
-              value={`${convPct}%`}
+              label="De cada 10 que escriben, ¿cuántos terminan agendando?"
+              value={`${convOf10} de cada 10`}
             >
               <Slider
-                value={[convPct]}
-                onValueChange={(v) => setConvPct(v[0])}
-                min={10}
-                max={80}
-                step={5}
-              />
-            </SliderRow>
-            <SliderRow
-              label="Días que cierra la clínica por semana"
-              value={`${closedDays}`}
-            >
-              <Slider
-                value={[closedDays]}
-                onValueChange={(v) => setClosedDays(v[0])}
+                value={[convOf10]}
+                onValueChange={(v) => setConvOf10(v[0])}
                 min={1}
-                max={3}
+                max={8}
                 step={1}
               />
             </SliderRow>
           </div>
 
           {/* Result cards */}
-          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-            <ResultCard label="Pacientes perdidos / mes" value={calc.lostPatientsMonth.toString()} color={RED} />
-            <ResultCard label="Dinero perdido / mes" value={fmt(calc.lostMoneyMonth)} color={RED} />
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <ResultCard
+              label="Citas perdidas / mes"
+              value={calc.lostApptsMonth.toString()}
+              color={RED}
+              sub="Entre las que no se presentan y los pacientes que nunca recibieron respuesta"
+            />
+            <ResultCard
+              label="Por no-shows / mes"
+              value={fmt(calc.noShowLossMonth)}
+              color={RED}
+              sub="Citas agendadas que quedaron en sillón vacío"
+            />
+            <ResultCard
+              label="Por no responder a tiempo / mes"
+              value={fmt(calc.afterHoursLossMonth)}
+              color={RED}
+              sub="Pacientes que te escribieron y agendaron en otro lado"
+            />
             <ResultCard
               label="Pérdida proyectada / año"
               value={fmt(calc.lostYear)}
               color={RED}
-              big
               outlined
+              sub="Si nada cambia"
             />
           </div>
 
           {/* Chairs */}
           <div className="mt-10">
             <p className="mb-4 font-sans text-sm" style={{ color: "#666" }}>
-              De cada 10 pacientes potenciales, así se ven los que pierdes (en rojo) vs los que sí agendan (en verde):
+              De cada 10 pacientes que te escriben fuera de horario, así se ven los que sí
+              agendarían (verde) contra los que se pierden (rojo).
             </p>
             <div className="flex flex-wrap justify-center gap-3 md:gap-5">
               {Array.from({ length: 10 }).map((_, i) => (
-                <Chair key={i} lost={i < lostChairs} ticket={ticket} />
+                <Chair key={i} lost={i >= greenChairs} ticket={ticket} />
               ))}
             </div>
           </div>
+
         </Reveal>
 
         {/* CALCULADORA 2 */}
@@ -528,13 +572,29 @@ function LP() {
               className="font-display font-bold"
               style={{ color: VIOLET, fontSize: "clamp(28px, 3.5vw, 36px)" }}
             >
-              ¿Cuánto ganarías con EcoWeb?
+              ¿Cuánto recuperarías con EcoWeb?
             </h2>
             <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
-              Usamos los mismos datos de arriba. Solo agrega el plan de EcoWeb.
+              Usamos los mismos datos de arriba. Tú decides qué tan conservador quieres ser.
             </p>
 
-            <div className="mt-8 max-w-md">
+            <div className="mt-8 grid grid-cols-1 gap-7 md:grid-cols-2">
+              <SliderRow
+                label="¿Qué porcentaje de eso crees que se puede recuperar?"
+                value={`${recoveryPct}%`}
+              >
+                <Slider
+                  value={[recoveryPct]}
+                  onValueChange={(v) => setRecoveryPct(v[0])}
+                  min={20}
+                  max={80}
+                  step={5}
+                />
+                <p className="mt-2 font-sans text-xs" style={{ color: "#888" }}>
+                  Ningún sistema recupera el 100%. Muévelo a donde tú creas que es realista y
+                  haz la cuenta con ese número.
+                </p>
+              </SliderRow>
               <SliderRow
                 label="Plan mensual de EcoWeb"
                 value={`$${plan.toLocaleString("en-US")} MXN/mes`}
@@ -580,9 +640,19 @@ function LP() {
               >
                 $24,000 MXN (IVA incluido)
               </p>
+              <p className="mt-2 font-sans" style={{ fontSize: 12, color: "#888" }}>
+                Se paga en dos partes: 50% al arrancar y 50% cuando el sistema ya está
+                funcionando.
+              </p>
             </div>
 
-            <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <ResultCard
+                label="Citas recuperadas / mes"
+                value={calc.recoveredApptsMonth.toString()}
+                color={GREEN}
+                sub="Citas que hoy simplemente no existen"
+              />
               <ResultCard
                 label="Inversión total primer año"
                 value={fmt(calc.totalYear1)}
@@ -591,25 +661,29 @@ function LP() {
               />
               <ResultCard
                 label="El sistema se paga en"
-                value={`${calc.breakEvenMonths} meses`}
+                value={
+                  calc.payoffMonths === null
+                    ? "No alcanza"
+                    : `${calc.payoffMonths} ${calc.payoffMonths === 1 ? "mes" : "meses"}`
+                }
                 color={GREEN}
                 sub="Después de eso, todo es ganancia"
               />
               <ResultCard
                 label="Ganancia neta primer año"
-                value={fmt(Math.max(calc.netYear1, 0))}
-                color={GREEN}
-                big
+                value={fmt(calc.netYear1)}
+                color={calc.netYear1 < 0 ? RED : GREEN}
+                sub="Ya descontando todo lo que nos pagas"
               />
               <ResultCard
                 label="ROI primer año"
-                value={`${Math.round(Math.max(calc.roiYear1, 0))}%`}
-                color={GREEN}
-                big
+                value={`${Math.round(calc.roiYear1)}%`}
+                color={calc.roiYear1 < 0 ? RED : GREEN}
+                sub="Por cada peso invertido"
               />
             </div>
 
-            {/* Break-even bar (year 1) */}
+            {/* Barra inversión vs ganancia neta */}
             <div className="mt-10">
               {negative ? (
                 <div>
@@ -618,15 +692,15 @@ function LP() {
                     style={{ height: 40, backgroundColor: RED, opacity: 0.85 }}
                   />
                   <p className="mt-3 font-sans text-sm" style={{ color: RED }}>
-                    Con este volumen de mensajes, el plan seleccionado puede no ser la mejor
-                    opción. Contáctanos para un plan ajustado.
+                    Con este porcentaje de recuperación, el plan seleccionado puede no ser la
+                    mejor opción. Contáctanos para un plan ajustado.
                   </p>
                 </div>
               ) : (
                 <div>
                   <div className="mb-2 flex justify-between font-sans text-xs" style={{ color: "#555" }}>
                     <span>Inversión total ({fmt(calc.totalYear1)})</span>
-                    <span>Ganancia neta ({fmt(Math.max(calc.netYear1, 0))})</span>
+                    <span>Ganancia neta ({fmt(calc.netYear1)})</span>
                   </div>
                   <div
                     className="flex overflow-hidden rounded-lg"
@@ -648,9 +722,6 @@ function LP() {
                       }}
                     />
                   </div>
-                  <p className="mt-2 text-center font-sans text-xs" style={{ color: "#666" }}>
-                    Sobre 12 meses de ingresos recuperados. El rojo es lo que cubre tu inversión total.
-                  </p>
                 </div>
               )}
             </div>
@@ -667,16 +738,17 @@ function LP() {
                 className="mt-4 font-display font-extrabold text-white"
                 style={{ fontSize: 18 }}
               >
-                Con una inversión de {fmt(calc.totalYear1)} el primer año, lo conviertes en{" "}
-                <span style={{ color: GREEN }}>{fmt(Math.max(calc.netYear1, 0))}</span> de
-                ganancia.
+                Recuperando solo el {recoveryPct}%, con una inversión de{" "}
+                {fmt(calc.totalYear1)} el primer año, lo conviertes en{" "}
+                <span style={{ color: GREEN }}>{fmt(calc.netYear1)}</span> de ganancia.
               </p>
               <p
                 className="mt-3 font-sans"
                 style={{ color: "#CCCCCC", fontSize: 15 }}
               >
-                Desde el año 2, sin costo de implementación, la ganancia crece.
+                Desde el año 2 ya no pagas implementación, así que la ganancia sube.
               </p>
+
               <div className="mt-8">
                 <PrimaryCTA big>Quiero mi asistente 24/7 →</PrimaryCTA>
               </div>
@@ -1118,7 +1190,9 @@ function ResultCard({
         className="mt-2 font-display font-extrabold leading-none"
         style={{
           color,
-          fontSize: big ? "clamp(26px, 4vw, 44px)" : "clamp(22px, 3.4vw, 36px)",
+          fontSize: big ? "clamp(20px, 2.6vw, 34px)" : "clamp(18px, 2.1vw, 28px)",
+          overflowWrap: "normal",
+          wordBreak: "keep-all",
           whiteSpace: "nowrap",
         }}
       >
