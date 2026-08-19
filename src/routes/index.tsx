@@ -113,7 +113,7 @@ function HomePage() {
               </p>
               <h1
                 className="font-display text-[32px] md:text-[36px] lg:text-[52px]"
-                style={{ color: "#FFFFFF", fontWeight: 800, lineHeight: 1.15 }}
+                style={{ color: "#FFFFFF", fontWeight: 800, lineHeight: 1.2, paddingBottom: "0.15em" }}
               >
                 Pacientes que preguntan a las 11 de la noche. Citas en tu agenda el
                 lunes por la mañana.

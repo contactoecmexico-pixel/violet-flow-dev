@@ -1069,7 +1069,7 @@ function LP() {
             La matemática es simple. Con tu ticket promedio de {fmtNoUnit(ticket)},
             necesitas {calc.citasCubre} citas recuperadas al mes para cubrir la mensualidad
             completa. De ahí en adelante, todo es ganancia. Y con {calc.citasDoble} citas al
-            mes, la implementación queda pagada en {calc.mesesImpl} meses.
+            mes, la implementación queda pagada en {calc.mesesImpl ?? 3} meses.
           </p>
         </Reveal>
       </Section>
