@@ -1323,8 +1323,8 @@ function ResultCard({
         style={{
           color,
           fontSize: big
-            ? "clamp(1.4rem, 3.5vw, 2.4rem)"
-            : "clamp(1.25rem, 2.6vw, 1.9rem)",
+            ? "clamp(1.1rem, 1.9vw, 2.4rem)"
+            : "clamp(1rem, 1.6vw, 1.9rem)",
           lineHeight: 1.2,
           paddingBottom: "0.15em",
           overflowWrap: "normal",
@@ -1332,7 +1332,15 @@ function ResultCard({
           whiteSpace: "nowrap",
         }}
       >
-        {value}
+        {value.replace(" MXN", "")}
+        {value.includes("MXN") && (
+          <span
+            className="block font-sans font-normal"
+            style={{ fontSize: 12, color: "#888", whiteSpace: "nowrap" }}
+          >
+            MXN
+          </span>
+        )}
       </p>
       {sub && (
         <p className="mt-3 font-sans text-[13px]" style={{ color: "#666" }}>
