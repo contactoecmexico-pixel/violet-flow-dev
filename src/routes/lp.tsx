@@ -18,6 +18,8 @@ export const Route = createFileRoute("/lp")({
 });
 
 const WA = "https://wa.me/+527713429112";
+const WA_BOT =
+  "https://wa.me/+525537142099?text=Hola%2C%20buenas%20tardes%2C%20quisiera%20informaci%C3%B3n";
 const VIOLET = "#262033";
 const VIOLET_2 = "#2E2841";
 const MIST = "#F5F7F5";
@@ -165,6 +167,12 @@ function LP() {
     const netYear1 = recoveredYear - totalYear1;
     const roiYear1 = totalYear1 > 0 ? (netYear1 / totalYear1) * 100 : 0;
 
+    const citasCubre = Math.max(1, Math.ceil(plan / ticket));
+    const citasDoble = citasCubre * 2;
+    const excedenteMensual = citasDoble * ticket - plan;
+    const mesesImpl =
+      excedenteMensual > 0 ? Math.max(1, Math.ceil(SETUP / excedenteMensual)) : null;
+
     const netCashMonth = recoveredMonth - plan;
     const payoffMonths =
       netCashMonth > 0 ? Math.max(1, Math.ceil(SETUP / netCashMonth)) : null;
@@ -184,6 +192,9 @@ function LP() {
       netYear1,
       roiYear1,
       payoffMonths,
+      citasCubre,
+      citasDoble,
+      mesesImpl,
     };
   }, [ticket, apptsWeek, noShowOf10, msgsWeek, convOf10, recoveryPct, plan]);
 
@@ -205,7 +216,7 @@ function LP() {
           <div className="text-center">
             <h1
               className="font-display font-extrabold text-white"
-              style={{ fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.1 }}
+              style={{ fontSize: "clamp(32px, 5vw, 48px)", lineHeight: 1.2, paddingBottom: "0.15em" }}
             >
               ¿Cuántos pacientes te escribieron anoche y se fueron con tu competencia?
             </h1>
@@ -417,7 +428,7 @@ function LP() {
               },
               {
                 h: "Tu recepcionista deja de ser operadora telefónica.",
-                t: "Las 2-3 horas diarias que tu equipo gasta llamando para confirmar citas se convierten en atención presencial de calidad. El sistema confirma automáticamente 24 horas antes; el paciente responde \"Sí\" o \"No\" y tú ya sabes qué esperar el día siguiente.",
+                t: "Las 2-3 horas diarias que tu equipo gasta llamando para confirmar citas se convierten en atención presencial de calidad. El sistema confirma automáticamente 24 horas antes. El paciente responde si va a asistir, si necesita otro horario o si va a cancelar, y tú ya sabes qué esperar el día siguiente.",
               },
               {
                 h: "Tus pacientes notan la diferencia.",
@@ -441,6 +452,114 @@ function LP() {
               </div>
             ))}
           </div>
+        </Reveal>
+      </Section>
+
+
+      {/* SECCIÓN 5B — PRUEBA EL ASISTENTE */}
+      <Section wide>
+        <Reveal>
+          <div className="text-center">
+            <h2
+              className="font-display font-bold"
+              style={{ color: VIOLET, fontSize: "clamp(28px, 3.5vw, 36px)" }}
+            >
+              No te vamos a explicar cómo suena. Pruébalo.
+            </h2>
+            <p
+              className="mx-auto mt-3 font-sans text-base"
+              style={{ color: "#666", maxWidth: 680 }}
+            >
+              Este es el mismo asistente que instalamos en las clínicas. Escríbele como si
+              fueras un paciente y juzga tú.
+            </p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div
+              className="rounded-2xl bg-white p-8"
+              style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.06)", boxSizing: "border-box" }}
+            >
+              <h3 className="font-display font-bold" style={{ color: VIOLET, fontSize: 24 }}>
+                Chatea con el asistente
+              </h3>
+              <p
+                className="mt-3 font-sans text-[15px]"
+                style={{ color: "#555", lineHeight: 1.7 }}
+              >
+                Escribe a este número y pregunta lo que preguntaría un paciente tuyo.
+                Precios, horarios, disponibilidad, lo que sea. Así responde a las 11 de la
+                noche en una clínica real.
+              </p>
+              <div className="mt-6">
+                <PrimaryCTA href={WA_BOT}>Escribir por WhatsApp →</PrimaryCTA>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {[
+                  "¿Cuánto cuesta una limpieza?",
+                  "¿Tienen horario el sábado?",
+                  "Quiero agendar para el viernes",
+                  "Necesito cambiar mi cita",
+                ].map((c) => (
+                  <span
+                    key={c}
+                    className="font-sans"
+                    style={{
+                      backgroundColor: "#F0FFF4",
+                      border: `1px solid rgba(29,184,107,0.3)`,
+                      borderRadius: 20,
+                      padding: "6px 14px",
+                      fontSize: 13,
+                      color: "#555",
+                    }}
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div
+              className="rounded-2xl bg-white p-8"
+              style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.06)", boxSizing: "border-box" }}
+            >
+              <h3 className="font-display font-bold" style={{ color: VIOLET, fontSize: 24 }}>
+                Y mira dónde cae la cita
+              </h3>
+              <p
+                className="mt-3 font-sans text-[15px]"
+                style={{ color: "#555", lineHeight: 1.7 }}
+              >
+                Cuando le pides una cita al asistente, la agenda directamente en este
+                calendario. Sin que nadie la capture a mano.
+              </p>
+              <div
+                className="mt-4 rounded-xl"
+                style={{
+                  backgroundColor: "#F0FFF4",
+                  padding: "14px 16px",
+                }}
+              >
+                <p className="font-sans" style={{ color: "#555", fontSize: 13 }}>
+                  Pide una cita por WhatsApp y regresa a esta página. Vas a ver tu cita
+                  aparecer aquí.
+                </p>
+              </div>
+              <iframe
+                src="https://calendar.google.com/calendar/embed?src=a197c8d8ae55383cd3707ab8226739bf8f2294706cb176d4eb7539027025c172%40group.calendar.google.com&ctz=America%2FMexico_City"
+                style={{ border: 0, borderRadius: 12 }}
+                width="100%"
+                height="500"
+                title="Calendario del asistente en vivo"
+                className="mt-4 h-[450px] md:h-[500px]"
+              />
+            </div>
+          </div>
+
+          <p className="mt-8 text-center font-sans text-sm" style={{ color: "#888" }}>
+            Ninguna clínica compra esto sin probarlo antes. Por eso está aquí y no detrás de
+            un formulario.
+          </p>
         </Reveal>
       </Section>
 
@@ -776,7 +895,7 @@ function LP() {
             {[
               "Asistente conversacional 24/7 por WhatsApp. Responde en 1 minuto, cualquier hora del día, cualquier día del año.",
               "Agendamiento en tiempo real. Las citas van directo al calendario, sin dobles reservas ni errores.",
-              "Confirmaciones automáticas. El sistema manda recordatorio 24 horas antes; el paciente responde; tú sabes exactamente qué esperar cada día.",
+              "Confirmaciones automáticas. El sistema manda recordatorio 24 horas antes. El paciente confirma, reagenda o cancela sin llamar a nadie, y tú sabes exactamente qué esperar cada día.",
               "Revisión y optimización mensual. Nuestro equipo revisa conversaciones reales y ajusta lo que sea necesario.",
               "Soporte prioritario con respuesta en menos de 24 horas.",
               "Instalación y configuración completa",
@@ -902,8 +1021,11 @@ function LP() {
               <tbody style={{ color: "#444" }}>
                 <tr style={{ borderBottom: "1px solid #eee" }}>
                   <td className="p-4">Recepcionista tiempo completo</td>
-                  <td className="p-4">$12,000 a $15,000/mes</td>
-                  <td className="p-4">8 hrs/día, L-V, con vacaciones e incapacidades</td>
+                  <td className="p-4">$185,000 a $200,000 al año</td>
+                  <td className="p-4">
+                    8 hrs/día, L-V. Ya con IMSS, INFONAVIT, aguinaldo, prima vacacional y
+                    vacaciones de ley. Sin contar rotación ni reemplazo
+                  </td>
                 </tr>
                 <tr
                   style={{
@@ -932,14 +1054,22 @@ function LP() {
             </table>
           </div>
 
+          <p className="mt-8 font-sans text-base" style={{ color: "#555" }}>
+            Un sueldo de $12,000 al mes no le cuesta $12,000 a tu clínica. Le cuesta entre
+            $185,000 y $200,000 al año una vez que sumas IMSS, INFONAVIT, aguinaldo, prima
+            vacacional y los 12 días de vacaciones que exige la ley. Y la jornada laboral
+            baja a 40 horas para 2030 sin que baje el sueldo, así que ese costo por hora va
+            a seguir subiendo.
+          </p>
+
           <p
             className="mt-8 font-sans text-base"
             style={{ color: VIOLET, fontWeight: 500 }}
           >
-            La matemática es clara: recuperar 3 citas al mes con ticket promedio de
-            $1,500 = $4,500. En 4 o 5 meses la implementación ya se pagó. Y el servicio
-            mensual se cubre con las primeras citas recuperadas cada mes. Todo lo demás
-            es ganancia.
+            La matemática es simple. Con tu ticket promedio de {fmtNoUnit(ticket)},
+            necesitas {calc.citasCubre} citas recuperadas al mes para cubrir la mensualidad
+            completa. De ahí en adelante, todo es ganancia. Y con {calc.citasDoble} citas al
+            mes, la implementación queda pagada en {calc.mesesImpl} meses.
           </p>
         </Reveal>
       </Section>
@@ -1067,7 +1197,7 @@ function LP() {
               className="font-display font-extrabold"
               style={{ color: RED, fontSize: 24 }}
             >
-              $40,000 al mes × 12 meses = $480,000 al año
+              {fmt(calc.lostMoneyMonth)} al mes × 12 meses = {fmt(calc.lostYear)} al año
             </p>
             <p className="mt-4 font-sans text-base" style={{ color: "#CCCCCC" }}>
               en pacientes que te buscaron, que querían atenderse contigo, y que se fueron
@@ -1181,16 +1311,22 @@ function ResultCard({
       style={{
         boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
         border: outlined ? `2px solid ${color}` : "1px solid #eee",
+        boxSizing: "border-box",
+        overflow: "hidden",
       }}
     >
       <p className="font-sans text-xs uppercase tracking-wide" style={{ color: "#888" }}>
         {label}
       </p>
       <p
-        className="mt-2 font-display font-extrabold leading-none"
+        className="mt-2 font-display font-extrabold"
         style={{
           color,
-          fontSize: big ? "clamp(20px, 2.6vw, 34px)" : "clamp(18px, 2.1vw, 28px)",
+          fontSize: big
+            ? "clamp(1.4rem, 3.5vw, 2.4rem)"
+            : "clamp(1.25rem, 2.6vw, 1.9rem)",
+          lineHeight: 1.2,
+          paddingBottom: "0.15em",
           overflowWrap: "normal",
           wordBreak: "keep-all",
           whiteSpace: "nowrap",

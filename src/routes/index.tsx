@@ -254,8 +254,9 @@ function HomePage() {
                 body: (
                   <>
                     El sistema manda recordatorios 24 horas antes de cada cita. El
-                    paciente responde con un simple "sí" o "no". Tú llegas sabiendo
-                    exactamente qué esperar, sin sorpresas a las 9 de la mañana.
+                    paciente confirma que asistirá, pide reagendar o cancela desde ahí mismo.
+                    Tú llegas sabiendo exactamente qué esperar, sin sorpresas a las 9 de la
+                    mañana.
                     <br />
                     <br />
                     Las clínicas que usan recordatorios automáticos por WhatsApp
