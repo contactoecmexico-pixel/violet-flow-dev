@@ -1,0 +1,815 @@
+<!--
+  ================================================================
+  ECOWEB — CALCULADORAS (HTML + CSS + JS VANILLA, AUTOCONTENIDO)
+  ----------------------------------------------------------------
+  Bloque único para pegar en WordPress como "HTML personalizado".
+  · Sin React, sin frameworks, sin librerías, sin CDN.
+  · Todas las clases llevan el prefijo .ecoweb-calc- para no
+    chocar con los estilos del tema de WordPress.
+  · Los sliders son <input type="range"> nativos estilizados.
+  · El estado vive en variables de JS (objeto `state`). No se usa
+    localStorage ni sessionStorage.
+  · Además de sus propias tarjetas, el script actualiza cualquier
+    elemento de la página con el atributo data-ecoweb-calc="clave"
+    (por ejemplo el párrafo de la matemática o el recuadro de
+    pérdida anual), para que esos textos sigan siendo dinámicos.
+  ================================================================
+-->
+<div class="ecoweb-calc-root" id="ecoweb-calc">
+  <style>
+    .ecoweb-calc-root {
+      --ec-violet: #262033;
+      --ec-violet2: #2e2841;
+      --ec-mist: #f5f7f5;
+      --ec-green: #1db86b;
+      --ec-forest: #0f6e56;
+      --ec-red: #e53e3e;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .ecoweb-calc-root *,
+    .ecoweb-calc-root *::before,
+    .ecoweb-calc-root *::after {
+      box-sizing: border-box;
+    }
+    .ecoweb-calc-title {
+      font-family: var(--font-display, "Syne", sans-serif);
+      font-weight: 700;
+      color: var(--ec-violet);
+      font-size: clamp(28px, 3.5vw, 36px);
+      line-height: 1.2;
+      padding-bottom: 0.15em;
+      margin: 0;
+      overflow: visible;
+    }
+    .ecoweb-calc-sub {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      color: #666;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 12px 0 0;
+    }
+    .ecoweb-calc-block + .ecoweb-calc-block {
+      margin-top: 64px;
+    }
+
+    /* ---------------- SLIDERS ---------------- */
+    .ecoweb-calc-sliders {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-top: 32px;
+    }
+    @media (min-width: 768px) {
+      .ecoweb-calc-sliders {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .ecoweb-calc-row-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .ecoweb-calc-label {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 14px;
+      color: #555;
+      line-height: 1.4;
+    }
+    .ecoweb-calc-value {
+      font-family: var(--font-display, "Syne", sans-serif);
+      font-weight: 700;
+      color: var(--ec-green);
+      font-size: 18px;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+    .ecoweb-calc-hint {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 12px;
+      color: #888;
+      margin: 8px 0 0;
+      line-height: 1.5;
+    }
+    .ecoweb-calc-ticks {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+    }
+    /* área táctil mínima de 44px de alto */
+    .ecoweb-calc-range {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 44px;
+      background: transparent;
+      margin: 0;
+      display: block;
+      cursor: pointer;
+      touch-action: pan-y;
+    }
+    .ecoweb-calc-range:focus {
+      outline: none;
+    }
+    .ecoweb-calc-range::-webkit-slider-runnable-track {
+      height: 6px;
+      border-radius: 999px;
+      background: #e2e6e2;
+    }
+    .ecoweb-calc-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      margin-top: -10px;
+      border-radius: 50%;
+      background: var(--ec-green);
+      border: 3px solid #fff;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+    }
+    .ecoweb-calc-range::-moz-range-track {
+      height: 6px;
+      border-radius: 999px;
+      background: #e2e6e2;
+    }
+    .ecoweb-calc-range::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--ec-green);
+      border: 3px solid #fff;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+    }
+    .ecoweb-calc-range:focus-visible::-webkit-slider-thumb {
+      box-shadow: 0 0 0 4px rgba(29, 184, 107, 0.3);
+    }
+
+    /* ---------------- TARJETAS DE RESULTADO ---------------- */
+    /* 1 columna en móvil, 2 columnas hasta 1200px (evita que las
+       cifras de 7-8 dígitos se recorten en tablet y laptop chica),
+       4 o 3 columnas sólo a partir de 1200px. */
+    .ecoweb-calc-results {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    @media (min-width: 560px) {
+      .ecoweb-calc-results {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 1200px) {
+      .ecoweb-calc-results--4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .ecoweb-calc-results--3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .ecoweb-calc-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      min-width: 0;
+      overflow: hidden;
+    }
+    .ecoweb-calc-card--outlined {
+      border: 2px solid var(--ec-red);
+    }
+    .ecoweb-calc-card-label {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #888;
+      margin: 0;
+    }
+    .ecoweb-calc-card-value {
+      font-family: var(--font-display, "Syne", sans-serif);
+      font-weight: 800;
+      font-size: clamp(1.15rem, 3.4vw, 1.9rem);
+      line-height: 1.2;
+      padding-bottom: 0.15em;
+      margin: 8px 0 0;
+      white-space: nowrap;
+      overflow: visible;
+    }
+    .ecoweb-calc-card-unit {
+      display: block;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-weight: 400;
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+    .ecoweb-calc-card-sub {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 13px;
+      color: #666;
+      margin: 12px 0 0;
+      line-height: 1.5;
+    }
+    .ecoweb-calc-red { color: var(--ec-red); }
+    .ecoweb-calc-green { color: var(--ec-green); }
+    .ecoweb-calc-violet { color: var(--ec-violet); }
+
+    /* ---------------- SILLONES ---------------- */
+    .ecoweb-calc-chairs-note {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 14px;
+      color: #666;
+      margin: 40px 0 16px;
+      line-height: 1.6;
+    }
+    /* 5 por fila en móvil (dos filas de cinco), 10 en una fila en desktop */
+    .ecoweb-calc-chairs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      justify-items: center;
+    }
+    @media (min-width: 768px) {
+      .ecoweb-calc-chairs {
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+        gap: 14px;
+      }
+    }
+    .ecoweb-calc-chair {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 0;
+    }
+    .ecoweb-calc-chair svg {
+      width: 100%;
+      max-width: 44px;
+      height: auto;
+      transition: all 0.3s ease;
+    }
+    .ecoweb-calc-chair--ok svg {
+      color: var(--ec-green);
+      filter: drop-shadow(0 0 6px rgba(29, 184, 107, 0.5));
+    }
+    .ecoweb-calc-chair--lost svg {
+      color: var(--ec-red);
+      opacity: 0.45;
+    }
+    .ecoweb-calc-chair span {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 11px;
+      color: var(--ec-green);
+      margin-top: 4px;
+      white-space: nowrap;
+    }
+
+    /* ---------------- SETUP / BARRA / CIERRE ---------------- */
+    .ecoweb-calc-setup {
+      background: var(--ec-mist);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 20px;
+      max-width: 28rem;
+    }
+    .ecoweb-calc-setup p {
+      margin: 0;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+    }
+    .ecoweb-calc-setup .ecoweb-calc-setup-k {
+      font-size: 13px;
+      color: #666;
+    }
+    .ecoweb-calc-setup .ecoweb-calc-setup-v {
+      font-family: var(--font-display, "Syne", sans-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ec-violet);
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+    .ecoweb-calc-setup .ecoweb-calc-setup-s {
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+    }
+    .ecoweb-calc-bar-wrap { margin-top: 40px; }
+    .ecoweb-calc-bar-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    .ecoweb-calc-bar {
+      display: flex;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .ecoweb-calc-bar-cost {
+      background: var(--ec-red);
+      opacity: 0.85;
+      transition: width 0.3s;
+    }
+    .ecoweb-calc-bar-gain {
+      background: var(--ec-green);
+      transition: width 0.3s;
+    }
+    .ecoweb-calc-bar-warn {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 14px;
+      color: var(--ec-red);
+      margin: 12px 0 0;
+    }
+    .ecoweb-calc-closing {
+      margin-top: 48px;
+      background: var(--ec-violet);
+      border-radius: 16px;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .ecoweb-calc-closing p { margin: 0; }
+    .ecoweb-calc-closing .ecoweb-calc-closing-1 {
+      font-family: var(--font-display, "Syne", sans-serif);
+      font-weight: 700;
+      color: #fff;
+      font-size: 20px;
+      line-height: 1.3;
+      padding-bottom: 0.1em;
+    }
+    .ecoweb-calc-closing .ecoweb-calc-closing-2 {
+      font-family: var(--font-display, "Syne", sans-serif);
+      font-weight: 800;
+      color: #fff;
+      font-size: 18px;
+      margin-top: 16px;
+      line-height: 1.35;
+      padding-bottom: 0.1em;
+    }
+    .ecoweb-calc-closing .ecoweb-calc-closing-3 {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      color: #ccc;
+      font-size: 15px;
+      margin-top: 12px;
+    }
+    .ecoweb-calc-cta {
+      display: inline-block;
+      margin-top: 32px;
+      background: var(--ec-green);
+      color: #fff;
+      text-decoration: none;
+      font-family: var(--font-display, "Syne", sans-serif);
+      font-weight: 700;
+      font-size: 18px;
+      padding: 18px 40px;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+    }
+    .ecoweb-calc-cta:hover { background: var(--ec-forest); color: #fff; }
+  </style>
+
+  <!-- ============ CALCULADORA 1 ============ -->
+  <div class="ecoweb-calc-block">
+    <h2 class="ecoweb-calc-title">¿Cuánto está perdiendo tu clínica?</h2>
+    <p class="ecoweb-calc-sub">
+      Contesta con los datos de tu consultorio. Los números son tuyos, no nuestros.
+    </p>
+
+    <div class="ecoweb-calc-sliders">
+      <div>
+        <div class="ecoweb-calc-row-head">
+          <span class="ecoweb-calc-label">Ticket promedio por paciente</span>
+          <span class="ecoweb-calc-value" data-out="ticket"></span>
+        </div>
+        <input class="ecoweb-calc-range" type="range" id="ec-ticket"
+               min="500" max="10000" step="100" value="1500"
+               aria-label="Ticket promedio por paciente" />
+      </div>
+
+      <div>
+        <div class="ecoweb-calc-row-head">
+          <span class="ecoweb-calc-label">Citas que programas por semana</span>
+          <span class="ecoweb-calc-value" data-out="apptsWeek"></span>
+        </div>
+        <input class="ecoweb-calc-range" type="range" id="ec-appts"
+               min="10" max="150" step="5" value="30"
+               aria-label="Citas que programas por semana" />
+      </div>
+
+      <div>
+        <div class="ecoweb-calc-row-head">
+          <span class="ecoweb-calc-label">De cada 10 citas, ¿cuántas no se presentan?</span>
+          <span class="ecoweb-calc-value" data-out="noShow"></span>
+        </div>
+        <input class="ecoweb-calc-range" type="range" id="ec-noshow"
+               min="1" max="6" step="1" value="2"
+               aria-label="De cada 10 citas, cuántas no se presentan" />
+      </div>
+
+      <div>
+        <div class="ecoweb-calc-row-head">
+          <span class="ecoweb-calc-label">Pacientes nuevos que te escriben fuera de horario por semana</span>
+          <span class="ecoweb-calc-value" data-out="msgsWeek"></span>
+        </div>
+        <input class="ecoweb-calc-range" type="range" id="ec-msgs"
+               min="5" max="100" step="5" value="20"
+               aria-label="Pacientes nuevos que te escriben fuera de horario por semana" />
+      </div>
+
+      <div>
+        <div class="ecoweb-calc-row-head">
+          <span class="ecoweb-calc-label">De cada 10 que escriben, ¿cuántos terminan agendando?</span>
+          <span class="ecoweb-calc-value" data-out="conv"></span>
+        </div>
+        <input class="ecoweb-calc-range" type="range" id="ec-conv"
+               min="1" max="8" step="1" value="3"
+               aria-label="De cada 10 que escriben, cuántos terminan agendando" />
+      </div>
+    </div>
+
+    <div class="ecoweb-calc-results ecoweb-calc-results--4">
+      <div class="ecoweb-calc-card">
+        <p class="ecoweb-calc-card-label">Citas perdidas / mes</p>
+        <p class="ecoweb-calc-card-value ecoweb-calc-red" data-out="lostAppts"></p>
+        <p class="ecoweb-calc-card-sub">
+          Entre las que no se presentan y los pacientes que nunca recibieron respuesta
+        </p>
+      </div>
+      <div class="ecoweb-calc-card">
+        <p class="ecoweb-calc-card-label">Por no-shows / mes</p>
+        <p class="ecoweb-calc-card-value ecoweb-calc-red" data-money="noShowLoss"></p>
+        <p class="ecoweb-calc-card-sub">Citas agendadas que quedaron en sillón vacío</p>
+      </div>
+      <div class="ecoweb-calc-card">
+        <p class="ecoweb-calc-card-label">Por no responder a tiempo / mes</p>
+        <p class="ecoweb-calc-card-value ecoweb-calc-red" data-money="afterHoursLoss"></p>
+        <p class="ecoweb-calc-card-sub">Pacientes que te escribieron y agendaron en otro lado</p>
+      </div>
+      <div class="ecoweb-calc-card ecoweb-calc-card--outlined">
+        <p class="ecoweb-calc-card-label">Pérdida proyectada / año</p>
+        <p class="ecoweb-calc-card-value ecoweb-calc-red" data-money="lostYear"></p>
+        <p class="ecoweb-calc-card-sub">Si nada cambia</p>
+      </div>
+    </div>
+
+    <p class="ecoweb-calc-chairs-note">
+      De cada 10 pacientes que te escriben fuera de horario, así se ven los que sí
+      agendarían (verde) contra los que se pierden (rojo).
+    </p>
+    <div class="ecoweb-calc-chairs" id="ec-chairs"></div>
+  </div>
+
+  <!-- ============ CALCULADORA 2 ============ -->
+  <div class="ecoweb-calc-block">
+    <h2 class="ecoweb-calc-title">¿Cuánto recuperarías con EcoWeb?</h2>
+    <p class="ecoweb-calc-sub">
+      Usamos los mismos datos de arriba. Tú decides qué tan conservador quieres ser.
+    </p>
+
+    <div class="ecoweb-calc-sliders">
+      <div>
+        <div class="ecoweb-calc-row-head">
+          <span class="ecoweb-calc-label">¿Qué porcentaje de eso crees que se puede recuperar?</span>
+          <span class="ecoweb-calc-value" data-out="recoveryPct"></span>
+        </div>
+        <input class="ecoweb-calc-range" type="range" id="ec-recovery"
+               min="20" max="80" step="5" value="40"
+               aria-label="Porcentaje que se puede recuperar" />
+        <p class="ecoweb-calc-hint">
+          Ningún sistema recupera el 100%. Muévelo a donde tú creas que es realista y
+          haz la cuenta con ese número.
+        </p>
+      </div>
+
+      <div>
+        <div class="ecoweb-calc-row-head">
+          <span class="ecoweb-calc-label">Plan mensual de EcoWeb</span>
+          <span class="ecoweb-calc-value" data-out="plan"></span>
+        </div>
+        <input class="ecoweb-calc-range" type="range" id="ec-plan"
+               min="0" max="2" step="1" value="0"
+               aria-label="Plan mensual de EcoWeb" />
+        <div class="ecoweb-calc-ticks">
+          <span>Base $8,000</span>
+          <span>Tramo 2 $10,500</span>
+          <span>Tramo 3 $13,500</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ecoweb-calc-setup">
+      <p class="ecoweb-calc-setup-k">Implementación (pago único)</p>
+      <p class="ecoweb-calc-setup-v">$24,000 MXN (IVA incluido)</p>
+      <p class="ecoweb-calc-setup-s">
+        Se paga en dos partes: 50% al arrancar y 50% cuando el sistema ya está
+        funcionando.
+      </p>
+    </div>
+
+    <div class="ecoweb-calc-results ecoweb-calc-results--3">
+      <div class="ecoweb-calc-card">
+        <p class="ecoweb-calc-card-label">Citas recuperadas / mes</p>
+        <p class="ecoweb-calc-card-value ecoweb-calc-green" data-out="recoveredAppts"></p>
+        <p class="ecoweb-calc-card-sub">Citas que hoy simplemente no existen</p>
+      </div>
+      <div class="ecoweb-calc-card">
+        <p class="ecoweb-calc-card-label">Inversión total primer año</p>
+        <p class="ecoweb-calc-card-value ecoweb-calc-violet" data-money="totalYear1"></p>
+        <p class="ecoweb-calc-card-sub">Implementación + 12 meses de servicio</p>
+      </div>
+      <div class="ecoweb-calc-card">
+        <p class="ecoweb-calc-card-label">El sistema se paga en</p>
+        <p class="ecoweb-calc-card-value ecoweb-calc-green" data-out="payoff"></p>
+        <p class="ecoweb-calc-card-sub">Después de eso, todo es ganancia</p>
+      </div>
+      <div class="ecoweb-calc-card">
+        <p class="ecoweb-calc-card-label">Ganancia neta primer año</p>
+        <p class="ecoweb-calc-card-value" data-money="netYear1" data-signcolor="1"></p>
+        <p class="ecoweb-calc-card-sub">Ya descontando todo lo que nos pagas</p>
+      </div>
+      <div class="ecoweb-calc-card">
+        <p class="ecoweb-calc-card-label">ROI primer año</p>
+        <p class="ecoweb-calc-card-value" data-out="roi" data-signcolor="1"></p>
+        <p class="ecoweb-calc-card-sub">Por cada peso invertido</p>
+      </div>
+    </div>
+
+    <div class="ecoweb-calc-bar-wrap">
+      <div class="ecoweb-calc-bar-legend" id="ec-bar-legend">
+        <span data-out="legendCost"></span>
+        <span data-out="legendGain"></span>
+      </div>
+      <div class="ecoweb-calc-bar" id="ec-bar">
+        <div class="ecoweb-calc-bar-cost" id="ec-bar-cost"></div>
+        <div class="ecoweb-calc-bar-gain" id="ec-bar-gain"></div>
+      </div>
+      <p class="ecoweb-calc-bar-warn" id="ec-bar-warn" style="display: none">
+        Con este porcentaje de recuperación, el plan seleccionado puede no ser la mejor
+        opción. Contáctanos para un plan ajustado.
+      </p>
+    </div>
+
+    <div class="ecoweb-calc-closing">
+      <p class="ecoweb-calc-closing-1" data-out="closing1"></p>
+      <p class="ecoweb-calc-closing-2" data-out="closing2"></p>
+      <p class="ecoweb-calc-closing-3">
+        Desde el año 2 ya no pagas implementación, así que la ganancia sube.
+      </p>
+      <a class="ecoweb-calc-cta" href="https://wa.me/+527713429112"
+         target="_blank" rel="noopener noreferrer">Quiero mi asistente 24/7 →</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.getElementById("ecoweb-calc");
+      if (!root || root.getAttribute("data-ec-ready") === "1") return;
+      root.setAttribute("data-ec-ready", "1");
+
+      /* ---------- constantes de negocio (no cambian) ---------- */
+      var SETUP = 24000;
+      var PLANS = [8000, 10500, 13500];
+
+      /* ---------- estado (variables de JS, sin storage) ---------- */
+      var state = {
+        ticket: 1500,
+        apptsWeek: 30,
+        noShowOf10: 2,
+        msgsWeek: 20,
+        convOf10: 3,
+        recoveryPct: 40,
+        planIndex: 0,
+      };
+
+      /* ---------- formato ---------- */
+      function money(n) {
+        return "$" + Math.round(n).toLocaleString("en-US");
+      }
+
+      /* ---------- fórmulas (idénticas a la versión original) ---------- */
+      function compute(s) {
+        var plan = PLANS[s.planIndex];
+
+        var noShowApptsMonth = Math.round(s.apptsWeek * 4 * (s.noShowOf10 / 10));
+        var noShowLossMonth = noShowApptsMonth * s.ticket;
+
+        var msgsMonth = s.msgsWeek * 4;
+        var missedPatientsMonth = Math.round(msgsMonth * (s.convOf10 / 10));
+        var afterHoursLossMonth = missedPatientsMonth * s.ticket;
+
+        var lostApptsMonth = noShowApptsMonth + missedPatientsMonth;
+        var lostMoneyMonth = noShowLossMonth + afterHoursLossMonth;
+        var lostYear = lostMoneyMonth * 12;
+
+        var recoveredMonth = Math.round(lostMoneyMonth * (s.recoveryPct / 100));
+        var recoveredYear = recoveredMonth * 12;
+        var recoveredApptsMonth = Math.round(lostApptsMonth * (s.recoveryPct / 100));
+
+        var totalYear1 = SETUP + plan * 12;
+        var netYear1 = recoveredYear - totalYear1;
+        var roiYear1 = totalYear1 > 0 ? (netYear1 / totalYear1) * 100 : 0;
+
+        var citasCubre = Math.max(1, Math.ceil(plan / s.ticket));
+        var citasDoble = citasCubre * 2;
+        var excedenteMensual = citasDoble * s.ticket - plan;
+        var mesesImpl =
+          excedenteMensual > 0 ? Math.max(1, Math.ceil(SETUP / excedenteMensual)) : null;
+
+        var netCashMonth = recoveredMonth - plan;
+        var payoffMonths =
+          netCashMonth > 0 ? Math.max(1, Math.ceil(SETUP / netCashMonth)) : null;
+
+        return {
+          plan: plan,
+          noShowLoss: noShowLossMonth,
+          afterHoursLoss: afterHoursLossMonth,
+          lostAppts: lostApptsMonth,
+          lostMoneyMonth: lostMoneyMonth,
+          lostYear: lostYear,
+          recoveredAppts: recoveredApptsMonth,
+          totalYear1: totalYear1,
+          netYear1: netYear1,
+          roiYear1: roiYear1,
+          payoffMonths: payoffMonths,
+          citasCubre: citasCubre,
+          citasDoble: citasDoble,
+          mesesImpl: mesesImpl,
+        };
+      }
+
+      /* ---------- helpers de render ---------- */
+      function setText(key, text) {
+        var nodes = root.querySelectorAll('[data-out="' + key + '"]');
+        for (var i = 0; i < nodes.length; i++) nodes[i].textContent = text;
+      }
+      function setMoney(key, n) {
+        var nodes = root.querySelectorAll('[data-money="' + key + '"]');
+        for (var i = 0; i < nodes.length; i++) {
+          nodes[i].innerHTML =
+            money(n) + '<span class="ecoweb-calc-card-unit">MXN</span>';
+        }
+      }
+      function signColor(selector, negative) {
+        var nodes = root.querySelectorAll(selector);
+        for (var i = 0; i < nodes.length; i++) {
+          nodes[i].classList.toggle("ecoweb-calc-red", negative);
+          nodes[i].classList.toggle("ecoweb-calc-green", !negative);
+        }
+      }
+      /* textos dinámicos fuera del bloque (párrafo de la matemática,
+         recuadro de pérdida anual, etc.) */
+      function setPageText(key, text) {
+        var nodes = document.querySelectorAll('[data-ecoweb-calc="' + key + '"]');
+        for (var i = 0; i < nodes.length; i++) nodes[i].textContent = text;
+      }
+
+      var CHAIR_SVG =
+        '<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">' +
+        '<path d="M14 10h6v22h-6z"/>' +
+        '<path d="M18 32h28a4 4 0 014 4v6H14v-6a4 4 0 014-4z"/>' +
+        '<path d="M20 42h24v6H20z"/>' +
+        '<path d="M28 48h8v8h-8z"/>' +
+        '<circle cx="48" cy="14" r="4"/>' +
+        '<path d="M46 18h4v14h-4z"/></svg>';
+
+      var chairsEl = root.querySelector("#ec-chairs");
+      function renderChairs(s) {
+        // verde = los que sí agendarían (tasa de conversión); rojo = perdidos
+        var green = Math.min(10, Math.max(0, s.convOf10));
+        var html = "";
+        for (var i = 0; i < 10; i++) {
+          var lost = i >= green;
+          html +=
+            '<div class="ecoweb-calc-chair ' +
+            (lost ? "ecoweb-calc-chair--lost" : "ecoweb-calc-chair--ok") +
+            '">' +
+            CHAIR_SVG +
+            "<span>" +
+            (lost ? "&nbsp;" : money(s.ticket)) +
+            "</span></div>";
+        }
+        chairsEl.innerHTML = html;
+      }
+
+      var barCost = root.querySelector("#ec-bar-cost");
+      var barGain = root.querySelector("#ec-bar-gain");
+      var barEl = root.querySelector("#ec-bar");
+      var barWarn = root.querySelector("#ec-bar-warn");
+      var barLegend = root.querySelector("#ec-bar-legend");
+
+      function render() {
+        var s = state;
+        var c = compute(s);
+
+        /* inputs */
+        setText("ticket", money(s.ticket) + " MXN");
+        setText("apptsWeek", String(s.apptsWeek));
+        setText("noShow", s.noShowOf10 + " de cada 10");
+        setText("msgsWeek", String(s.msgsWeek));
+        setText("conv", s.convOf10 + " de cada 10");
+        setText("recoveryPct", s.recoveryPct + "%");
+        setText("plan", money(c.plan) + " MXN/mes");
+
+        /* calculadora 1 */
+        setText("lostAppts", String(c.lostAppts));
+        setMoney("noShowLoss", c.noShowLoss);
+        setMoney("afterHoursLoss", c.afterHoursLoss);
+        setMoney("lostYear", c.lostYear);
+        renderChairs(s);
+
+        /* calculadora 2 */
+        setText("recoveredAppts", String(c.recoveredAppts));
+        setMoney("totalYear1", c.totalYear1);
+        setText(
+          "payoff",
+          c.payoffMonths === null
+            ? "No alcanza"
+            : c.payoffMonths + (c.payoffMonths === 1 ? " mes" : " meses")
+        );
+        setMoney("netYear1", c.netYear1);
+        setText("roi", Math.round(c.roiYear1) + "%");
+        signColor('[data-money="netYear1"]', c.netYear1 < 0);
+        signColor('[data-out="roi"]', c.roiYear1 < 0);
+
+        /* barra inversión vs ganancia neta */
+        var negative = c.netYear1 < 0;
+        if (negative) {
+          barLegend.style.display = "none";
+          barGain.style.width = "0%";
+          barCost.style.width = "100%";
+          barWarn.style.display = "block";
+        } else {
+          barLegend.style.display = "flex";
+          barWarn.style.display = "none";
+          var base = Math.max(c.totalYear1 + Math.max(c.netYear1, 0), 1);
+          var costPct = (c.totalYear1 / base) * 100;
+          barCost.style.width = costPct + "%";
+          barGain.style.width = 100 - costPct + "%";
+          setText("legendCost", "Inversión total (" + money(c.totalYear1) + " MXN)");
+          setText("legendGain", "Ganancia neta (" + money(c.netYear1) + " MXN)");
+        }
+        barEl.style.display = "flex";
+
+        /* resumen debajo de la barra */
+        setText(
+          "closing1",
+          "Tu clínica está perdiendo " + money(c.lostYear) + " MXN al año."
+        );
+        setText(
+          "closing2",
+          "Recuperando solo el " +
+            s.recoveryPct +
+            "%, con una inversión de " +
+            money(c.totalYear1) +
+            " MXN el primer año, lo conviertes en " +
+            money(c.netYear1) +
+            " MXN de ganancia."
+        );
+
+        /* textos dinámicos del resto de la página */
+        setPageText("ticket", money(s.ticket));
+        setPageText("citasCubre", String(c.citasCubre));
+        setPageText("citasDoble", String(c.citasDoble));
+        setPageText("mesesImpl", String(c.mesesImpl === null ? 3 : c.mesesImpl));
+        setPageText(
+          "perdidaTotalLinea",
+          money(c.lostMoneyMonth) +
+            " MXN al mes × 12 meses = " +
+            money(c.lostYear) +
+            " MXN al año"
+        );
+      }
+
+      /* ---------- listeners: evento input de cada slider ---------- */
+      function bind(id, key, transform) {
+        var el = root.querySelector(id);
+        if (!el) return;
+        el.addEventListener("input", function () {
+          state[key] = transform ? transform(el.value) : parseInt(el.value, 10);
+          render();
+        });
+      }
+      bind("#ec-ticket", "ticket");
+      bind("#ec-appts", "apptsWeek");
+      bind("#ec-noshow", "noShowOf10");
+      bind("#ec-msgs", "msgsWeek");
+      bind("#ec-conv", "convOf10");
+      bind("#ec-recovery", "recoveryPct");
+      bind("#ec-plan", "planIndex");
+
+      render();
+    })();
+  </script>
+</div>
