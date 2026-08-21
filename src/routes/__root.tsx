@@ -96,7 +96,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "preload",
         as: "image",
         href: "/__l5e/assets-v1/7e174741-bd82-45ac-b740-02a9b3d394f2/whatsapp-mockup.webp",
-        fetchpriority: "high",
       },
       {
         rel: "stylesheet",
