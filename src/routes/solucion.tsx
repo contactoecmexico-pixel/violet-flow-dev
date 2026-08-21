@@ -648,7 +648,7 @@ function LP() {
           </div>
 
           {/* Result cards */}
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
             <ResultCard
               label="Citas perdidas / mes"
               value={calc.lostApptsMonth.toString()}
