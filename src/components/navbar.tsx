@@ -5,8 +5,7 @@ import { Wordmark, WHATSAPP_URL, navLinks } from "./brand";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const minimal = pathname === "/solucion" || pathname === "/solucion/";
+
 
   return (
     <header
