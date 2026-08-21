@@ -1042,7 +1042,7 @@ function LP() {
                   }}
                 >
                   <td className="p-4 font-medium" style={{ color: VIOLET }}>
-                    EcoWeb Profesional
+                    EcoWeb (cualquier tramo)
                   </td>
                   <td className="p-4 font-medium" style={{ color: VIOLET }}>
                     $24,000 de implementación (IVA incluido) + $8,000, $10,500 o
