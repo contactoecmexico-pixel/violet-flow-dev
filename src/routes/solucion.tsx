@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Reveal } from "@/components/reveal";
 
-export const Route = createFileRoute("/lp")({
+export const Route = createFileRoute("/solucion")({
   head: () => ({
     meta: [
       { title: "Asistente WhatsApp 24/7 para clínicas dentales | EcoWeb" },
