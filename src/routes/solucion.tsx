@@ -3,16 +3,23 @@ import { useMemo, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Reveal } from "@/components/reveal";
 
+const T = "Asistente WhatsApp 24/7 para clínicas dentales | EcoWeb";
+const D =
+  "Atiende, responde y agenda citas por WhatsApp 24/7 sin que tú ni tu equipo hagan nada. Para clínicas dentales en México.";
+const U = "https://violet-flow-dev.lovable.app/solucion";
+
 export const Route = createFileRoute("/solucion")({
   head: () => ({
     meta: [
-      { title: "Asistente WhatsApp 24/7 para clínicas dentales | EcoWeb" },
-      {
-        name: "description",
-        content:
-          "Atiende, responde y agenda citas por WhatsApp 24/7 sin que tú ni tu equipo hagan nada. Para clínicas dentales en México.",
-      },
+      { title: T },
+      { name: "description", content: D },
+      { property: "og:title", content: T },
+      { property: "og:description", content: D },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: U },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: U }],
   }),
   component: LP,
 });
