@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Wordmark, WHATSAPP_URL, navLinks } from "./brand";
@@ -18,7 +18,7 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {(minimal ? [] : navLinks).map((l) => (
+          {navLinks.map((l) => (
             <Link
               key={l.to}
               to={l.to}
@@ -58,7 +58,7 @@ export function Navbar() {
           style={{ backgroundColor: "#262033", borderTop: "1px solid #333" }}
         >
           <div className="flex flex-col gap-4 px-4 py-6">
-            {(minimal ? [] : navLinks).map((l) => (
+            {navLinks.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
