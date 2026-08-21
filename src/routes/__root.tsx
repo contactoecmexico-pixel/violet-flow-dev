@@ -79,14 +79,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "EcoWeb | Asistente de WhatsApp 24/7 para clínicas dentales" },
+      {
+        name: "description",
+        content:
+          "EcoWeb instala un asistente de WhatsApp que atiende, responde y agenda citas 24/7 para clínicas dentales en México.",
+      },
+      { property: "og:site_name", content: "EcoWeb" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -95,7 +96,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "preload",
         as: "image",
         href: "/__l5e/assets-v1/7e174741-bd82-45ac-b740-02a9b3d394f2/whatsapp-mockup.webp",
-        fetchpriority: "high",
       },
       {
         rel: "stylesheet",

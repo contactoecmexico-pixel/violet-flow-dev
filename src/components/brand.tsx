@@ -27,7 +27,7 @@ const WHATSAPP_URL = "https://wa.me/+527713429112";
 const navLinks = [
   { to: "/", label: "Inicio" },
   { to: "/servicios", label: "Servicios" },
-  { to: "/lp", label: "Solución" },
+  { to: "/solucion", label: "Solución" },
   { to: "/blog", label: "Blog" },
 ] as const;
 
