@@ -246,11 +246,18 @@ function Servicios() {
                         }}
                       >
                         <div
-                          className="flex flex-wrap items-baseline justify-between gap-2 font-display"
-                          style={{ fontSize: "16px", color: "#262033", fontWeight: 700 }}
+                          className="flex flex-col items-start gap-0.5 font-display sm:flex-row sm:items-baseline sm:justify-between sm:gap-3"
+                          style={{ color: "#262033", fontWeight: 700, minWidth: 0 }}
                         >
-                          <span>{p.name}</span>
-                          <span style={{ color: "#1DB86B", whiteSpace: "nowrap" }}>
+                          <span style={{ fontSize: "15px", minWidth: 0 }}>{p.name}</span>
+                          <span
+                            style={{
+                              color: "#1DB86B",
+                              whiteSpace: "nowrap",
+                              fontSize: "clamp(14px, 1.35vw, 16px)",
+                              maxWidth: "100%",
+                            }}
+                          >
                             {p.price}
                           </span>
                         </div>
