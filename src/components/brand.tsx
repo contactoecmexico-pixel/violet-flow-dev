@@ -28,7 +28,6 @@ const navLinks = [
   { to: "/", label: "Inicio" },
   { to: "/servicios", label: "Servicios" },
   { to: "/solucion", label: "Solución" },
-  { to: "/blog", label: "Blog" },
 ] as const;
 
 export { WHATSAPP_URL, navLinks };
