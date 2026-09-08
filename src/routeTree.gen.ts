@@ -13,7 +13,6 @@ import { Route as SolucionesDigitalesRouteImport } from './routes/soluciones-dig
 import { Route as SolucionRouteImport } from './routes/solucion'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as LpRouteImport } from './routes/lp'
-import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SolucionesDigitalesRoute = SolucionesDigitalesRouteImport.update({
@@ -36,11 +35,6 @@ const LpRoute = LpRouteImport.update({
   path: '/lp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,7 +43,6 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
   '/lp': typeof LpRoute
   '/servicios': typeof ServiciosRoute
   '/solucion': typeof SolucionRoute
@@ -57,7 +50,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
   '/lp': typeof LpRoute
   '/servicios': typeof ServiciosRoute
   '/solucion': typeof SolucionRoute
@@ -66,7 +58,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
   '/lp': typeof LpRoute
   '/servicios': typeof ServiciosRoute
   '/solucion': typeof SolucionRoute
@@ -74,25 +65,12 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/blog'
-    | '/lp'
-    | '/servicios'
-    | '/solucion'
-    | '/soluciones-digitales'
+  fullPaths: '/' | '/lp' | '/servicios' | '/solucion' | '/soluciones-digitales'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/blog'
-    | '/lp'
-    | '/servicios'
-    | '/solucion'
-    | '/soluciones-digitales'
+  to: '/' | '/lp' | '/servicios' | '/solucion' | '/soluciones-digitales'
   id:
     | '__root__'
     | '/'
-    | '/blog'
     | '/lp'
     | '/servicios'
     | '/solucion'
@@ -101,7 +79,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogRoute: typeof BlogRoute
   LpRoute: typeof LpRoute
   ServiciosRoute: typeof ServiciosRoute
   SolucionRoute: typeof SolucionRoute
@@ -138,13 +115,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -157,7 +127,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogRoute: BlogRoute,
   LpRoute: LpRoute,
   ServiciosRoute: ServiciosRoute,
   SolucionRoute: SolucionRoute,
