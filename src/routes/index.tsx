@@ -574,11 +574,8 @@ function HomePage() {
             >
               Agenda una llamada con nosotros y descubre como podemos ayudarte.
             </p>
-            <div className="mt-8 flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
+            <div className="mt-8 flex justify-center">
               <PrimaryButton href={WA_MAIN}>Quiero mi asistente 24/7 →</PrimaryButton>
-              <PrimaryButton href={WA_MAIN}>
-                Quiero mi asistente 24/7 →
-              </PrimaryButton>
             </div>
             <p
               className="font-sans"
