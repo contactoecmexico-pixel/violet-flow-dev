@@ -17,7 +17,7 @@ export function Navbar() {
           <Wordmark eager />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {navLinks.map((l) => (
             <Link
               key={l.to}
@@ -35,7 +35,7 @@ export function Navbar() {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden rounded-lg px-6 py-3 font-display font-bold text-white transition-colors md:inline-block"
+          className="hidden rounded-lg px-6 py-3 font-display font-bold text-white transition-colors lg:inline-block"
           style={{ backgroundColor: "#1DB86B" }}
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0F6E56")}
           onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1DB86B")}
@@ -44,7 +44,7 @@ export function Navbar() {
         </a>
 
         <button
-          className="text-white md:hidden"
+          className="text-white lg:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -54,7 +54,7 @@ export function Navbar() {
 
       {open && (
         <div
-          className="md:hidden"
+          className="lg:hidden"
           style={{ backgroundColor: "#262033", borderTop: "1px solid #333" }}
         >
           <div className="flex flex-col gap-4 px-4 py-6">

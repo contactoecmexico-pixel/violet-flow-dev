@@ -64,6 +64,7 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    box-sizing: border-box;
   }
 
   html {
@@ -76,6 +77,27 @@
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  img,
+  video,
+  iframe,
+  svg {
+    max-width: 100%;
+  }
+
+  p,
+  li,
+  a,
+  button,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
   }
 
   h1, h2, h3, h4, h5, h6 {

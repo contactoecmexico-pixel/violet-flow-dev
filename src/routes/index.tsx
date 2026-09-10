@@ -95,7 +95,7 @@ function HomePage() {
         style={{ backgroundColor: "#262033", minHeight: "680px", overflow: "visible" }}
         className="relative px-8 pb-20 pt-[60px] lg:pb-[80px] lg:pt-[100px]"
       >
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 lg:grid-cols-[55%_45%] lg:gap-12">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] lg:gap-12">
           <Reveal delay={80}>
             <div className="text-center lg:text-left">
               <p

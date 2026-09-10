@@ -72,7 +72,7 @@ function Servicios() {
   const features = [
     "Respuesta automática 24/7 por WhatsApp",
     "Agendamiento en tiempo real",
-    "Confirmación automática de citas",
+    "Recordatorios automáticos de citas",
     "Entrenado con los datos de tu clínica",
     "Revisión y optimización mensual",
     "Soporte prioritario en menos de 24 hrs",
@@ -148,7 +148,7 @@ function Servicios() {
 
           <Reveal>
             <div
-              className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-[55%_45%] md:gap-12"
+              className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] md:gap-12"
               style={{
                 maxWidth: "900px",
                 backgroundColor: "#ffffff",
@@ -185,7 +185,7 @@ function Servicios() {
                   style={{ fontSize: "16px", color: "#555", marginTop: "16px", lineHeight: 1.7 }}
                 >
                   Un asistente que responde consultas de pacientes por WhatsApp 24/7,
-                  agenda citas en tu calendario, y confirma asistencias automáticamente,
+                  agenda citas en tu calendario, y manda recordatorios automáticos,
                   sin que tú ni tu equipo configuren nada.
                 </p>
                 <p

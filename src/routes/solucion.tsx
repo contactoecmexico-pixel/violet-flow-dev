@@ -892,7 +892,7 @@ function LP() {
             className="font-display font-bold"
             style={{ color: VIOLET, fontSize: "clamp(28px, 3.5vw, 36px)" }}
           >
-            Exactamente qué obtienes con EcoWeb Profesional
+            Exactamente qué obtienes con EcoWeb
           </h2>
           <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
             Esto es lo que incluye el servicio, en cualquiera de los tres planes:
@@ -1015,7 +1015,7 @@ function LP() {
 
           <div className="mt-8 overflow-x-auto">
             <table
-              className="w-full border-collapse overflow-hidden rounded-lg bg-white font-sans text-sm"
+              className="w-full table-fixed border-collapse overflow-hidden rounded-lg bg-white font-sans text-sm"
               style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
             >
               <thead>
@@ -1149,7 +1149,7 @@ function LP() {
               className="font-display font-extrabold text-white"
               style={{ fontSize: "clamp(32px, 4vw, 40px)" }}
             >
-              El siguiente paso son 15 minutos
+              El siguiente paso es una llamada
             </h2>
             <div
               className="mt-6 space-y-5 text-left font-sans"
