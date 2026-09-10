@@ -1015,7 +1015,7 @@ function LP() {
 
           <div className="mt-8 overflow-x-auto">
             <table
-              className="w-full border-collapse overflow-hidden rounded-lg bg-white font-sans text-sm"
+              className="w-full table-fixed border-collapse overflow-hidden rounded-lg bg-white font-sans text-sm"
               style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}
             >
               <thead>

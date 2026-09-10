@@ -148,7 +148,7 @@ function Servicios() {
 
           <Reveal>
             <div
-              className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-[55%_45%] md:gap-12"
+              className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] md:gap-12"
               style={{
                 maxWidth: "900px",
                 backgroundColor: "#ffffff",
