@@ -330,12 +330,6 @@ function HomePage() {
       >
         <div className="mx-auto max-w-[1100px]">
           <Reveal>
-            <h2
-              className="text-center font-display text-[28px] md:text-[36px]"
-              style={{ color: "#FFFFFF", fontWeight: 700 }}
-            >
-              Sin reuniones largas, sin manuales, sin complicaciones.
-            </h2>
             <p
               className="text-center font-sans"
               style={{ color: "#CCCCCC", fontSize: "17px", marginTop: "8px", fontWeight: 400 }}
@@ -582,9 +576,9 @@ function HomePage() {
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
               <PrimaryButton href={WA_MAIN}>Quiero mi asistente 24/7 →</PrimaryButton>
-              <SecondaryButton href={WA_MAIN}>
-                Cotiza ahora
-              </SecondaryButton>
+              <PrimaryButton href={WA_MAIN}>
+                Quiero mi asistente 24/7 →
+              </PrimaryButton>
             </div>
             <p
               className="font-sans"
