@@ -30,17 +30,12 @@ const PLANS = [
   {
     name: "Base",
     volume: "hasta 2,100 conversaciones/mes (~70 al día)",
-    price: "$8,000 MXN",
+    price: "$8,999 MXN",
   },
   {
     name: "Tramo 2",
     volume: "hasta 3,000 conversaciones/mes (~100 al día)",
-    price: "$10,500 MXN",
-  },
-  {
-    name: "Tramo 3",
-    volume: "hasta 4,500 conversaciones/mes (~150 al día)",
-    price: "$13,500 MXN",
+    price: "$11,000 MXN",
   },
 ];
 
@@ -278,7 +273,7 @@ function Servicios() {
                         color: "#777",
                       }}
                     >
-                      Más de 4,500 conversaciones/mes: cotización según necesidades.
+                      Más de 100 conversaciones diarias: cotización personalizada.
                     </li>
                   </ul>
                   <p
