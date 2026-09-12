@@ -280,7 +280,7 @@ function Servicios() {
                     className="font-sans"
                     style={{ fontSize: "13px", color: "#666", marginTop: "12px", lineHeight: 1.6 }}
                   >
-                    Los tres planes incluyen el sistema completo. Pagas por volumen
+                    Los dos planes incluyen el sistema completo. Pagas por volumen
                     atendido, no por funciones desbloqueadas.
                   </p>
                 </div>
