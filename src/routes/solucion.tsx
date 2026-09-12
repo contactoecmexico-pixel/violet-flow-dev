@@ -894,7 +894,7 @@ function LP() {
             Exactamente qué obtienes con EcoWeb
           </h2>
           <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
-            Esto es lo que incluye el servicio, en cualquiera de los tres planes:
+            Esto es lo que incluye el servicio, en cualquiera de los dos planes:
           </p>
 
           <ul className="mt-8 space-y-4">
