@@ -499,12 +499,11 @@
           <span class="ecoweb-calc-value" data-out="plan"></span>
         </div>
         <input class="ecoweb-calc-range" type="range" id="ec-plan"
-               min="0" max="2" step="1" value="0"
+               min="0" max="1" step="1" value="0"
                aria-label="Plan mensual de EcoWeb" />
         <div class="ecoweb-calc-ticks">
-          <span>Base $8,000</span>
-          <span>Tramo 2 $10,500</span>
-          <span>Tramo 3 $13,500</span>
+          <span>Base $8,999</span>
+          <span>Tramo 2 $11,000</span>
         </div>
       </div>
     </div>
@@ -580,7 +579,7 @@
 
       /* ---------- constantes de negocio (no cambian) ---------- */
       var SETUP = 24000;
-      var PLANS = [8000, 10500, 13500];
+      var PLANS = [8999, 11000];
 
       /* ---------- estado (variables de JS, sin storage) ---------- */
       var state = {

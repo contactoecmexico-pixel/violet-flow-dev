@@ -148,10 +148,10 @@ function LP() {
 
   // Calc 2 inputs
   const [recoveryPct, setRecoveryPct] = useState(40);
-  const [plan, setPlan] = useState(8000);
+  const [plan, setPlan] = useState(8999);
 
   const SETUP = 24000;
-  const PLANS = [8000, 10500, 13500];
+  const PLANS = [8999, 11000];
 
   const calc = useMemo(() => {
     const noShowApptsMonth = Math.round(apptsWeek * 4 * (noShowOf10 / 10));
@@ -729,13 +729,12 @@ function LP() {
                   value={[PLANS.indexOf(plan) === -1 ? 0 : PLANS.indexOf(plan)]}
                   onValueChange={(v) => setPlan(PLANS[v[0]])}
                   min={0}
-                  max={2}
+                  max={1}
                   step={1}
                 />
                 <div className="mt-2 flex justify-between font-sans text-xs" style={{ color: "#888" }}>
-                  <span>Base $8,000</span>
-                  <span>Tramo 2 $10,500</span>
-                  <span>Tramo 3 $13,500</span>
+                  <span>Base $8,999</span>
+                  <span>Tramo 2 $11,000</span>
                 </div>
               </SliderRow>
             </div>
@@ -895,7 +894,7 @@ function LP() {
             Exactamente qué obtienes con EcoWeb
           </h2>
           <p className="mt-3 font-sans text-base" style={{ color: "#666" }}>
-            Esto es lo que incluye el servicio, en cualquiera de los tres planes:
+            Esto es lo que incluye el servicio, en cualquiera de los dos planes:
           </p>
 
           <ul className="mt-8 space-y-4">
@@ -966,18 +965,19 @@ function LP() {
             {[
               {
                 name: "Plan Base",
-                price: "$8,000 MXN/mes",
-                desc: "Para clínicas con volumen de mensajes moderado.",
+                price: "$8,999 MXN/mes",
+                desc: "Hasta 2,100 conversaciones al mes (unas 70 al día).",
               },
               {
                 name: "Plan Tramo 2",
-                price: "$10,500 MXN/mes",
-                desc: "Para clínicas con volumen de mensajes alto.",
+                price: "$11,000 MXN/mes",
+                desc: "Hasta 3,000 conversaciones al mes (unas 100 al día).",
               },
               {
-                name: "Plan Tramo 3",
-                price: "$13,500 MXN/mes",
-                desc: "Para clínicas con volumen de mensajes muy alto.",
+                name: "Alto Volumen",
+                price: "Cotización personalizada",
+                desc: "Más de 100 conversaciones diarias. Lo cotizamos según tus necesidades.",
+                cta: true,
               },
             ].map((p) => (
               <div
@@ -1002,15 +1002,20 @@ function LP() {
                 <p className="font-sans" style={{ fontSize: 14, color: "#666", marginTop: 8, fontWeight: 400 }}>
                   {p.desc}
                 </p>
+                {p.cta && (
+                  <div style={{ marginTop: 16 }}>
+                    <PrimaryCTA href={WA}>Contáctanos</PrimaryCTA>
+                  </div>
+                )}
               </div>
             ))}
           </div>
 
           <p className="mt-6 font-sans text-[15px]" style={{ color: "#666" }}>
-            Los tres planes incluyen el sistema completo. La diferencia está en el volumen
-            de mensajes que atiende tu clínica. No es lo mismo una clínica que recibe 100
-            mensajes al mes que una que recibe 100 al día. Tú no deberías pagar por
-            capacidad que no necesitas. Sin contrato de permanencia.
+            Los dos planes incluyen el sistema completo. La diferencia está en el volumen
+            de conversaciones que atiende tu clínica. No es lo mismo una clínica que
+            recibe 100 conversaciones al mes que una que recibe 100 al día. Tú no deberías
+            pagar por capacidad que no necesitas. Sin contrato de permanencia.
           </p>
 
           <div className="mt-8 overflow-x-auto">
@@ -1045,8 +1050,7 @@ function LP() {
                     EcoWeb (cualquier tramo)
                   </td>
                   <td className="p-4 font-medium" style={{ color: VIOLET }}>
-                    $24,000 de implementación (IVA incluido) + $8,000, $10,500 o
-                    $13,500/mes
+                    $24,000 de implementación (IVA incluido) + $8,999 o $11,000/mes
                   </td>
                   <td className="p-4">
                     24/7, 365 días, sin descansos, nosotros lo gestionamos
